@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/main_color_grey_dark">
+    
+    <LinearLayout
+        android:id="@+id/linearlayout_list"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color_grey_dark"
+        android:layout_above="@+id/ad_linearlayout"
+        >
+	
+		<include android:id="@+id/topbar" layout="@layout/topbar" />
+		<!--  		
+	    <ListView
+	        android:id="@+id/listview_movie"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@color/background" />
+	    -->
+	    <com.ifixit.android.sectionheaders.SectionListView
+         android:id="@+id/section_list"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content" />
+	    
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/ad_linearlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color_grey_dark" 
+        android:layout_alignParentBottom="true"/>
+    
+</RelativeLayout>

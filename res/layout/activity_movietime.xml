@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/main_color_grey_dark" >
+    <ImageView 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/landingpage"
+        android:scaleType="fitXY" />
+
+    <!-- <ProgressBar
+        android:id="@+id/progressBar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/textview_loading"
+        android:indeterminateDrawable="@anim/progressbar_video" /> -->
+    <ImageView
+        android:id="@+id/imageview_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/textview_loading" />
+        
+    <TextView android:id="@+id/textview_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="60dp"
+        android:paddingTop="10dp"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:text="更新資料中..."/>
+    </RelativeLayout>

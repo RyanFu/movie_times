@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content"
+	android:layout_width="fill_parent"
+	android:padding="5dp"
+	android:orientation="horizontal"
+	android:background="@drawable/item_background_normal">
+	
+	<TextView 
+       android:layout_height="wrap_content"
+       android:layout_width="wrap_content"
+       android:layout_gravity="center_vertical"
+       android:paddingLeft="5dp"
+       android:textColor="@color/textcolor_grey"
+       android:textSize="16dp"
+       android:text="本區精彩短評由"/>
+	<ImageView 
+	   android:layout_height="25dp"
+       android:layout_width="25dp"
+       android:layout_gravity="center_vertical"
+       android:padding="3dp"
+       android:src="@drawable/movie_64"/>
+   <TextView 
+       android:layout_height="wrap_content"
+       android:layout_width="wrap_content"
+       android:layout_gravity="center_vertical"
+       android:textColor="@color/textcolor_grey"
+       android:textSize="16dp"
+       android:text="電影櫃APP提供"/>
+    </LinearLayout> 

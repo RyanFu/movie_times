@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/main_color_grey_dark"
+    >
+        
+    <ScrollView 
+	   android:id="@+id/scrollview_moreinfo"
+	   android:layout_width="fill_parent"
+	   android:layout_height="fill_parent"
+	   android:background="@color/main_color_grey_dark"
+	   android:layout_above="@+id/ad_linearlayout">
+
+	    <RelativeLayout android:id="@+id/relativelayout_movietitle" 
+	        android:background="@color/main_color_grey_dark"
+	        android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+	     
+	       >
+	        
+	        <ImageView android:id="@+id/imageview_movie_poster"
+	            android:layout_width="120dp"
+	            android:layout_height="172dp"
+	            android:contentDescription="TODO"
+	            android:layout_marginTop = "0dp"
+	            android:layout_marginLeft = "0dp"
+	            android:layout_marginBottom = "0dp"
+	            android:src="@drawable/stub" 
+	            android:background="@color/main_color_grey_dark"/>
+	
+	        <TextView
+	            android:id="@+id/textView_chinese_name"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_alignTop="@+id/imageview_movie_poster"
+	            android:layout_marginLeft="10dp"
+	            android:layout_marginTop="10dp"
+	            android:layout_toRightOf="@+id/imageview_movie_poster"
+	            android:textColor="@color/textcolor_grey"
+	            android:textSize="20dp"
+	            android:text="電影名稱" />
+	
+	        <TextView
+	            android:id="@+id/textView_english_name"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/textView_chinese_name"
+	            android:layout_below="@+id/textView_chinese_name"
+	            android:layout_marginTop = "5dp"
+	            android:textColor="@color/textcolor_grey"
+	            android:textSize="15dp"
+	            android:text="English Name" />
+	        <ImageView
+	            android:id="@+id/imageView_level"
+	            android:layout_width="20dp"
+	            android:layout_height="20dp"
+	            android:layout_alignLeft="@+id/textView_english_name"
+	            android:layout_marginTop = "5dp"
+	            android:layout_below="@+id/textView_english_name"
+	            android:background="@color/textcolor_grey"
+	            android:src="@drawable/stub"
+	             />
+	
+	        <TextView
+	            android:id="@+id/textView_runningtime"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignBottom="@+id/imageView_level"
+	            android:layout_toRightOf="@+id/imageView_level"
+	            android:layout_marginLeft="10dp"
+	            android:textColor="@color/textcolor_grey"
+	            android:textSize="12dp"
+	            android:text="片長:  分" />
+	        
+	        <View 
+                android:id="@+id/view_line0"
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dp"
+                android:layout_above="@+id/button_video"
+                android:layout_toRightOf="@+id/imageview_movie_poster"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:background="@color/grey05"
+                />
+	        
+	        
+	        <Button
+	            android:id="@+id/button_video"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_above="@+id/view_line0"
+	            android:layout_toRightOf="@+id/imageview_movie_poster"
+	            android:layout_margin="3dp"
+	            android:gravity="center_vertical"
+	            android:drawableLeft="@drawable/video"
+	            android:drawableRight="@drawable/navigation_next"
+	            android:background="@drawable/button_background"
+	            android:textColor="@color/textcolor_grey"
+	            android:textSize="15dp"
+	            android:text="  預告片" />
+	        
+	        <View 
+	            android:id="@+id/view_line0"
+	            android:layout_width="fill_parent"
+	            android:layout_height="1dp"
+	            android:layout_below="@+id/imageview_movie_poster"
+	            android:layout_marginTop="0dp"
+	            android:background="@color/main_color_yellow"
+	            />
+	        <TextView
+	            android:id="@+id/textView_time_title"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/view_line0"
+	            android:layout_marginTop="5dp"
+	            android:paddingLeft="5dp"
+	            android:textSize="20dp"
+	            android:gravity="center_vertical"
+	            android:text="上映日期" 
+	            android:textColor="@color/textcolor_grey"/>
+	        <TextView
+	            android:id="@+id/textView_time"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/textView_time_title"
+	            android:layout_marginTop="2dp"
+	            android:layout_marginLeft="2dp"
+	            android:paddingLeft="5dp"
+	            android:textSize="15dp"
+	            android:gravity="center_vertical"
+	            android:text="上映日期..." 
+	            android:textColor="@color/textcolor_grey"/>
+	        
+	        <View 
+	            android:id="@+id/view_line1"
+	            android:layout_width="fill_parent"
+	            android:layout_height="0.5dp"
+	            android:layout_below="@+id/textView_time"
+	            android:layout_marginTop="5dp"
+	            android:background="@color/grey05"
+	            />
+	       
+	        
+	        <TextView
+	            android:id="@+id/textView_director_title"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/view_line1"
+	            android:layout_marginTop="5dp"
+	            android:paddingLeft="5dp"
+	            android:textSize="20dp"
+	            android:gravity="center_vertical"
+	            android:text="導演" 
+	            android:textColor="@color/textcolor_grey"/>
+	        <TextView
+	            android:id="@+id/textView_director"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/textView_director_title"
+	            android:layout_marginTop="2dp"
+	            android:layout_marginLeft="2dp"
+	            android:paddingLeft="5dp"
+	            android:textSize="15dp"
+	            android:gravity="center_vertical"
+	            android:text="導演..." 
+	            android:textColor="@color/textcolor_grey"/>
+	        
+	        <View 
+	            android:id="@+id/view_line2"
+	            android:layout_width="fill_parent"
+	            android:layout_height="0.5dp"
+	            android:layout_below="@+id/textView_director"
+	            android:layout_marginTop="5dp"
+	            android:background="@color/grey05"
+	            />
+	        
+	        <TextView
+	            android:id="@+id/textView_actor_title"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/view_line2"
+	            android:layout_marginTop="10dp"
+	            android:paddingLeft="5dp"
+	            android:textSize="20dp"
+	            android:gravity="center_vertical"
+	            android:text="演員" 
+	            android:textColor="@color/textcolor_grey"/>
+	        <TextView
+	            android:id="@+id/textView_actor"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/textView_actor_title"
+	            android:layout_marginTop="2dp"
+	            android:layout_marginLeft="2dp"
+	            android:paddingLeft="5dp"
+	            android:textSize="15dp"
+	            android:gravity="center_vertical"
+	            android:text="演員..." 
+	            android:textColor="@color/textcolor_grey"/>
+	        
+	    </RelativeLayout>   
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/ad_linearlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/listview_background"
+        android:layout_alignParentBottom="true"/>    
+</RelativeLayout>
+
+        

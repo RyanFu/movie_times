@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content"
+    android:background="@drawable/theater_header_bg"
+    android:clickable="false"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/theater_header_bg"
+	    android:clickable="false"
+	    android:orientation="horizontal"
+	    android:weightSum="1.0"
+	    android:padding="5dp"
+	    >
+	    <LinearLayout android:id="@+id/ll_phone"
+		    android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content"
+		    android:layout_weight="0.25"
+            android:layout_margin="2dp"
+            android:background="@drawable/theater_button_background"
+		    android:orientation="vertical"
+            android:visibility="visible" >
+		    <ImageView
+		        android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/theater_phone" />
+		    <TextView 
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+	            android:gravity="center_horizontal"
+	            android:textColor="@color/tab_normal_text_color"
+                android:text="電話" />
+		    </LinearLayout>
+	    <LinearLayout android:id="@+id/ll_address"
+            android:layout_width="fill_parent" 
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:layout_margin="2dp"
+            android:background="@drawable/theater_button_background"
+            android:orientation="vertical"
+            android:visibility="visible" >
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/theater_address" />
+            <TextView 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/tab_normal_text_color"
+	           android:text="地址" />
+            </LinearLayout>
+	    <LinearLayout android:id="@+id/ll_like"
+            android:layout_width="fill_parent" 
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:layout_margin="2dp"
+            android:background="@drawable/theater_button_background"
+            android:orientation="vertical"
+            android:visibility="visible" >
+            <ImageView android:id="@+id/imageview_like"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/theater_unlike" />
+            <TextView 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/tab_normal_text_color"
+                android:text="加入最愛" />
+            </LinearLayout>
+	    <LinearLayout android:id="@+id/ll_check"
+            android:layout_width="fill_parent" 
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:layout_margin="2dp"
+            android:background="@drawable/theater_button_background"
+            android:orientation="vertical"
+            android:visibility="visible" >
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/theater_ticket" />
+            <TextView 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/tab_normal_text_color"
+	           android:text="訂票" />
+            </LinearLayout>
+	   </LinearLayout>
+    <View android:id="@+id/view_line_theater_info"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="@color/main_color_yellow" />
+</LinearLayout>

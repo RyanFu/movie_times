@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content"
+	android:background="@drawable/item_background"
+	android:padding="5dp"
+	>
+	<TextView 
+        android:id="@+id/theater_name" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:paddingTop="5dp"
+        android:textColor="@color/textcolor_grey"
+        android:textSize="25dp"
+        android:text="戲院名稱"></TextView> 
+    <TextView 
+        android:id="@+id/theater_address" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/theater_name"
+        android:layout_toLeftOf="@+id/cate_manag_list_image"
+        android:layout_alignLeft="@+id/theater_name"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/light_grey"
+        android:textSize="15dp"
+        android:text="戲院地址"
+         ></TextView> 
+	<ImageView android:id="@+id/cate_manag_list_image"
+		android:layout_alignParentRight="true"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_centerVertical="true"
+		android:layout_marginLeft="30dp"
+		android:src="@drawable/navigation_next" ></ImageView>
+</RelativeLayout>

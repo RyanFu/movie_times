@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="wrap_content"
+	android:orientation="horizontal" android:background="@drawable/item_background_normal"
+	android:gravity="center_vertical" 
+	android:padding="10dp"
+	>
+	<ImageView android:id="@+id/user_avatar"
+		android:layout_width="50dp" android:layout_height="50dp"
+		android:layout_gravity="center_vertical" 
+		android:src="@drawable/stub" 
+        android:background="@color/main_color_grey_dark"></ImageView>
+	<TextView android:text="姓名"
+	    android:id="@+id/user_name" android:textColor="@color/main_color_yellow"
+	    android:layout_width="wrap_content" android:layout_height="wrap_content"
+	    android:layout_alignTop="@+id/user_avatar" android:layout_toRightOf="@+id/user_avatar"
+	    android:layout_marginLeft="10dp" android:layout_marginBottom="6dp" android:textSize="14dp"
+	    android:textStyle="bold"></TextView>
+	<TextView android:text="評價"
+		android:id="@+id/user_score" android:textColor="@color/main_color_yellow"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_marginLeft="10dp" android:textSize="14dp"
+		android:layout_toRightOf="@+id/user_name" android:layout_alignBottom="@+id/user_name"
+		></TextView>
+	<TextView android:text="評論"
+	    android:id="@+id/user_comment"
+		android:textColor="@color/textcolor_grey"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:textSize="14dp"
+		android:layout_below="@+id/user_name" android:layout_alignLeft="@+id/user_name"
+		></TextView>
+</RelativeLayout>

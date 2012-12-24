@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false" >
+    <item android:drawable="@drawable/camera_8" android:duration="50" />
+    <item android:drawable="@drawable/camera_7" android:duration="50" />
+    <item android:drawable="@drawable/camera_6" android:duration="50" />
+    <item android:drawable="@drawable/camera_5" android:duration="50" />
+    <item android:drawable="@drawable/camera_4" android:duration="50" />
+    <item android:drawable="@drawable/camera_3" android:duration="50" />
+    <item android:drawable="@drawable/camera_2" android:duration="50" />
+    <item android:drawable="@drawable/camera_1" android:duration="50" />
+</animation-list>

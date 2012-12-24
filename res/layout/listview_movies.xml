@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="wrap_content" 
+     android:layout_width="fill_parent" 
+     android:padding="6dp"
+     android:background="@drawable/item_background"
+     >
+     <ImageView android:id="@+id/movie_poster"
+        android:layout_width="63dp" 
+        android:layout_height="90dp"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="center_vertical"
+        android:paddingBottom="4dp"
+        android:src="@drawable/stub" 
+        android:background="@color/main_color_grey_dark"/>
+	<RelativeLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/movie_poster"
+        android:layout_toLeftOf="@+id/imageView_next"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+        <TextView android:text="電影名稱"
+            android:textStyle="bold"
+            android:id="@+id/movie_name"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:padding="2dp"
+            android:singleLine="true" 
+            android:textSize="23dp"
+            android:textColor="@color/textcolor_grey"></TextView>
+        <TextView android:text="English Name"
+            android:id="@+id/movie_name_en"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:padding="2dp"
+            android:singleLine="true" 
+            android:textSize="20dp"
+            android:textColor="@color/textcolor_grey"
+            android:layout_below="@+id/movie_name"
+            ></TextView>  
+        
+    </RelativeLayout>
+     <ImageView
+         android:id="@+id/imageView_next"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentRight="true"
+         android:layout_centerVertical="true"
+         android:src="@drawable/navigation_next" />
+</RelativeLayout>

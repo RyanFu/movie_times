@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/main_color_grey_dark"
+    >
+    <RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent" 
+        android:background="@color/main_color_grey_dark"
+        >
+        
+        <RelativeLayout android:id="@+id/rlayout"
+            android:layout_width="fill_parent"
+            android:layout_height="42dp">
+            <include android:id="@+id/topbar" layout="@layout/topbar" />
+            <TextView android:id="@+id/textview_feedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="@drawable/button_feedback_tv"
+                android:textSize="20dp"
+                android:text="回報" />
+            <View android:id="@+id/line0"
+                android:layout_width="0.5dp"
+                android:layout_height="fill_parent"
+                android:layout_toLeftOf="@+id/textview_feedback"
+                android:background="@color/report_view_2" />
+            <View 
+                android:layout_width="0.5dp"
+                android:layout_height="fill_parent"
+                android:layout_toLeftOf="@+id/line0"
+                android:background="@color/report_view_1" />
+            
+        </RelativeLayout>
+	    <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlayout"
+            android:gravity="center"
+            android:background="@color/black" />
+	    <View android:id="@+id/view1"
+	        android:layout_width="fill_parent"
+	        android:layout_height="2dp"
+	        android:layout_below="@android:id/tabs"
+            android:background="@color/main_color_yellow" />
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view1"
+            android:layout_above="@+id/ad_linearlayout"
+            />
+        <LinearLayout
+	        android:id="@+id/ad_linearlayout"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/listview_background" 
+	        android:layout_alignParentBottom="true"/>        
+     </RelativeLayout>
+</TabHost>

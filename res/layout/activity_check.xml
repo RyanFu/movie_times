@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView_check"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true" 
+    android:background="@color/black">
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:weightSum="1.0"
+        android:orientation="vertical" >
+        <TextView android:id="@+id/notice"
+	        android:layout_width="fill_parent"
+	        android:layout_centerHorizontal="true"
+	        android:text="本軟體僅提供訂票連結，任何訂票疑問請洽該網站，謝謝！"
+	        android:textColor="@color/main_color_yellow"
+	        android:textSize="13dp"
+	        android:layout_height="40dp"
+	        android:gravity="center"/>
+	    <RelativeLayout android:id="@+id/relative_viewshow"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:weightSum="1.0"
+	        android:orientation="horizontal" 
+	        android:background="@drawable/ding_image_background"
+              android:gravity="center">
+	       
+	        <ImageView android:id="@+id/image_viewshow"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_centerVertical="true"
+                android:src="@drawable/viewshow"
+                android:paddingLeft="2dp" />
+     
+	    </RelativeLayout>
+	    <RelativeLayout android:id="@+id/relative_amb"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:weightSum="1.0"
+	        android:orientation="horizontal" 
+	        android:background="@drawable/ding_image_background"
+              android:gravity="center">
+            <ImageView android:id="@+id/image_amb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/amb"
+                android:paddingLeft="2dp" />
+      
+	    </RelativeLayout>
+          <RelativeLayout android:id="@+id/relative_miramar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1.0"
+            android:orientation="horizontal" 
+            android:background="@drawable/ding_image_background"
+            android:gravity="center">
+	      
+            <ImageView android:id="@+id/image_miramar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/miramar"
+                android:paddingLeft="2dp" />
+              
+	    </RelativeLayout>
+	    <RelativeLayout android:id="@+id/relative_in"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:weightSum="1.0"
+	        android:orientation="horizontal" 
+	        android:background="@drawable/ding_image_background"
+              android:gravity="center">
+	       
+            <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/in"
+                android:paddingLeft="2dp" />
+          
+	    </RelativeLayout>
+	    <RelativeLayout android:id="@+id/relative_sbc"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1.0"
+            android:orientation="horizontal" 
+            android:background="@drawable/ding_image_background"
+            android:gravity="center">
+           
+            <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/sbc"
+                android:paddingLeft="2dp" />  
+              
+        </RelativeLayout>
+        <RelativeLayout android:id="@+id/relative_lie"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1.0"
+            android:orientation="horizontal"
+            android:background="@drawable/ding_image_background"
+            android:gravity="center" >
+            
+            <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/lie"
+                android:paddingLeft="2dp" />
+                   
+        </RelativeLayout>
+        <RelativeLayout android:id="@+id/relative_westin"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1.0"
+            android:orientation="horizontal"
+            android:background="@drawable/ding_image_background" 
+            android:gravity="center">
+          
+            <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/westin"
+                android:paddingLeft="2dp" />
+              
+        </RelativeLayout>
+	    <RelativeLayout android:id="@+id/relative_ez"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:weightSum="1.0"
+	        android:orientation="horizontal"
+	        android:background="@drawable/ding_image_background" 
+            android:gravity="center">
+	
+            <ImageView android:id="@+id/image_ez"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/ezding"
+                android:paddingLeft="2dp" />
+              
+	    </RelativeLayout>
+	    <RelativeLayout android:id="@+id/relative_dingok"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:weightSum="1.0"
+	        android:orientation="horizontal"
+	        android:background="@drawable/ding_image_background" 
+            android:gravity="center">
+	    
+            <ImageView android:id="@+id/image_dingok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/dingok"
+                android:paddingLeft="2dp" />
+               
+	    </RelativeLayout>
+	    
+    </LinearLayout>
+</ScrollView>

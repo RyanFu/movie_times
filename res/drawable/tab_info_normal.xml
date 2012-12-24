@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- When selected, use grey -->
+    <item android:state_selected="true" >
+        <shape android:shape="rectangle">
+            <gradient   
+                android:startColor="@color/tab_info_press_bg_light"  
+                android:endColor="@color/tab_info_press_bg_dark"  
+                android:angle="270" />
+            <stroke
+                android:width="2dp"
+                android:color="@color/black" />
+            <padding 
+                android:left="2dp"
+                android:top="5dp"
+                android:bottom="5dp" /> 
+            <corners 
+                android:topLeftRadius="2dp" 
+                android:topRightRadius="2dp" />
+        </shape>
+        </item>
+    <!-- When not selected, use white -->
+    <item 
+        android:bottom="0.1dp" >
+        <shape android:shape="rectangle">  
+            <gradient   
+                android:startColor="@color/tab_info_normal_bg_light"  
+                android:endColor="@color/tab_info_normal_bg_dark"  
+                android:angle="270" />
+            <stroke
+                android:width="0.1dp"
+                android:color="@color/black" />
+            <padding 
+                android:left="2dp"
+                android:top="5dp"
+                android:bottom="5dp" /> 
+            <corners 
+                android:topLeftRadius="2dp" 
+                android:topRightRadius="2dp" />
+        </shape>
+    </item> 
+</selector>
