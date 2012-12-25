@@ -7,6 +7,7 @@ import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.movieinfo.MovieIntroContentActivity.LoadDataTask;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.Movie;
+import com.jumplife.movieinfo.promote.PromoteAPP;
 import com.jumplife.sectionlistview.MovieGalleryAdapter;
 import com.jumplife.sharedpreferenceio.SharePreferenceIO;
 import com.jumplife.sqlite.SQLiteMovieDiary;
@@ -61,16 +62,20 @@ public class MovieInfoTable extends TrackedActivity {
 		if(keyCode == KeyEvent.KEYCODE_BACK
 				&& event.getAction() == KeyEvent.ACTION_DOWN){
 			
-			new AlertDialog.Builder(this)
-				.setTitle("- 離開程式? -")
-				.setPositiveButton("是", new DialogInterface.OnClickListener() {
-					// do something when the button is clicked
-					public void onClick(DialogInterface arg0, int arg1) {
-						MovieInfoTable.this.finish();
-					}
-				})
-				.setNegativeButton("否", null)
-				.show();
+			PromoteAPP promoteAPP = new PromoteAPP(MovieInfoTable.this);
+        	if(!promoteAPP.isPromote) {
+				new AlertDialog.Builder(this)
+					.setTitle("- 離開程式? -")
+					.setPositiveButton("是", new DialogInterface.OnClickListener() {
+						// do something when the button is clicked
+						public void onClick(DialogInterface arg0, int arg1) {
+							MovieInfoTable.this.finish();
+						}
+					})
+					.setNegativeButton("否", null)
+					.show();
+        	} else
+		    	promoteAPP.promoteAPPExe();
 						
 			return true;
 	    } else

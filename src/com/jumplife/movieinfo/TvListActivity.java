@@ -10,8 +10,8 @@ import org.json.JSONObject;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.movieinfo.entity.Channel;
+import com.jumplife.movieinfo.promote.PromoteAPP;
 import com.jumplife.sectionlistview.TvListAdapter;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -156,16 +156,20 @@ public class TvListActivity extends TrackedActivity{
 		if(keyCode == KeyEvent.KEYCODE_BACK
 				&& event.getAction() == KeyEvent.ACTION_DOWN){
 			
-			new AlertDialog.Builder(this)
-				.setTitle("- 離開程式? -")
-				.setPositiveButton("是", new DialogInterface.OnClickListener() {
-					// do something when the button is clicked
-					public void onClick(DialogInterface arg0, int arg1) {
-						TvListActivity.this.finish();
-					}
-				})
-				.setNegativeButton("否", null)
-				.show();
+			PromoteAPP promoteAPP = new PromoteAPP(TvListActivity.this);
+        	if(!promoteAPP.isPromote) {
+				new AlertDialog.Builder(this)
+					.setTitle("- 離開程式? -")
+					.setPositiveButton("是", new DialogInterface.OnClickListener() {
+						// do something when the button is clicked
+						public void onClick(DialogInterface arg0, int arg1) {
+							TvListActivity.this.finish();
+						}
+					})
+					.setNegativeButton("否", null)
+					.show();
+        	} else
+		    	promoteAPP.promoteAPPExe();
 						
 			return true;
 	    }		

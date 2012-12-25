@@ -46,6 +46,7 @@ public class MovieInfoTabActivities extends TrackedTabActivity implements OnTabC
         Bundle extras = getIntent().getExtras();
         movie_id = extras.getInt("movie_id");
         theater_id = extras.getInt("theater_id");
+        final String movie_name = extras.getString("movie_name");
         
         topbarLayout = (LinearLayout) findViewById(R.id.topbar);
         textViewFeedback = (TextView)findViewById(R.id.textview_feedback);
@@ -55,7 +56,8 @@ public class MovieInfoTabActivities extends TrackedTabActivity implements OnTabC
 				String[] ccs={"abooyaya@gmail.com, chunyuko85@gmail.com, raywu07@gmail.com, supermfb@gmail.com, form.follow.fish@gmail.com"};
 				Intent it = new Intent(Intent.ACTION_SENDTO, uri);
 				it.putExtra(Intent.EXTRA_CC, ccs); 
-				it.putExtra(Intent.EXTRA_SUBJECT, "[電影時刻表] 建議回饋(電影ID : " + movie_id); 
+				it.putExtra(Intent.EXTRA_SUBJECT, "[電影時刻表] 建議回饋(電影 : " + movie_name + ")");
+				it.putExtra(Intent.EXTRA_TEXT, "請簡述你所遇到的問題 : ");
 				startActivity(it);  
 			}			
 		});

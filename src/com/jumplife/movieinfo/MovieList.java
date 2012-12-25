@@ -145,6 +145,7 @@ public class MovieList extends TrackedActivity {
 		    	  	Movie movie = movieList.get(position);
 		    	   	Intent newAct = new Intent();
 		    	   	newAct.putExtra("movie_id", movie.getId());
+		    	   	newAct.putExtra("movie_name", movie.getChineseName());
 		    	    if(listType == TYPE.THEATER)
 		    	    	newAct.putExtra("theater_id", theater.getId());
 		    	    else
