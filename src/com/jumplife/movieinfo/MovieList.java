@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -127,7 +128,7 @@ public class MovieList extends TrackedActivity {
         	case 4:
         		theater = new Theater(extras.getInt("theater_id"), extras.getString("theater_name"),
         				new ArrayList<Movie> (10), "", "", extras.getString("theater_buylink"), -1, 
-        				extras.getString("theater_phone"), extras.getString("theater_location"));
+        				extras.getString("theater_phone"), extras.getString("theater_location"), "");
         		listType = TYPE.THEATER;
         	}
         }catch(Exception e){
@@ -245,9 +246,16 @@ public class MovieList extends TrackedActivity {
 		else if (listType == TYPE.WEEKLY)
 			movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_THIS_WEEK);
 		else{
-			ArrayList<Integer> movieIds = movieAPI.getMoviesIdList(theater);
-			if (movieIds != null && movieIds.size() > 0) {
-				movieList = sqlMovieDiary.getMovieList(movieIds);
+			ArrayList<Movie> movies = movieAPI.getMoviesIdandHallList(theater);
+			if (movies != null && movies.size() > 0) {
+				movieList = sqlMovieDiary.getMovieListWithHall(movies);
+				Log.d(null, "movieList size :" + movieList.size());
+				for(int i=0; i<movieList.size(); i++) {
+					for(int j=0; j<movies.size(); j++) {
+						if(movieList.get(i).getId() == movies.get(j).getId()) 
+							movieList.get(i).setHall(movies.get(j).getHall());
+					}
+				}
 				ArrayList<Movie> tmpList = (ArrayList<Movie>) movieList.clone();
 				movieList.clear();
 				for (int i = tmpList.size()-1; i>-1; i--)

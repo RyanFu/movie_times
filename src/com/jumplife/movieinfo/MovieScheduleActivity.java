@@ -73,9 +73,9 @@ public class MovieScheduleActivity extends TrackedActivity {
 	private void FetchData(){
 		MovieAPI movieAPI = new MovieAPI();
 		if(theaterId != -1) 
-			theaterList = movieAPI.getMovieTheaterTimeTableList(movieId, theaterId);
+			theaterList = movieAPI.getMovieTheaterTimeTableListWithHall(movieId, theaterId);
 		else
-			theaterList = movieAPI.getMovieTimeTableList(movieId);
+			theaterList = movieAPI.getMovieTimeTableListWithHall(movieId);
 	}
 	
 	private void setView(){

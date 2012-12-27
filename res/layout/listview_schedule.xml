@@ -46,10 +46,22 @@
         android:padding="1dp"
         android:gravity="center"
         android:background="@color/tab_normal_bg_dark"/>
-    <LinearLayout android:id="@+id/linearlayout_schedule"
+    <TextView android:id="@+id/textview_hall"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textview_theatername"
+        android:layout_margin="2dp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/theater_bg_dark"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="13dp"
+        android:text="廳"
+        android:visibility="visible" />
+    <LinearLayout android:id="@+id/linearlayout_schedule"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textview_hall"
         android:background="@color/main_color_grey_dark"
         android:orientation="vertical"
         ></LinearLayout>

@@ -124,7 +124,7 @@ public class MovieSectionList extends TrackedActivity {
                 break;
             case 4:
                 theater = new Theater(extras.getInt("theater_id"), extras.getString("theater_name"), new ArrayList<Movie>(10), "", "",
-                        extras.getString("theater_buylink"), -1, extras.getString("theater_phone"), extras.getString("theater_location"));
+                        extras.getString("theater_buylink"), -1, extras.getString("theater_phone"), extras.getString("theater_location"), "");
                 listType = TYPE.THEATER;
             }
         } catch (Exception e) {

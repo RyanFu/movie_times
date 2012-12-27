@@ -24,6 +24,7 @@ public class Movie {
 	private boolean is_hot = false;
 	private boolean is_this_week = false;
 	private boolean is_comming = false;
+	private String hall;
 	
 	public Movie() {
 		this(-1, "", "", "", new Date(), "", -1, "", new ArrayList<String>(10), new ArrayList<String>(10), new ArrayList<Record>(10), "", 0,0);
@@ -180,5 +181,10 @@ public class Movie {
 	public boolean get_is_this_week(){
 		return this.is_this_week;
 	}
-	
+	public void setHall(String hall){
+		this.hall = hall;
+	}
+	public String getHall(){
+		return hall;
+	}
 }

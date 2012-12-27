@@ -423,13 +423,15 @@ public class SQLiteMovieDiary extends SQLiteOpenHelper {
             movie.setInttroduction(cursor.getString(3));
             movie.setPosterUrl(cursor.getString(4));
             Date releaseDate = null;
-            try {
-                releaseDate = formatter.parse(cursor.getString(5));
-            } catch (ParseException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            if(!cursor.isNull(5)) {
+	            try {
+	                releaseDate = formatter.parse(cursor.getString(5));
+	            } catch (ParseException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	            }
+	            movie.setReleaseDate(releaseDate);
             }
-            movie.setReleaseDate(releaseDate);
             movie.setRunningTime(cursor.getInt(6));
             movie.setLevelUrl(cursor.getString(7));
 
@@ -471,17 +473,25 @@ public class SQLiteMovieDiary extends SQLiteOpenHelper {
             movie.setChineseName(cursor.getString(1));
             movie.setEnglishName(cursor.getString(2));
             movie.setPosterUrl(cursor.getString(3));
-            try {
-                movie.setReleaseDate(dateFormatter.parse(cursor.getString(4)));
-            } catch (ParseException e) {
-                try {
-                    movie.setReleaseDate(dateFormatter.parse("1899-11-30"));
-                } catch (ParseException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-                e.printStackTrace();
-            }
+            if(!cursor.isNull(4)) {
+	            try {
+	                movie.setReleaseDate(dateFormatter.parse(cursor.getString(4)));
+	            } catch (ParseException e) {
+	                try {
+	                    movie.setReleaseDate(dateFormatter.parse("1899-11-30"));
+	                } catch (ParseException e1) {
+	                    // TODO Auto-generated catch block
+	                    e1.printStackTrace();
+	                }
+	                e.printStackTrace();
+	            }
+            } else
+				try {
+					movie.setReleaseDate(dateFormatter.parse("1899-11-30"));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             movie_lst.add(movie);
         }
 
@@ -504,22 +514,73 @@ public class SQLiteMovieDiary extends SQLiteOpenHelper {
             movie.setChineseName(cursor.getString(1));
             movie.setEnglishName(cursor.getString(2));
             movie.setPosterUrl(cursor.getString(3));
-            try {
-                movie.setReleaseDate(dateFormatter.parse(cursor.getString(4)));
-            } catch (ParseException e) {
-                try {
-                    movie.setReleaseDate(dateFormatter.parse("1899-11-30"));
-                } catch (ParseException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-                e.printStackTrace();
-            }
+            if(!cursor.isNull(4)) {
+	            try {
+	                movie.setReleaseDate(dateFormatter.parse(cursor.getString(4)));
+	            } catch (ParseException e) {
+	                try {
+	                    movie.setReleaseDate(dateFormatter.parse("1899-11-30"));
+	                } catch (ParseException e1) {
+	                    // TODO Auto-generated catch block
+	                    e1.printStackTrace();
+	                }
+	                e.printStackTrace();
+	            }
+            } else
+				try {
+					movie.setReleaseDate(dateFormatter.parse("1899-11-30"));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             movie_lst.add(movie);
         }
 
         cursor.close();
         closeDB();
+        return movie_lst;
+    }
+        
+    public ArrayList<Movie> getMovieListWithHall(ArrayList<Movie> movies) throws SQLException {
+    	openDataBase();
+        String idLst = "";
+        for (int i = 0; i < movies.size(); i++)
+            idLst = movies.get(i).getId() + "," + idLst;
+        idLst = idLst.substring(0, idLst.length() - 1);
+        Log.d(null, "idLst : " + idLst);
+        ArrayList<Movie> movie_lst = new ArrayList<Movie>();
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        Cursor cursor = null;
+        cursor = db.rawQuery("SELECT id, name, name_en, poster_url, release_date FROM " + MovieTable + " WHERE id in (" + idLst + ")", null);
+        while (cursor.moveToNext()) {
+            Movie movie = new Movie();
+            movie.setId(cursor.getInt(0));
+            movie.setChineseName(cursor.getString(1));
+            movie.setEnglishName(cursor.getString(2));
+            movie.setPosterUrl(cursor.getString(3));
+            if(!cursor.isNull(4)) {
+	            try {
+	                movie.setReleaseDate(dateFormatter.parse(cursor.getString(4)));
+	            } catch (ParseException e) {
+	                try {
+	                    movie.setReleaseDate(dateFormatter.parse("1899-11-30"));
+	                } catch (ParseException e1) {
+	                    // TODO Auto-generated catch block
+	                    e1.printStackTrace();
+	                }
+	                e.printStackTrace();
+	            }
+            } else
+				try {
+					movie.setReleaseDate(dateFormatter.parse("1899-11-30"));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            movie_lst.add(movie);
+        }
+
+        cursor.close();
         return movie_lst;
     }
 }

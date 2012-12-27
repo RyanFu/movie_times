@@ -56,9 +56,14 @@ public class MovieListAdapter extends BaseAdapter implements Filterable{
 		ImageView poster = (ImageView)converView.findViewById(R.id.movie_poster);
 		TextView name = (TextView)converView.findViewById(R.id.movie_name);
 		TextView name_en = (TextView)converView.findViewById(R.id.movie_name_en);
+		TextView hall = (TextView)converView.findViewById(R.id.movie_hall);
 		name.setText(movies.get(position).getChineseName());
 		name_en.setText(movies.get(position).getEnglishName());
-//		poster.setImageBitmap(UrlImageLoader.returnBitMap(movies.get(position).getPosterUrl()));
+		if(movies.get(position).getHall()!= null && !movies.get(position).getHall().equals("")) {
+			hall.setText(movies.get(position).getHall());
+			hall.setVisibility(View.VISIBLE);
+		} else
+			hall.setVisibility(View.GONE);
 		imageLoader.DisplayImage(movies.get(position).getPosterUrl(), poster);
 		
 		return converView;

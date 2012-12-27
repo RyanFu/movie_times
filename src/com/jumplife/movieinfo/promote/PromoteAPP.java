@@ -71,6 +71,12 @@ public class PromoteAPP {
 				isPromote = true;
 			}
 		}
+		Random promoteRate = new Random();
+		int promote = promoteRate.nextInt(4);
+		if(promote == 1)
+			isPromote = true;
+		else
+			isPromote = false;
 		
 		Random id = new Random();
 		if(isPromote)
