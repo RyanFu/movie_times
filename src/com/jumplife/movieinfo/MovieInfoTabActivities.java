@@ -81,7 +81,7 @@ public class MovieInfoTabActivities extends TrackedTabActivity implements OnTabC
         	tabHost.setCurrentTab(0);
         
         topbarLayout.setVisibility(View.VISIBLE);		
-		tabHost.setOnTabChangedListener(this);
+		//tabHost.setOnTabChangedListener(this);
         new SharePreferenceIO(MovieInfoTabActivities.this);
     	
     	AdTask adTask = new AdTask();
@@ -197,15 +197,19 @@ public class MovieInfoTabActivities extends TrackedTabActivity implements OnTabC
     	tabHost.setOnTabChangedListener(new OnTabChangeListener() {
 			public void onTabChanged(String tabId) {
 				if(tabId.equalsIgnoreCase("tab1")) {
+					Log.d("Ben", "電影簡介");
 					EasyTracker.getTracker().trackEvent("電影資訊tab", "點擊", "電影簡介", (long)0);
 				}
 				else if(tabId.equalsIgnoreCase("tab2")) {
 					EasyTracker.getTracker().trackEvent("電影資訊tab", "點擊", "劇情介紹", (long)0);
+					Log.d("Ben", "劇情介紹");
 				}
 				else if(tabId.equalsIgnoreCase("tab3")) {
+					Log.d("Ben", "電影短評");
 					EasyTracker.getTracker().trackEvent("電影資訊tab", "點擊", "電影短評", (long)0);
 				}
 				else if(tabId.equalsIgnoreCase("tab4")) {
+					Log.d("Ben", "時刻表");
 					EasyTracker.getTracker().trackEvent("電影資訊tab", "點擊", "時刻表", (long)0);
 				}
 			}

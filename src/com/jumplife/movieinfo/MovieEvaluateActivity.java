@@ -106,6 +106,8 @@ public class MovieEvaluateActivity extends TrackedActivity {
 			    	appStartIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			    	appStartIntent.putExtra("movie_id", movie_id);
 				    MovieEvaluateActivity.this.startActivity(appStartIntent);
+				    
+				    EasyTracker.getTracker().trackEvent("電影短評", "開啟電影櫃", "", (long)0);
 			    }
 			}	
 		});
