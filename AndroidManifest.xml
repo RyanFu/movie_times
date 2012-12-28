@@ -83,7 +83,7 @@
         <activity android:name="MovieInfoTabActivities" android:screenOrientation="portrait"></activity>
         <activity android:name="MovieIntroContentActivity" android:screenOrientation="portrait"></activity>
         <activity android:name="MovieEvaluateActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name="AboutUsActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".AboutUsActivity" android:screenOrientation="portrait"></activity>
         
     </application>
 

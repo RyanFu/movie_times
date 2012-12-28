@@ -51,6 +51,7 @@ public class ScheduleAdapter extends BaseAdapter{
 		return position;
 	}
 
+	@SuppressWarnings("deprecation")
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
 		LayoutInflater myInflater = LayoutInflater.from(mContext);
@@ -58,6 +59,7 @@ public class ScheduleAdapter extends BaseAdapter{
 		
 		if(theaters.size() != 0) {
 			TextView theaterName = (TextView)converView.findViewById(R.id.textview_theatername);
+			TextView hall = (TextView)converView.findViewById(R.id.textview_hall);
 			Button buttonBooking = (Button)converView.findViewById(R.id.button_booking);
 			LinearLayout llSchedule = (LinearLayout)converView.findViewById(R.id.linearlayout_schedule);
 			
@@ -79,6 +81,12 @@ public class ScheduleAdapter extends BaseAdapter{
 				});
 			} else
 				buttonBooking.setVisibility(View.GONE);
+			
+			if(theater.getHall()!= null && !theater.getHall().equals("")) {
+				hall.setText(theater.getHall());
+				hall.setVisibility(View.VISIBLE);
+			} else
+				hall.setVisibility(View.GONE);
 			
 			String[] timeTable=theater.getTimeTable().split("\\|") ;
 			for(int i=0; i<timeTable.length; i+=3){

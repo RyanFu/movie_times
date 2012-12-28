@@ -12,20 +12,22 @@ public class Theater{
 	private int area;
 	private String phone;
 	private String address;
+	private String hall;
 	
 	public Theater (){
-		this(-1, "", new ArrayList<Movie> (10), "", "", "", -1, "", "");
+		this(-1, "", new ArrayList<Movie> (10), "", "", "", -1, "", "", "");
 	}
 	
 	public Theater (int id, String name) {
-		this(id, name, new ArrayList<Movie> (10), "", "", "", -1, "", "");
+		this(id, name, new ArrayList<Movie> (10), "", "", "", -1, "", "", "");
 	}
 	
-	public Theater (int id, String name, String timeTable, String hallType, String buyLink, int area, String phone, String address) {
-		this(id, name, new ArrayList<Movie> (1), timeTable, hallType, buyLink, area, phone, address);
+	public Theater (int id, String name, String timeTable, String hallType, String buyLink, int area, String phone, String address, String hall) {
+		this(id, name, new ArrayList<Movie> (1), timeTable, hallType, buyLink, area, phone, address, hall);
 	}
 	
-	public Theater (int id, String name, ArrayList<Movie> movies, String timeTable, String hallType, String buyLink, int area, String phone, String address) {
+	public Theater (int id, String name, ArrayList<Movie> movies, String timeTable, String hallType, String buyLink,
+			int area, String phone, String address, String hall) {
 		this.id = id;
 		this.name = name;
 		this.movies = movies;
@@ -35,6 +37,7 @@ public class Theater{
 		this.area = area;
 		this.phone = phone;
 		this.address = address;
+		this.hall = hall;
 	}
 	
 	public int getId(){
@@ -97,6 +100,13 @@ public class Theater{
 	}
 	public void setAddress(String address){
 		this.address = address;
+	}
+
+	public void setHall(String hall){
+		this.hall = hall;
+	}
+	public String getHall(){
+		return hall;
 	}
 }
 

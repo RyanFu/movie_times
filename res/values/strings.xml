@@ -7,6 +7,11 @@
     <string name="Theater">各大影城</string>
     <string name="Recent">近期上映</string>
     <string name="Weekly">本周新片</string>
+    <string name="title">標題</string>
+    <string name="description">描述</string>
+    <string name="download">下載</string>
+    <string name="thanks">不用,謝謝</string>
+    
     <string name="ga_api_key">UA-33141342-3</string>
     <!-- <string name="admob_key">a1508932444a8e4</string>  admob only -->
     <string name="admob_key">e735f9c4fab1415a</string>  <!-- admob mediation -->

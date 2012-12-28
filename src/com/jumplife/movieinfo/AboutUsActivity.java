@@ -2,6 +2,7 @@ package com.jumplife.movieinfo;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedActivity;
+import com.jumplife.movieinfo.promote.PromoteAPP;
 
 import android.app.AlertDialog;
 import android.content.ComponentName;
@@ -136,12 +137,20 @@ public class AboutUsActivity extends TrackedActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
 
-            new AlertDialog.Builder(this).setTitle("- 離開程式? -").setPositiveButton("是", new DialogInterface.OnClickListener() {
-                // do something when the button is clicked
-                public void onClick(DialogInterface arg0, int arg1) {
-                	AboutUsActivity.this.finish();
-                }
-            }).setNegativeButton("否", null).show();
+        	PromoteAPP promoteAPP = new PromoteAPP(AboutUsActivity.this);
+        	if(!promoteAPP.isPromote) {
+				new AlertDialog.Builder(this)
+					.setTitle("- 離開程式? -")
+					.setPositiveButton("是", new DialogInterface.OnClickListener() {
+						// do something when the button is clicked
+						public void onClick(DialogInterface arg0, int arg1) {
+							AboutUsActivity.this.finish();
+						}
+					})
+					.setNegativeButton("否", null)
+					.show();
+        	} else
+		    	promoteAPP.promoteAPPExe();
 
             return true;
         } else

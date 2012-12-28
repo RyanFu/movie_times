@@ -20,6 +20,7 @@ import android.widget.Button;
 
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.movieinfo.entity.Area;
+import com.jumplife.movieinfo.promote.PromoteAPP;
 
 public class AreasActivity extends TrackedActivity{
 	
@@ -66,6 +67,7 @@ public class AreasActivity extends TrackedActivity{
         	loadDataTask.executeOnExecutor(LoadDataTask.THREAD_POOL_EXECUTOR, 0);
     }
 
+	@SuppressWarnings("deprecation")
 	private void setViews() {
 		WindowManager mWinMgr = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
 		displayWidth = mWinMgr.getDefaultDisplay().getWidth();
@@ -223,7 +225,8 @@ class LoadDataTask extends AsyncTask<Integer, Integer, String>{
 		if(keyCode == KeyEvent.KEYCODE_BACK
 				&& event.getAction() == KeyEvent.ACTION_DOWN){
 			
-			
+			PromoteAPP promoteAPP = new PromoteAPP(AreasActivity.this);
+        	if(!promoteAPP.isPromote) {
 				new AlertDialog.Builder(this)
 					.setTitle("- 離開程式? -")
 					.setPositiveButton("是", new DialogInterface.OnClickListener() {
@@ -234,6 +237,8 @@ class LoadDataTask extends AsyncTask<Integer, Integer, String>{
 					})
 					.setNegativeButton("否", null)
 					.show();
+        	} else
+		    	promoteAPP.promoteAPPExe();
 			
 						
 			return true;

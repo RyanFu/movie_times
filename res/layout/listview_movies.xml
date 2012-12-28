@@ -41,7 +41,17 @@
             android:textColor="@color/textcolor_grey"
             android:layout_below="@+id/movie_name"
             ></TextView>  
-        
+        <TextView android:text="廳院"
+            android:id="@+id/movie_hall"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:padding="2dp"
+            android:singleLine="true" 
+            android:textSize="16dp"
+            android:textColor="@color/textcolor_grey"
+            android:layout_below="@+id/movie_name_en"
+            android:visibility="gone"
+            ></TextView>  
     </RelativeLayout>
      <ImageView
          android:id="@+id/imageView_next"

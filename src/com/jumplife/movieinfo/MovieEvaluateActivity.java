@@ -7,11 +7,13 @@ import java.util.Comparator;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -84,26 +86,34 @@ public class MovieEvaluateActivity extends TrackedActivity {
 	}
 
 	private void setView() {
+		
 		listviewShow.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-			}
-
+				PackageManager pm = MovieEvaluateActivity.this.getPackageManager();
+				int versionCode;
+				try {
+					versionCode = pm.getPackageInfo("com.jumplife.moviediary", 0).versionCode;
+				} catch (NameNotFoundException e) {
+					versionCode = 0;
+					e.printStackTrace();
+				}
+				Intent appStartIntent = pm.getLaunchIntentForPackage("com.jumplife.moviediary");
+			    if(null != appStartIntent && versionCode > 30) {
+			    	appStartIntent.addCategory("android.intent.category.LAUNCHER");
+			    	appStartIntent.setComponent(new ComponentName("com.jumplife.moviediary",
+				    		"com.jumplife.moviediary.MovieShowActivity"));
+			    	appStartIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			    	appStartIntent.putExtra("movie_id", movie_id);
+				    MovieEvaluateActivity.this.startActivity(appStartIntent);
+			    }
+			}	
 		});
+			
 		rlMoreEvaluate.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
 				PackageManager pm = MovieEvaluateActivity.this.getPackageManager();
 			    Intent appStartIntent = pm.getLaunchIntentForPackage("com.jumplife.moviediary");
-			    /*if(null != appStartIntent) {
-			    	appStartIntent.addCategory("android.intent.category.LAUNCHER");
-			    	appStartIntent.setComponent(new ComponentName("com.jumplife.moviediary",
-				    		"com.jumplife.moviediary.MovieTabActivities"));
-			    	appStartIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			    	appStartIntent.putExtra("movie_id", movie_id);
-				    MovieEvaluateActivity.this.startActivity(appStartIntent);
-			    } else
-			    	startActivity(new Intent(Intent.ACTION_VIEW, 
-				    		Uri.parse("market://details?id=com.jumplife.moviediary")));*/
 			    if(null == appStartIntent) {
 			    	EasyTracker.getTracker().trackEvent("電影短評", "下載電影櫃", "", (long)0);
 			    	startActivity(new Intent(Intent.ACTION_VIEW, 
@@ -112,28 +122,41 @@ public class MovieEvaluateActivity extends TrackedActivity {
 			}			
 		});
 		
+		viewHeader.setOnClickListener(new OnClickListener() {
+			public void onClick(View arg0) {
+				PackageManager pm = MovieEvaluateActivity.this.getPackageManager();
+			    Intent appStartIntent = pm.getLaunchIntentForPackage("com.jumplife.moviediary");
+			    if(null != appStartIntent) {
+			    	appStartIntent.addCategory("android.intent.category.LAUNCHER");
+			    	appStartIntent.setComponent(new ComponentName("com.jumplife.moviediary",
+				    		"com.jumplife.moviediary.MovieTabActivities"));
+			    	appStartIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				    MovieEvaluateActivity.this.startActivity(appStartIntent);
+			    }
+			}			
+		});
+		
 		if (recordList == null) {
 			showReloadDialog(MovieEvaluateActivity.this);
 		} else {
-			if (recordList.size() == 0) {
-				tvNoEvaluate.setVisibility(View.VISIBLE);
-				rlMoreEvaluate.setVisibility(View.GONE);
-			} else {
-				tvNoEvaluate.setVisibility(View.GONE);
-				PackageManager pm = MovieEvaluateActivity.this.getPackageManager();
-			    Intent appStartIntent = pm.getLaunchIntentForPackage("com.jumplife.moviediary");
-			    if(null == appStartIntent) {
-			    	listviewShow.removeHeaderView(viewHeader);
-			    	rlMoreEvaluate.setVisibility(View.VISIBLE);
-			    } else {
-			    	listviewShow.addHeaderView(viewHeader);
-			    	rlMoreEvaluate.setVisibility(View.GONE);
-			    }
+			PackageManager pm = MovieEvaluateActivity.this.getPackageManager();
+			Intent appStartIntent = pm.getLaunchIntentForPackage("com.jumplife.moviediary");
+		    if(null == appStartIntent) {
+		    	listviewShow.removeHeaderView(viewHeader);
+		    	rlMoreEvaluate.setVisibility(View.VISIBLE);
+		    } else {
+		    	listviewShow.addHeaderView(viewHeader);
+		    	rlMoreEvaluate.setVisibility(View.GONE);
+		    	if (recordList.size() == 0) 
+					tvNoEvaluate.setVisibility(View.VISIBLE);
+				else 
+					tvNoEvaluate.setVisibility(View.GONE);
+
 				sortRecordList();
-			}
-			recordListAdapter = new RecordListAdapter(
-					MovieEvaluateActivity.this, recordList);
-			listviewShow.setAdapter(recordListAdapter);
+				recordListAdapter = new RecordListAdapter(
+						MovieEvaluateActivity.this, recordList);
+				listviewShow.setAdapter(recordListAdapter);
+		    }
 		}
 	}
 

@@ -371,7 +371,7 @@ public class MovieAPI {
 	}
 	
 	//取得電影時刻表
-	public ArrayList<Theater> getMovieTimeTableList(int movieId) {
+	public ArrayList<Theater> getMovieTimeTableListWithHall(int movieId) {
 		
 		ArrayList<Theater> threaterList = new ArrayList<Theater>(10);
 		
@@ -384,6 +384,7 @@ public class MovieAPI {
 			JSONArray theaterArray;
 			String hallType = null;
 			String buyLink = null;
+			String hallStr = null;
 			try {
 				theaterArray = new JSONArray(message.toString());
 				for (int i = 0; i < theaterArray.length() ; i++) {
@@ -396,6 +397,10 @@ public class MovieAPI {
 						buyLink = null;
 					else 
 						buyLink = theaterJson.getString("buy_link");
+					if(theaterJson.isNull("hall_str"))
+						hallStr = null;
+					else 
+						hallStr = theaterJson.getString("hall_str");
 					
 					Theater theater = new Theater(theaterJson.getInt("id"), 
 						theaterJson.getString("theater"), 
@@ -404,7 +409,8 @@ public class MovieAPI {
 						buyLink,
 						theaterJson.getInt("area_id"),
 						null,
-						null);
+						null,
+						hallStr);
 					
 					threaterList.add(theater);
 				}
@@ -419,7 +425,7 @@ public class MovieAPI {
 	}
 	
 	//取得戲院電影時刻表
-	public ArrayList<Theater> getMovieTheaterTimeTableList(int movieId, int theaterId) {
+	public ArrayList<Theater> getMovieTheaterTimeTableListWithHall(int movieId, int theaterId) {
 		
 		ArrayList<Theater> threaterList = new ArrayList<Theater>(10);
 		
@@ -432,6 +438,7 @@ public class MovieAPI {
 			JSONArray theaterArray;
 			String hallType = null;
 			String buyLink = null;
+			String hallStr = null;
 			try {
 				theaterArray = new JSONArray(message.toString());
 				for (int i = 0; i < theaterArray.length() ; i++) {
@@ -444,7 +451,11 @@ public class MovieAPI {
 						buyLink = null;
 					else
 						buyLink = theaterJson.getString("buy_link");
-
+					if(theaterJson.isNull("hall_str"))
+						hallStr = null;
+					else 
+						hallStr = theaterJson.getString("hall_str");
+					
 					Theater theater = new Theater(theaterJson.getInt("id"), 
 							theaterJson.getString("theater"), 
 							theaterJson.getString("timetable"),
@@ -452,7 +463,8 @@ public class MovieAPI {
 							buyLink,
 							theaterJson.getInt("area_id"),
 							null,
-							null);
+							null,
+							hallStr);
 					
 					threaterList.add(theater);
 				}
@@ -523,6 +535,35 @@ public class MovieAPI {
 		return movieList;
 	}
 		
+	//取得某一間戲院的電影和廳院列表
+	public ArrayList<Movie> getMoviesIdandHallList(Theater theater) {
+		ArrayList<Movie> movieList = new ArrayList<Movie>(10);
+		String message = getMessageFromServer("GET", "/api/v1/theaters/"+theater.getId()+"/get_movies_id_and_hall_str.json", null);
+		
+		if(message == null) {
+			return null;
+		}
+		else {
+			JSONArray movieArray;
+
+			try
+			{
+				movieArray = new JSONArray(message.toString());
+				for (int i = 0; i < movieArray.length(); i++) {
+					Movie movie = new Movie();
+					JSONObject movieObject = movieArray.getJSONObject(i);
+					movie.setId(movieObject.getInt("movie_id"));
+					movie.setHall(movieObject.getString("hall_str"));
+					movieList.add(movie);
+				}
+			} 
+			catch (JSONException e){
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return movieList;
+	}
 	
 	//取得新聞列表
 	public ArrayList<News> getNewsList(int page) {
@@ -682,7 +723,7 @@ public class MovieAPI {
 				
 				 movie = new Movie(movieJson.getInt("id"), movieJson.getString("name"), movieJson.getString("name_en"), movieJson.getString("intro"), 
 						 releaseDate, movieJson.getString("poster_url"), runningTime, movieJson.getString("level_url"), actors, directors, recordList, 
-						 movieJson.getString("youtube_video_id"), 0,0, is_first_round,  is_second_round,  is_hot,  is_this_week, is_comming);
+						 movieJson.getString("youtube_video_id"), 0, 0, is_first_round,  is_second_round,  is_hot,  is_this_week, is_comming);
 				 
 			} 
 			catch (JSONException e) {
