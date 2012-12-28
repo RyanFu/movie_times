@@ -7,6 +7,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.jumplife.ad.AdGenerator;
+import com.jumplife.movieinfo.MovieInfoTabActivities.AdTask;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.News;
 import com.jumplife.sectionlistview.NewsAdapter;
@@ -49,6 +51,9 @@ public class NewsActivity extends TrackedActivity {
 			task.execute();
         else
         	task.executeOnExecutor(LoadDataTask.THREAD_POOL_EXECUTOR, 0);
+	    
+	    AdTask adTask = new AdTask();
+        adTask.execute();
 	}
 	
 	private void findViews() {
@@ -255,5 +260,21 @@ public class NewsActivity extends TrackedActivity {
 	protected void onResume(){
         super.onResume();
    }
+	
+	class AdTask extends AsyncTask<Integer, Integer, String> {
+		@Override
+		protected String doInBackground(Integer... arg0) {
+			
+			return null;
+		}
+		
+		 @Override  
+	     protected void onPostExecute(String result) {
+			 //setAd();
+			 AdGenerator adGenerator = new AdGenerator(NewsActivity.this);
+			 adGenerator.setAd();
+			 super.onPostExecute(result);
+		 }
+    }
 
 }

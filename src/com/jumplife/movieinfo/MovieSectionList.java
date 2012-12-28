@@ -33,6 +33,7 @@ import com.google.ads.AdView;
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.ifixit.android.sectionheaders.SectionHeadersAdapter;
 import com.ifixit.android.sectionheaders.SectionListView;
+import com.jumplife.ad.AdGenerator;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.Movie;
 import com.jumplife.movieinfo.entity.Theater;
@@ -81,23 +82,6 @@ public class MovieSectionList extends TrackedActivity {
         adTask.execute();
     }
 
-    public void setAd() {
-        // Create the adView
-        Resources res = getResources();
-        String admobKey = res.getString(R.string.admob_key);
-
-        adView = new AdView(this, AdSize.BANNER, admobKey);
-
-        // Lookup your LinearLayout assuming it's been given
-        // the attribute android:id="@+id/mainLayout"
-        LinearLayout layout = (LinearLayout) findViewById(R.id.ad_linearlayout);
-
-        // Add the adView to it
-        layout.addView(adView);
-
-        // Initiate a generic request to load it with an ad
-        adView.loadAd(new AdRequest());
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -300,19 +284,19 @@ public class MovieSectionList extends TrackedActivity {
     }
 
     class AdTask extends AsyncTask<Integer, Integer, String> {
-        @Override
-        protected String doInBackground(Integer... arg0) {
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            setAd();
-            super.onPostExecute(result);
-
-        }
-
+		@Override
+		protected String doInBackground(Integer... arg0) {
+			
+			return null;
+		}
+		
+		 @Override  
+	     protected void onPostExecute(String result) {
+			 //setAd();
+			 AdGenerator adGenerator = new AdGenerator(MovieSectionList.this);
+			 adGenerator.setAd();
+			 super.onPostExecute(result);
+		 }
     }
 
     public class LoadDataTask extends AsyncTask<Integer, Integer, String> {

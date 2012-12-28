@@ -1,16 +1,16 @@
 package com.jumplife.movieinfo;
 
 import java.util.HashMap;
-
-
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedTabActivity;
+import com.jumplife.ad.AdGenerator;
 import com.jumplife.imageload.ImageLoader;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.sharedpreferenceio.SharePreferenceIO;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -29,6 +29,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
@@ -123,26 +124,6 @@ public class MovieTabActivities extends TrackedTabActivity implements OnTabChang
 	    } else
 	    	return super.onKeyDown(keyCode, event);
 	}
-    
-    public void setAd() {
-    	Log.d("Ben", "Ad Start");
-    	// Create the adView
-    	Resources res = getResources();
-    	String admobKey = res.getString(R.string.admob_key);
-
-        adView = new AdView(this, AdSize.BANNER, admobKey);
-
-        // Lookup your LinearLayout assuming it's been given
-        // the attribute android:id="@+id/mainLayout"
-        LinearLayout layout = (LinearLayout)findViewById(R.id.ad_linearlayout);
-
-        // Add the adView to it
-        layout.addView(adView);
-
-        // Initiate a generic request to load it with an ad
-        adView.loadAd(new AdRequest());
-        Log.d("Ben", "Ad End");
-    }
     
     private void tabInfoTable() {
     	View ActivitysTab = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
@@ -253,7 +234,9 @@ public class MovieTabActivities extends TrackedTabActivity implements OnTabChang
 		
 		 @Override  
 	     protected void onPostExecute(String result) {
-			 setAd();
+			 //setAd();
+			 AdGenerator adGenerator = new AdGenerator(MovieTabActivities.this);
+			 adGenerator.setAd();
 			 super.onPostExecute(result);
 
 		 }

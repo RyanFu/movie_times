@@ -10,7 +10,7 @@
 	   android:layout_width="fill_parent"
 	   android:layout_height="fill_parent"
 	   android:background="@color/main_color_grey_dark"
-	   android:layout_above="@+id/ad_linearlayout">
+	   android:layout_above="@+id/ad_layout">
 
 	    <RelativeLayout android:id="@+id/relativelayout_movietitle" 
 	        android:background="@color/main_color_grey_dark"
@@ -83,8 +83,7 @@
                 android:layout_marginTop="0dp"
                 android:background="@color/grey05"
                 />
-	        
-	        
+	        	        
 	        <Button
 	            android:id="@+id/button_video"
 	            android:layout_width="fill_parent"
@@ -201,12 +200,13 @@
 	        
 	    </RelativeLayout>   
     </ScrollView>
-    <LinearLayout
-        android:id="@+id/ad_linearlayout"
+    <RelativeLayout
+        android:id="@+id/ad_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/listview_background"
-        android:layout_alignParentBottom="true"/>    
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal" 
+        android:layout_gravity="center_horizontal"/>   
 </RelativeLayout>
 
         

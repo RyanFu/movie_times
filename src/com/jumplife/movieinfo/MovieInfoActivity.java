@@ -11,6 +11,7 @@ import com.google.ads.AdSize;
 import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedActivity;
+import com.jumplife.ad.AdGenerator;
 import com.jumplife.imageload.ImageLoader;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.Movie;
@@ -82,25 +83,7 @@ public class MovieInfoActivity extends TrackedActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult");
     }
-	
-	public void setAd() {
-    	// Create the adView
-    	Resources res = getResources();
-    	String admobKey = res.getString(R.string.admob_key);
-
-        adView = new AdView(this, AdSize.BANNER, admobKey);
-
-        // Lookup your LinearLayout assuming it's been given
-        // the attribute android:id="@+id/mainLayout"
-        LinearLayout layout = (LinearLayout)findViewById(R.id.ad_linearlayout);
-
-        // Add the adView to it
-        layout.addView(adView);
-
-        // Initiate a generic request to load it with an ad
-        adView.loadAd(new AdRequest());
-    }
-	
+		
 	private void setViews() {
         //topbar_text.setText("電影資訊");
 		imageLoader.DisplayImage(movie.getPosterUrl(), poster);
@@ -230,11 +213,11 @@ public class MovieInfoActivity extends TrackedActivity {
 		
 		 @Override  
 	     protected void onPostExecute(String result) {
-			 setAd();
+			 //setAd();
+			 AdGenerator adGenerator = new AdGenerator(MovieInfoActivity.this);
+			 adGenerator.setAd();
 			 super.onPostExecute(result);
-
 		 }
-    	
     }
 	
    class LoadDataTask extends AsyncTask<Integer, Integer, String>{  

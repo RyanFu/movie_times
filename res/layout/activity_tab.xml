@@ -25,15 +25,17 @@
             android:id="@android:id/tabs"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/ad_linearlayout"
+            android:layout_above="@+id/ad_layout"
             android:background="@drawable/tab_widget_bg"
             />
-        <LinearLayout
-            android:id="@+id/ad_linearlayout"
+        
+        <RelativeLayout
+            android:id="@+id/ad_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/main_color_grey_dark" />
+            android:gravity="center_horizontal" 
+            android:layout_gravity="center_horizontal"/>
 
      </RelativeLayout>
 </TabHost>
