@@ -26,7 +26,7 @@
         android:orientation="horizontal"
         android:layout_height="40dp"
         android:layout_width="fill_parent"
-        android:layout_above="@+id/ad_linearlayout"
+        android:layout_above="@+id/ad_layout"
         android:background="@color/main_color_grey_dark"
         >
         <ImageButton 
@@ -77,10 +77,11 @@
     </RelativeLayout>
     
 
-    <LinearLayout
-        android:id="@+id/ad_linearlayout"
+    <RelativeLayout
+        android:id="@+id/ad_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/main_color_grey_dark" 
-        android:layout_alignParentBottom="true"/> 
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal" 
+        android:layout_gravity="center_horizontal"/> 
 </RelativeLayout>
