@@ -28,7 +28,8 @@ public class SQLiteMovieDiary extends SQLiteOpenHelper {
     private static final String   TheaterTable        = "theaters";
     private static final String   DB_PATH             = "/data/data/com.jumplife.movieinfo/databases/";
     private static final String   DB_NAME             = "movieinfo.sqlite";                            // 資料庫名稱
-    private static final int      DATABASE_VERSION    = 1;                                             // 資料庫版本
+    private static final int      DATABASE_VERSION    = 1;
+    private static String DB_PATH_DATA;                                             // 資料庫版本
     private static SQLiteDatabase db;
 
     public static final String    FILTER_RECENT       = "is_comming";
@@ -40,7 +41,27 @@ public class SQLiteMovieDiary extends SQLiteOpenHelper {
 
     public SQLiteMovieDiary(Activity mActivity) {
         super(mActivity, DB_NAME, null, DATABASE_VERSION);
+        
+        //DB_PATH_DATA = Environment.getDataDirectory() + DB_PATH;
+        DB_PATH_DATA = DB_PATH;
         if (mActivity != null) {
+            SharePreferenceIO shareIO = new SharePreferenceIO(mActivity);
+            if (shareIO != null) {
+            	int checkVersion = DATABASE_VERSION;
+            	if(shareIO.SharePreferenceO("checkversion", 0) < checkVersion) {
+            		shareIO.SharePreferenceI("checkversion", checkVersion);
+            		shareIO.SharePreferenceI("checkfile", true);
+            		mActivity.deleteDatabase(DB_NAME);
+            	}
+                boolean checkFile = shareIO.SharePreferenceO("checkfile", true);
+                if (checkFile) {
+                	checkFileSystem(mActivity);
+                    shareIO.SharePreferenceI("checkfile", false);
+                }
+            }
+        }
+        
+        /*if (mActivity != null) {
             SharePreferenceIO shareIO = new SharePreferenceIO(mActivity);
             if (shareIO != null) {
                 boolean checkFile = shareIO.SharePreferenceO("checkfile", true);
@@ -49,7 +70,7 @@ public class SQLiteMovieDiary extends SQLiteOpenHelper {
                     shareIO.SharePreferenceI("checkfile", false);
                 }
             }
-        }
+        }*/
 
         if (!checkDataBase())
             db = this.getWritableDatabase();
@@ -96,7 +117,7 @@ public class SQLiteMovieDiary extends SQLiteOpenHelper {
 
     public static void openDataBase() {
         if (db == null || !db.isOpen())
-            db = SQLiteDatabase.openOrCreateDatabase(DB_PATH + DB_NAME, null);
+            db = SQLiteDatabase.openOrCreateDatabase(DB_PATH_DATA + DB_NAME, null);
     }
 
     public static void closeDB() {
@@ -105,7 +126,7 @@ public class SQLiteMovieDiary extends SQLiteOpenHelper {
     }
 
     private boolean checkDataBase() {
-        File dbtest = new File(DB_PATH + DB_NAME);
+        File dbtest = new File(DB_PATH_DATA + DB_NAME);
         if (dbtest.exists())
             return true;
         else
@@ -115,7 +136,7 @@ public class SQLiteMovieDiary extends SQLiteOpenHelper {
     private void checkFileSystem(Activity mActivity) {
         // if((new File(DB_PATH + DB_NAME)).exists() == false) {
         // 如 SQLite 数据库文件不存在，再检查一下 database 目录是否存在
-        File f = new File(DB_PATH);
+        File f = new File(DB_PATH_DATA);
         // 如 database 目录不存在，新建该目录
         if (!f.exists()) {
             f.mkdir();
@@ -125,7 +146,7 @@ public class SQLiteMovieDiary extends SQLiteOpenHelper {
             // 得到 assets 目录下我们实现准备好的 SQLite 数据库作为输入流
             InputStream is = mActivity.getBaseContext().getAssets().open(DB_NAME);
             // 输出流
-            OutputStream os = new FileOutputStream(DB_PATH + DB_NAME);
+            OutputStream os = new FileOutputStream(DB_PATH_DATA + DB_NAME);
 
             // 文件写入
             byte[] buffer = new byte[1024];
@@ -302,7 +323,7 @@ public class SQLiteMovieDiary extends SQLiteOpenHelper {
             date = "null";
 
         Cursor cursor = db.rawQuery(
-                "INSERT INTO \"movies\" VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                "INSERT OR IGNORE INTO \"movies\" VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 new String[] { movie.getId() + "", movie.getChineseName(), movie.getEnglishName(), movie.getInttroduction(), movie.getPosterUrl(), date,
                         movie.getRunningTime() + "", movie.getLevelUrl(), getSQLiteBoolean(movie.get_is_first_round()),
                         getSQLiteBoolean(movie.get_is_second_round()), getSQLiteBoolean(movie.get_is_hot()), youtubeId,

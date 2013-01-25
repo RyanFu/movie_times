@@ -8,7 +8,6 @@ import com.jumplife.ad.AdGenerator;
 import com.jumplife.imageload.ImageLoader;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.sharedpreferenceio.SharePreferenceIO;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -40,7 +39,7 @@ public class MovieTabActivities extends TrackedTabActivity implements OnTabChang
 	private LinearLayout topbarLayout;
 	private int openCount;
 	private int version;
-	
+	private LoadPromoteTask loadPromoteTask;	
 	private AdView adView;
 	
 	public static String TAG = "MovieTabActivities";
@@ -76,8 +75,8 @@ public class MovieTabActivities extends TrackedTabActivity implements OnTabChang
         sharepre = new SharePreferenceIO(MovieTabActivities.this);
         openCount = sharepre.SharePreferenceO("opencount", 0);
         version = sharepre.SharePreferenceO("version", 0);
-        if(openCount > 5) {
-        	LoadPromoteTask loadPromoteTask = new LoadPromoteTask();
+        loadPromoteTask = new LoadPromoteTask();
+    	if(openCount > 5) {
         	loadPromoteTask.execute();
         	openCount = 0;
         }
@@ -99,12 +98,16 @@ public class MovieTabActivities extends TrackedTabActivity implements OnTabChang
 	}
     
     @Override
-    protected void onDestroy(){
-    	if (adView != null) {
-    	  adView.destroy();
-    	}
-    	super.onDestroy();
-    }
+	protected void onDestroy(){
+        super.onDestroy();
+        if (loadPromoteTask!= null && loadPromoteTask.getStatus() != AsyncTask.Status.FINISHED) {
+        	loadPromoteTask.closeProgressDilog();
+        	loadPromoteTask.cancel(true);
+        }
+        if (adView != null) {
+      	  adView.destroy();
+      	}
+	}
     
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	super.onActivityResult(requestCode, resultCode, data);
@@ -277,7 +280,8 @@ public class MovieTabActivities extends TrackedTabActivity implements OnTabChang
   
         @Override  
         protected void onPostExecute(String result) {
-        	progressdialogInit.dismiss();
+        	closeProgressDilog();
+        	
         	if(promotion != null && !promotion[1].equals("null") && Integer.valueOf(promotion[4]) > version) {
 	        	View viewPromotion;
 	            LayoutInflater factory = LayoutInflater.from(MovieTabActivities.this);
@@ -331,7 +335,12 @@ public class MovieTabActivities extends TrackedTabActivity implements OnTabChang
 	            dialogPromotion.show();
         	}
 	       	super.onPostExecute(result);  
-        }  
-          
+        } 
+        
+        public void closeProgressDilog() {
+        	if(MovieTabActivities.this != null && !MovieTabActivities.this.isFinishing() 
+        			&& progressdialogInit != null && progressdialogInit.isShowing())
+        		progressdialogInit.dismiss();
+        }          
     }
 }

@@ -2,29 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_height="wrap_content"
 	android:layout_width="fill_parent"
+	android:gravity="center"
 	android:padding="5dp"
-	android:orientation="horizontal"
-	android:background="@drawable/item_background">
-	
-	<TextView 
-       android:layout_height="wrap_content"
-       android:layout_width="wrap_content"
-       android:layout_gravity="center_vertical"
-       android:paddingLeft="5dp"
-       android:textColor="@color/textcolor_grey"
-       android:textSize="18dp"
-       android:text="本區精彩短評由"/>
-	<ImageView 
-	   android:layout_height="26dp"
-       android:layout_width="26dp"
-       android:layout_gravity="center_vertical"
-       android:padding="3dp"
-       android:src="@drawable/movie_64"/>
-   <TextView 
-       android:layout_height="wrap_content"
-       android:layout_width="wrap_content"
-       android:layout_gravity="center_vertical"
-       android:textColor="@color/textcolor_grey"
-       android:textSize="18dp"
-       android:text="電影櫃APP提供"/>
+	android:orientation="vertical"
+	android:background="@drawable/item_background_evaluate_header" >
+	<LinearLayout
+	    android:layout_height="wrap_content"
+	    android:layout_width="fill_parent"
+	    android:gravity="center"
+        android:paddingTop="3dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+	    android:orientation="horizontal" >
+		<TextView 
+	       android:layout_height="wrap_content"
+	       android:layout_width="wrap_content"
+	       android:layout_gravity="center_vertical"
+	       android:textColor="@color/textcolor_grey"
+	       android:textSize="18dp"
+	       android:text="按此至"/>
+		<ImageView 
+		   android:layout_height="26dp"
+	       android:layout_width="26dp"
+	       android:layout_gravity="center_vertical"
+	       android:padding="3dp"
+	       android:src="@drawable/movie_64"/>
+	    <TextView 
+	       android:layout_height="wrap_content"
+	       android:layout_width="wrap_content"
+	       android:layout_gravity="center_vertical"
+	       android:textColor="@color/textcolor_grey"
+	       android:textSize="18dp"
+	       android:text="電影櫃觀看更多精彩短評"/>
+	   </LinearLayout>
     </LinearLayout> 

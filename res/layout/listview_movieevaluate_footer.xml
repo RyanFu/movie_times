@@ -16,7 +16,7 @@
             android:layout_centerInParent="true"
             android:textColor="#1e1e1e"
             android:textSize="16dp"
-            android:text="下載電影櫃APP  閱讀更多精采短評"/>
+            android:text="下載電影櫃APP  閱讀分享更多精采短評"/>
 	   <ImageView android:id="@+id/button_moreevaluate"
 	       android:layout_height="17dp"
            android:layout_width="17dp"

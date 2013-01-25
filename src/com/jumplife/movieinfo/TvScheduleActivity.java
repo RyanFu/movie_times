@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdSize;
-import com.google.ads.AdView;
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.ad.AdGenerator;
 import com.jumplife.movieinfo.api.MovieAPI;
@@ -20,7 +17,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
-import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -32,7 +28,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -47,8 +42,6 @@ public class TvScheduleActivity extends TrackedActivity{
 	private LoadDataTask loadDataTask;
 	private String[] tvSchedule = new String[totalDays*2];
 	private ArrayList<ArrayList<tvSchedule>> tvScheduleDays;
-
-	private AdView adView;
 
 	public static int totalDays = 3;
 
@@ -144,9 +137,9 @@ public class TvScheduleActivity extends TrackedActivity{
 				tmp = tmp[1].split("日");
 				if(tmp[0] != null) {
 					if(tmp[0].length() < 3)
-						day = Integer.parseInt(tmp[0].substring(1, 2));
+						day = Integer.parseInt(tmp[0].substring(1, 2).replace(" ", ""));
 					else
-						day = Integer.parseInt(tmp[0].substring(1, 3));				 
+						day = Integer.parseInt(tmp[0].substring(1, 3).replace(" ", ""));				 
 				}
 				
 				if(month != 0 && day != 0) {

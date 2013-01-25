@@ -8,7 +8,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleLis
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.jumplife.ad.AdGenerator;
-import com.jumplife.movieinfo.MovieInfoTabActivities.AdTask;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.News;
 import com.jumplife.sectionlistview.NewsAdapter;
@@ -207,9 +206,9 @@ public class NewsActivity extends TrackedActivity {
 		protected void onPostExecute(String result) {
 			setView();		
 			if(newsList != null && newsList.size() > 0){
-				newsAdapter.notifyDataSetChanged();
-				page += 1;
-    			// Call onRefreshComplete when the list has been refreshed.
+        		setListAdatper();
+            	setListener();
+            	page += 1;
         	}
 			newsListView.onRefreshComplete();
         	super.onPostExecute(result);

@@ -148,17 +148,16 @@ public class MovieEvaluateActivity extends TrackedActivity {
 		    	rlMoreEvaluate.setVisibility(View.VISIBLE);
 		    } else {
 		    	listviewShow.addHeaderView(viewHeader);
-		    	rlMoreEvaluate.setVisibility(View.GONE);
-		    	if (recordList.size() == 0) 
-					tvNoEvaluate.setVisibility(View.VISIBLE);
-				else 
-					tvNoEvaluate.setVisibility(View.GONE);
-
-				sortRecordList();
-				recordListAdapter = new RecordListAdapter(
-						MovieEvaluateActivity.this, recordList);
-				listviewShow.setAdapter(recordListAdapter);
+		    	rlMoreEvaluate.setVisibility(View.GONE);	
 		    }
+		    if (recordList.size() == 0) 
+				tvNoEvaluate.setVisibility(View.VISIBLE);
+			else 
+				tvNoEvaluate.setVisibility(View.GONE);			
+		    sortRecordList();
+			recordListAdapter = new RecordListAdapter(
+					MovieEvaluateActivity.this, recordList);
+			listviewShow.setAdapter(recordListAdapter);
 		}
 	}
 
