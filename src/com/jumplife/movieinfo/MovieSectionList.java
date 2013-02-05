@@ -27,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
@@ -40,7 +41,7 @@ import com.jumplife.movieinfo.entity.Theater;
 import com.jumplife.sectionlistview.MovieSectionAdapter;
 import com.jumplife.sqlite.SQLiteMovieDiary;
 
-public class MovieSectionList extends TrackedActivity {
+public class MovieSectionList extends TrackedActivity implements AdWhirlInterface{
 
     private AdView                          adView;
     private TreeMap<Date, ArrayList<Movie>> movieMap;
@@ -294,7 +295,8 @@ public class MovieSectionList extends TrackedActivity {
 	     protected void onPostExecute(String result) {
 			 //setAd();
 			 AdGenerator adGenerator = new AdGenerator(MovieSectionList.this);
-			 adGenerator.setAd();
+			//adGenerator.setAdmobAd();
+			 adGenerator.setAdwhirlAd();
 			 super.onPostExecute(result);
 		 }
     }
@@ -388,4 +390,12 @@ public class MovieSectionList extends TrackedActivity {
         // alert.setIcon(R.drawable.gnome_logout);
         alert.show();
     }
+
+
+	@Override
+	public void adWhirlGeneric()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }

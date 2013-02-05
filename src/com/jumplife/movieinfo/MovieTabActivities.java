@@ -1,6 +1,8 @@
 package com.jumplife.movieinfo;
 
 import java.util.HashMap;
+
+import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
 import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedTabActivity;
@@ -30,7 +32,7 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
 
 @SuppressWarnings("deprecation")
-public class MovieTabActivities extends TrackedTabActivity implements OnTabChangeListener {
+public class MovieTabActivities extends TrackedTabActivity implements OnTabChangeListener, AdWhirlInterface{
 	
 	private TabHost tabHost;
 	private TabHost.TabSpec spec;  // Resusable TabSpec for each tab
@@ -235,7 +237,8 @@ public class MovieTabActivities extends TrackedTabActivity implements OnTabChang
 	     protected void onPostExecute(String result) {
 			 //setAd();
 			 AdGenerator adGenerator = new AdGenerator(MovieTabActivities.this);
-			 adGenerator.setAd();
+			//adGenerator.setAdmobAd();
+			 adGenerator.setAdwhirlAd();
 			 super.onPostExecute(result);
 
 		 }
@@ -343,4 +346,11 @@ public class MovieTabActivities extends TrackedTabActivity implements OnTabChang
         		progressdialogInit.dismiss();
         }          
     }
+
+	@Override
+	public void adWhirlGeneric()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }

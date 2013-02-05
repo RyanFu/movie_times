@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
@@ -37,7 +38,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class MovieInfoActivity extends TrackedActivity {
+public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterface{
 	
 	//private TextView topbar_text;
 	private ImageView poster;
@@ -213,9 +214,9 @@ public class MovieInfoActivity extends TrackedActivity {
 		
 		 @Override  
 	     protected void onPostExecute(String result) {
-			 //setAd();
 			 AdGenerator adGenerator = new AdGenerator(MovieInfoActivity.this);
-			 adGenerator.setAd();
+			 //adGenerator.setAdmobAd();
+			 adGenerator.setAdwhirlAd();
 			 super.onPostExecute(result);
 		 }
     }
@@ -315,4 +316,11 @@ public class MovieInfoActivity extends TrackedActivity {
 	        //alert.setIcon(R.drawable.gnome_logout);
 	        alert.show();		
 	}
+
+@Override
+public void adWhirlGeneric()
+{
+	// TODO Auto-generated method stub
+	
+}
 }

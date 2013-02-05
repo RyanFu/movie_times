@@ -16,6 +16,7 @@
     <!-- <string name="admob_key">a1508932444a8e4</string>  admob only -->
     <string name="admob_key">e735f9c4fab1415a</string>  <!-- admob mediation -->
     <string name="vpon_key">8a8081823a96d3cc013a9c6364930266</string>
+    <string name="adwhirl_key">1275403b12c5469da212dd1a158532f0</string>
     
     <bool name="ga_auto_activity_tracking">true</bool>
     <bool name="ga_debug">true</bool>

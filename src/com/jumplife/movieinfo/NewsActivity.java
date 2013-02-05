@@ -2,6 +2,7 @@ package com.jumplife.movieinfo;
 
 import java.util.ArrayList;
 
+import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
@@ -31,7 +32,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class NewsActivity extends TrackedActivity {
+public class NewsActivity extends TrackedActivity implements AdWhirlInterface{
 	private PullToRefreshListView newsListView;
 	private ArrayList<News> newsList;
 	private ImageButton imageButtonRefresh;
@@ -271,9 +272,17 @@ public class NewsActivity extends TrackedActivity {
 	     protected void onPostExecute(String result) {
 			 //setAd();
 			 AdGenerator adGenerator = new AdGenerator(NewsActivity.this);
-			 adGenerator.setAd();
+			//adGenerator.setAdmobAd();
+			 adGenerator.setAdwhirlAd();
 			 super.onPostExecute(result);
 		 }
     }
+
+	@Override
+	public void adWhirlGeneric()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
 }
