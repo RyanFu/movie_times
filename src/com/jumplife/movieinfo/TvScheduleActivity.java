@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.ad.AdGenerator;
 import com.jumplife.movieinfo.api.MovieAPI;
@@ -31,7 +32,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class TvScheduleActivity extends TrackedActivity{
+public class TvScheduleActivity extends TrackedActivity implements AdWhirlInterface{
 	
 	private int id;
 	private static int currentDateIdx = 0;
@@ -221,7 +222,8 @@ public class TvScheduleActivity extends TrackedActivity{
 	     protected void onPostExecute(String result) {
 			 //setAd();
 			 AdGenerator adGenerator = new AdGenerator(TvScheduleActivity.this);
-			 adGenerator.setAd();
+			//adGenerator.setAdmobAd();
+			 adGenerator.setAdwhirlAd();
 			 super.onPostExecute(result);
 		 }
     }
@@ -320,4 +322,11 @@ public class TvScheduleActivity extends TrackedActivity{
     	
     	super.onDestroy();
     }
+
+	@Override
+	public void adWhirlGeneric()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }

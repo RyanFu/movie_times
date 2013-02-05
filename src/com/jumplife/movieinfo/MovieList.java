@@ -2,6 +2,7 @@ package com.jumplife.movieinfo;
 
 import java.util.ArrayList;
 
+import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
@@ -42,7 +43,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
 
-public class MovieList extends TrackedActivity {
+public class MovieList extends TrackedActivity implements AdWhirlInterface{
 	
 	private AdView adView;
 	private SharePreferenceIO shIO;
@@ -292,7 +293,8 @@ public class MovieList extends TrackedActivity {
 	     protected void onPostExecute(String result) {
 			 //setAd();
 			 AdGenerator adGenerator = new AdGenerator(MovieList.this);
-			 adGenerator.setAd();
+			//adGenerator.setAdmobAd();
+			 adGenerator.setAdwhirlAd();
 			 super.onPostExecute(result);
 
 		 }
@@ -454,5 +456,12 @@ public class MovieList extends TrackedActivity {
         );
         dialogTheaterInfo.setCanceledOnTouchOutside(false);
         dialogTheaterInfo.show();
+	}
+
+	@Override
+	public void adWhirlGeneric()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

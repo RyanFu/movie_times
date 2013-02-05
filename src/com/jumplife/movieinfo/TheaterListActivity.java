@@ -3,6 +3,7 @@ package com.jumplife.movieinfo;
 
 import java.util.ArrayList;
 
+import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
@@ -35,7 +36,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class TheaterListActivity extends TrackedActivity{
+public class TheaterListActivity extends TrackedActivity implements AdWhirlInterface{
 	
 	private ListView theaterListView;
 	private ArrayList<Area> areaList;
@@ -178,7 +179,8 @@ public class TheaterListActivity extends TrackedActivity{
 	     protected void onPostExecute(String result) {
 			 //setAd();
 			 AdGenerator adGenerator = new AdGenerator(TheaterListActivity.this);
-			 adGenerator.setAd();
+			//adGenerator.setAdmobAd();
+			 adGenerator.setAdwhirlAd();
 			 super.onPostExecute(result);
 		 }
     }
@@ -308,5 +310,12 @@ public class TheaterListActivity extends TrackedActivity{
 	    }		
 		
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public void adWhirlGeneric()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

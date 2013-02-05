@@ -1,5 +1,6 @@
 package com.jumplife.movieinfo;
 
+import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
@@ -25,7 +26,7 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
 
 @SuppressWarnings("deprecation")
-public class MovieInfoTabActivities extends TrackedTabActivity implements OnTabChangeListener {
+public class MovieInfoTabActivities extends TrackedTabActivity implements OnTabChangeListener, AdWhirlInterface {
 	
 	private TabHost tabHost;
 	private TabHost.TabSpec spec;  // Resusable TabSpec for each tab
@@ -227,8 +228,16 @@ public class MovieInfoTabActivities extends TrackedTabActivity implements OnTabC
 	     protected void onPostExecute(String result) {
 			 //setAd();
 			 AdGenerator adGenerator = new AdGenerator(MovieInfoTabActivities.this);
-			 adGenerator.setAd();
+			//adGenerator.setAdmobAd();
+			 adGenerator.setAdwhirlAd();
 			 super.onPostExecute(result);
 		 }
     }
+
+	@Override
+	public void adWhirlGeneric()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }
