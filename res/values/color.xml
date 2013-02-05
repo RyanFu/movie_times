@@ -47,7 +47,8 @@
     <color name="transparent80">#33000000</color>
     <color name="transparent50">#88000000</color>
     <color name="redorange">#d14329</color>
-   
+    
+    <color name="evaluater_background">#2f2c28</color>
    
     <!-- Add for VPON -->
     <color name="contents_text">#ff000000</color>

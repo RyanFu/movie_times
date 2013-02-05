@@ -28,7 +28,7 @@ public class SQLiteMovieDiary extends SQLiteOpenHelper {
     private static final String   TheaterTable        = "theaters";
     private static final String   DB_PATH             = "/data/data/com.jumplife.movieinfo/databases/";
     private static final String   DB_NAME             = "movieinfo.sqlite";                            // 資料庫名稱
-    private static final int      DATABASE_VERSION    = 2;
+    private static final int      DATABASE_VERSION    = 3;
     private static String DB_PATH_DATA;                                             // 資料庫版本
     private static SQLiteDatabase db;
 
