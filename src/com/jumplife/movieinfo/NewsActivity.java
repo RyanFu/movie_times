@@ -278,7 +278,6 @@ public class NewsActivity extends TrackedActivity implements AdWhirlInterface{
 		 }
     }
 
-	@Override
 	public void adWhirlGeneric()
 	{
 		// TODO Auto-generated method stub

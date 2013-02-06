@@ -458,7 +458,6 @@ public class MovieList extends TrackedActivity implements AdWhirlInterface{
         dialogTheaterInfo.show();
 	}
 
-	@Override
 	public void adWhirlGeneric()
 	{
 		// TODO Auto-generated method stub

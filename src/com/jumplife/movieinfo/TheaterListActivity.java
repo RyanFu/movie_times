@@ -312,7 +312,6 @@ public class TheaterListActivity extends TrackedActivity implements AdWhirlInter
 		return super.onKeyDown(keyCode, event);
 	}
 
-	@Override
 	public void adWhirlGeneric()
 	{
 		// TODO Auto-generated method stub

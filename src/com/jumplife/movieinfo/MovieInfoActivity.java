@@ -317,7 +317,6 @@ public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterfa
 	        alert.show();		
 	}
 
-@Override
 public void adWhirlGeneric()
 {
 	// TODO Auto-generated method stub

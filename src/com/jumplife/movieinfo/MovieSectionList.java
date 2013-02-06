@@ -392,7 +392,6 @@ public class MovieSectionList extends TrackedActivity implements AdWhirlInterfac
     }
 
 
-	@Override
 	public void adWhirlGeneric()
 	{
 		// TODO Auto-generated method stub

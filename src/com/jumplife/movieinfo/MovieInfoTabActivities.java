@@ -234,7 +234,6 @@ public class MovieInfoTabActivities extends TrackedTabActivity implements OnTabC
 		 }
     }
 
-	@Override
 	public void adWhirlGeneric()
 	{
 		// TODO Auto-generated method stub

@@ -323,7 +323,6 @@ public class TvScheduleActivity extends TrackedActivity implements AdWhirlInterf
     	super.onDestroy();
     }
 
-	@Override
 	public void adWhirlGeneric()
 	{
 		// TODO Auto-generated method stub
