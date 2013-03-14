@@ -111,6 +111,7 @@ public class MovieInfoTable extends TrackedActivity {
 			
 			Intent newAct = new Intent();
 			newAct.putExtra("movie_id", movieList.get(position).getId());
+		   	newAct.putExtra("movie_name", movieList.get(position).getChineseName());
 			newAct.putExtra("theater_id", -1);
 			newAct.setClass( MovieInfoTable.this, MovieInfoTabActivities.class );
             startActivity( newAct );

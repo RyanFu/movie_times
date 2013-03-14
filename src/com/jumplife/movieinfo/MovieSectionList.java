@@ -15,7 +15,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -28,9 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
-import com.google.ads.AdRequest;
-import com.google.ads.AdSize;
-import com.google.ads.AdView;
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.ifixit.android.sectionheaders.SectionHeadersAdapter;
 import com.ifixit.android.sectionheaders.SectionListView;
@@ -43,7 +39,6 @@ import com.jumplife.sqlite.SQLiteMovieDiary;
 
 public class MovieSectionList extends TrackedActivity implements AdWhirlInterface{
 
-    private AdView                          adView;
     private TreeMap<Date, ArrayList<Movie>> movieMap;
 
     public String[]                         ListType = { "近期上映", "首輪電影", "二輪電影", "本周新片" };

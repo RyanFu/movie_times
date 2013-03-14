@@ -88,6 +88,7 @@ public class MovieSectionAdapter extends Section implements Filterable{
 		Movie movie = movieList.get(position);
 	   	Intent newAct = new Intent();
 	   	newAct.putExtra("movie_id", movie.getId());
+	   	newAct.putExtra("movie_name", movie.getChineseName());
 	    newAct.putExtra("theater_id", -1);
         newAct.setClass(mContext, MovieInfoTabActivities.class );
         mContext.startActivity( newAct );
