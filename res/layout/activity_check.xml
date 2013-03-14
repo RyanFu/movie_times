@@ -14,7 +14,7 @@
         <TextView android:id="@+id/notice"
 	        android:layout_width="fill_parent"
 	        android:layout_centerHorizontal="true"
-	        android:text="本軟體僅提供訂票連結，任何訂票疑問請洽該網站，謝謝！"
+	        android:text="電影時刻表 X EZ訂 訂票系統"
 	        android:textColor="@color/main_color_yellow"
 	        android:textSize="13dp"
 	        android:layout_height="40dp"
@@ -37,6 +37,15 @@
                 android:paddingLeft="2dp" />
               
         </RelativeLayout>
+        
+        <TextView android:id="@+id/notice"
+            android:layout_width="fill_parent"
+            android:layout_centerHorizontal="true"
+            android:text="以下僅提供訂票連結，任何訂票疑問請洽該網站，謝謝！"
+            android:textColor="@color/main_color_yellow"
+            android:textSize="13dp"
+            android:layout_height="40dp"
+            android:gravity="center"/>
         
 	    <RelativeLayout android:id="@+id/relative_viewshow"
 	        android:layout_width="fill_parent"
