@@ -19,6 +19,7 @@ public class Movie {
 	private String youtubeId;
 	private int recordsCount;
 	private int goodCount;
+	private boolean is_ezding = false;
 	private boolean is_first_round = false;
 	private boolean is_second_round = false;
 	private boolean is_hot = false;
@@ -186,5 +187,11 @@ public class Movie {
 	}
 	public String getHall(){
 		return hall;
+	}
+	public void set_is_ezding(boolean is_ezding){
+		this.is_ezding = is_ezding;
+	}
+	public boolean get_is_ezding(){
+		return this.is_ezding;
 	}
 }

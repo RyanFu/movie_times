@@ -68,9 +68,9 @@ public class MovieTabActivities extends TrackedTabActivity implements OnTabChang
         
         setTabClickLog();
         
-        Bundle bundle = this.getIntent().getExtras();
+        /*Bundle bundle = this.getIntent().getExtras();
         if(bundle == null)
-        	tabHost.setCurrentTab(0);
+        	tabHost.setCurrentTab(0);*/
         
         topbarLayout.setVisibility(View.VISIBLE);		
 		tabHost.setOnTabChangedListener(this);
@@ -94,9 +94,9 @@ public class MovieTabActivities extends TrackedTabActivity implements OnTabChang
     @Override
     public void onResume(){
 		super.onResume();
-		Bundle bundle = this.getIntent().getExtras();
+		/*Bundle bundle = this.getIntent().getExtras();
         if(bundle != null)
-        	tabHost.setCurrentTab(bundle.getInt("tabNo"));
+        	tabHost.setCurrentTab(bundle.getInt("tabNo"));*/
 	}
     
     @Override

@@ -103,10 +103,9 @@ public class CheckActivity extends TrackedActivity {
 		ez.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
 				EasyTracker.getTracker().trackEvent("電影訂票", "戲院名稱", "EZ訂", (long)0);
-				
-				Uri uri = Uri.parse("http://www.ezding.com.tw/yahoo/mmb.do");  
-	    		Intent it = new Intent(Intent.ACTION_VIEW, uri);
-	    		startActivity(it);
+				Intent newAct = new Intent();
+                newAct.setClass(CheckActivity.this, EzCheckActivity.class);
+                startActivity(newAct);
 			}			
 		});
 		dingok.setOnClickListener(new OnClickListener(){

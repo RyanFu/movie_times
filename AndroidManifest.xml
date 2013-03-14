@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jumplife.movieinfo"
-    android:versionCode="13"
-    android:versionName="1.0.12"
+    android:versionCode="16"
+    android:versionName="1.0.15"
     android:installLocation="preferExternal">
 
     <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="15" />
@@ -82,6 +82,7 @@
         <activity android:name="MovieIntroContentActivity" android:screenOrientation="portrait"></activity>
         <activity android:name="MovieEvaluateActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".AboutUsActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name="EzCheckActivity" android:screenOrientation="portrait"></activity>
         
     </application>
 

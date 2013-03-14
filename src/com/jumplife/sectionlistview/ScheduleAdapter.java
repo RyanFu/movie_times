@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.jumplife.imageload.ImageLoader;
+import com.jumplife.movieinfo.EzCheckActivity;
 import com.jumplife.movieinfo.R;
 import com.jumplife.movieinfo.entity.Theater;
 
@@ -62,6 +63,8 @@ public class ScheduleAdapter extends BaseAdapter{
 			TextView hall = (TextView)converView.findViewById(R.id.textview_hall);
 			Button buttonBooking = (Button)converView.findViewById(R.id.button_booking);
 			LinearLayout llSchedule = (LinearLayout)converView.findViewById(R.id.linearlayout_schedule);
+			ImageView imageviewTag1 = (ImageView)converView.findViewById(R.id.imageview_tag1);
+			ImageView imageviewTag2 = (ImageView)converView.findViewById(R.id.imageview_tag2);
 			
 			final Theater theater = theaters.get(position);
 			theaterName.setText(theater.getName());
@@ -75,8 +78,14 @@ public class ScheduleAdapter extends BaseAdapter{
 						parameters.put("THEATER", theater.getName());
 						parameters.put("LINK", url);
 						
-						Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url));
-						mContext.startActivity(intent);
+						if(theater.getBuyLink().contains("http://www.ezding.com.tw/jumplife")) {
+							Intent newAct = new Intent();
+			                newAct.setClass(mContext, EzCheckActivity.class);
+			                mContext.startActivity(newAct);
+						} else {
+							Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url));
+							mContext.startActivity(intent);
+						}
 					}				
 				});
 			} else
@@ -115,14 +124,19 @@ public class ScheduleAdapter extends BaseAdapter{
 				Log.d(null, "theater hall type : " + theater.getHallType());
 				String[] tags = theater.getHallType().split("\\*\\*\\*") ;
 				Log.d(null, "tags : " + tags[0]);
-				ImageView imageviewTag1 = (ImageView)converView.findViewById(R.id.imageview_tag1);
-				ImageView imageviewTag2 = (ImageView)converView.findViewById(R.id.imageview_tag2);
-				if(tags.length == 1)
+				if(tags.length == 1) {
 					imageLoader.DisplayImage(tags[0], imageviewTag1);
-				else if (tags.length == 2) {
+					imageviewTag1.setVisibility(View.VISIBLE);
+					imageviewTag2.setVisibility(View.GONE);
+				} else if (tags.length == 2) {
 					imageLoader.DisplayImage(tags[0], imageviewTag1);
 					imageLoader.DisplayImage(tags[1], imageviewTag2);
-				}
+					imageviewTag1.setVisibility(View.VISIBLE);
+					imageviewTag2.setVisibility(View.VISIBLE);
+				}					
+			} else {
+				imageviewTag1.setVisibility(View.GONE);
+				imageviewTag2.setVisibility(View.GONE);
 			}
 			
 		} else

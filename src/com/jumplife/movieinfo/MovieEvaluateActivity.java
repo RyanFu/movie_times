@@ -31,8 +31,10 @@ import android.widget.TextView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.movieinfo.api.MovieAPI;
+import com.jumplife.movieinfo.entity.Movie;
 import com.jumplife.movieinfo.entity.Record;
 import com.jumplife.sectionlistview.RecordListAdapter;
+import com.jumplife.sqlite.SQLiteMovieDiary;
 
 public class MovieEvaluateActivity extends TrackedActivity {
 
@@ -105,6 +107,10 @@ public class MovieEvaluateActivity extends TrackedActivity {
 				    		"com.jumplife.moviediary.MovieShowActivity"));
 			    	appStartIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			    	appStartIntent.putExtra("movie_id", movie_id);
+			    	SQLiteMovieDiary sqlMovieDiary = new SQLiteMovieDiary(MovieEvaluateActivity.this);
+			    	Movie movie = sqlMovieDiary.getMovie(movie_id);
+			    	appStartIntent.putExtra("chineseName", movie.getChineseName());
+			    	appStartIntent.putExtra("posterUrl", movie.getPosterUrl());
 				    MovieEvaluateActivity.this.startActivity(appStartIntent);
 				    
 				    EasyTracker.getTracker().trackEvent("電影短評", "開啟電影櫃", "", (long)0);

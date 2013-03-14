@@ -238,6 +238,9 @@ public class NewsActivity extends TrackedActivity implements AdWhirlInterface{
         } 
 		protected void onPostExecute(String result) {
 			pullMore.setVisibility(View.GONE);
+			if(newsList == null)
+				newsList = new ArrayList<News>(10);
+			
 			if(tmpList != null && tmpList.size() > 0){
 				newsList.addAll(tmpList);
 				newsAdapter.notifyDataSetChanged();

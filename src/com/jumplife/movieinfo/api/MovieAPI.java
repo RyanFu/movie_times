@@ -175,7 +175,7 @@ public class MovieAPI {
 				
 				HashSet<Integer> hashSet = new HashSet<Integer>(updateIds);
 				updateIds = new ArrayList<Integer>(hashSet) ;
-				moviesId[5]=updateIds;
+				moviesId[5] = updateIds;
 				
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -245,6 +245,48 @@ public class MovieAPI {
 		return movieList;
 	}
 	
+	//取得電影資訊
+	public Movie getMovieInfo(Movie movie) {
+		    
+			DateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+			String message = getMessageFromServer("GET", "/api/v1/movies/" + movie.getId() + "/movie_info.json", null);
+			
+			if(message == null) {
+				return movie;
+			}
+			else {
+				try {
+					JSONObject movieJson = new JSONObject(message);
+					if(!movieJson.isNull("release_date")){
+						Date releaseDate = formatter2.parse(movieJson.getString("release_date"));
+						movie.setReleaseDate(releaseDate);
+					}
+					if (!movieJson.isNull("youtube_video_id"))
+					    movie.setYoutubeId(movieJson.getString("youtube_video_id"));
+					if (!movieJson.isNull("level_url"))
+					    movie.setLevelUrl(movieJson.getString("level_url"));
+					if (!movieJson.isNull("running_time"))
+						movie.setRunningTime(movieJson.getInt("running_time"));
+					if (!movieJson.isNull("is_ezding"))
+						movie.set_is_ezding(movieJson.getBoolean("is_ezding"));
+					else
+						movie.set_is_ezding(false);
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return movie;
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return movie;
+				}
+			}
+			SQLiteMovieDiary sqlMovieDiary = new SQLiteMovieDiary(mActivity);
+			sqlMovieDiary.updateMovie(movie);
+			return movie;
+	}
+		
 	//取得電影時刻表
 	public Movie getMovieUpdate(Movie movie) {
 		    

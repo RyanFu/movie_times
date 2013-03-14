@@ -17,8 +17,15 @@ public class MemoryCache {
     private long limit=1000000;//max memory in bytes
 
     public MemoryCache(){
-        //use 25% of available heap size
-        setLimit(Runtime.getRuntime().maxMemory()/4);
+        //use 80% of available heap size
+    	long freeMemorySize = Runtime.getRuntime().freeMemory() * 4 / 5;
+    	if( freeMemorySize <= Runtime.getRuntime().totalMemory() / 16 ) {
+    		clear();
+    		System.gc();
+    		freeMemorySize = Runtime.getRuntime().freeMemory() * 4 / 5;
+    		cache = Collections.synchronizedMap(new LinkedHashMap<String, Bitmap>(10, 0.8f, true));
+    	}
+        setLimit(freeMemorySize);
     }
     
     public void setLimit(long new_limit){

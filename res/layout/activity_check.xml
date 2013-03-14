@@ -19,6 +19,25 @@
 	        android:textSize="13dp"
 	        android:layout_height="40dp"
 	        android:gravity="center"/>
+        
+        <RelativeLayout android:id="@+id/relative_ez"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1.0"
+            android:orientation="horizontal"
+            android:background="@drawable/ding_image_background" 
+            android:gravity="center">
+    
+            <ImageView android:id="@+id/image_ez"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/ezding"
+                android:paddingLeft="2dp" />
+              
+        </RelativeLayout>
+        
 	    <RelativeLayout android:id="@+id/relative_viewshow"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
@@ -136,23 +155,6 @@
                 android:paddingLeft="2dp" />
               
         </RelativeLayout>
-	    <RelativeLayout android:id="@+id/relative_ez"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:weightSum="1.0"
-	        android:orientation="horizontal"
-	        android:background="@drawable/ding_image_background" 
-            android:gravity="center">
-	
-            <ImageView android:id="@+id/image_ez"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:src="@drawable/ezding"
-                android:paddingLeft="2dp" />
-              
-	    </RelativeLayout>
 	    <RelativeLayout android:id="@+id/relative_dingok"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"

@@ -37,6 +37,7 @@
 	            android:layout_marginLeft="10dp"
 	            android:layout_marginTop="10dp"
 	            android:layout_toRightOf="@+id/imageview_movie_poster"
+                android:lines="1"
 	            android:textColor="@color/textcolor_grey"
 	            android:textSize="20dp"
 	            android:text="電影名稱" />
@@ -48,6 +49,7 @@
 	            android:layout_alignLeft="@+id/textView_chinese_name"
 	            android:layout_below="@+id/textView_chinese_name"
 	            android:layout_marginTop = "5dp"
+                android:lines="2"
 	            android:textColor="@color/textcolor_grey"
 	            android:textSize="15dp"
 	            android:text="English Name" />
@@ -74,31 +76,43 @@
 	            android:text="片長:  分" />
 	        
 	        <View 
-                android:id="@+id/view_line0"
+                android:id="@+id/view_line3"
                 android:layout_width="fill_parent"
                 android:layout_height="0.5dp"
-                android:layout_above="@+id/button_video"
+                android:layout_above="@+id/textView_time_title"
                 android:layout_toRightOf="@+id/imageview_movie_poster"
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="0dp"
                 android:background="@color/grey05"
                 />
 	        	        
-	        <Button
-	            android:id="@+id/button_video"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_above="@+id/view_line0"
-	            android:layout_toRightOf="@+id/imageview_movie_poster"
-	            android:layout_margin="3dp"
-	            android:gravity="center_vertical"
-	            android:drawableLeft="@drawable/video"
-	            android:drawableRight="@drawable/navigation_next"
-	            android:background="@drawable/button_background"
-	            android:textColor="@color/textcolor_grey"
-	            android:textSize="15dp"
-	            android:text="  預告片" />
-	        
+	        <TextView
+                android:id="@+id/textView_time_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/textView_time"
+                android:layout_toRightOf="@+id/imageview_movie_poster"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="5dp"
+                android:textSize="20dp"
+                android:gravity="center_vertical"
+                android:text="上映日期" 
+                android:textColor="@color/textcolor_grey"/>
+            <TextView
+                android:id="@+id/textView_time"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/view_line0"
+                android:layout_toRightOf="@+id/imageview_movie_poster"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="5dp"
+                android:paddingLeft="5dp"
+                android:textSize="15dp"
+                android:gravity="center_vertical"
+                android:text="上映日期..." 
+                android:textColor="@color/textcolor_grey"/>
+            
 	        <View 
 	            android:id="@+id/view_line0"
 	            android:layout_width="fill_parent"
@@ -107,36 +121,57 @@
 	            android:layout_marginTop="0dp"
 	            android:background="@color/main_color_yellow"
 	            />
-	        <TextView
-	            android:id="@+id/textView_time_title"
+	        <LinearLayout android:id="@+id/ll_button"
 	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_below="@+id/view_line0"
-	            android:layout_marginTop="5dp"
-	            android:paddingLeft="5dp"
-	            android:textSize="20dp"
-	            android:gravity="center_vertical"
-	            android:text="上映日期" 
-	            android:textColor="@color/textcolor_grey"/>
-	        <TextView
-	            android:id="@+id/textView_time"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_below="@+id/textView_time_title"
-	            android:layout_marginTop="2dp"
-	            android:layout_marginLeft="2dp"
-	            android:paddingLeft="5dp"
-	            android:textSize="15dp"
-	            android:gravity="center_vertical"
-	            android:text="上映日期..." 
-	            android:textColor="@color/textcolor_grey"/>
+	            android:layout_height="50dp"
+                android:layout_below="@+id/view_line0"
+	            android:orientation="horizontal"
+	            android:weightSum="1.0">
+
+		        <Button
+		            android:id="@+id/button_video"
+		            android:layout_width="fill_parent"
+		            android:layout_height="50dp"
+		            android:layout_weight="0.5"
+                    android:layout_marginBottom="1dp"
+		            android:paddingLeft="20dp"
+		            android:paddingRight="20dp"
+		            android:background="@drawable/button_info_background"
+		            android:drawableLeft="@drawable/btn_play"
+		            android:gravity="center"
+		            android:text="預告片"
+		            android:textColor="@color/textcolor_grey"
+		            android:textSize="15dp" />
+
+		        <View 
+	                android:layout_width="0.5dp"
+	                android:layout_height="50dp"
+	                android:background="@color/grey05"
+	                />
+		        
+		        <Button
+	                android:id="@+id/button_ezcheck"
+	                android:layout_width="fill_parent"
+	                android:layout_height="50dp"
+                    android:layout_weight="0.5"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:clickable="false"
+	                android:gravity="center"
+	                android:drawableLeft="@drawable/btn_ezcheck_non"
+	                android:background="@drawable/button_info_background"
+	                android:textColor="@color/black"
+	                android:textSize="15dp"
+	                android:text="訂票" />
+	        </LinearLayout>
 	        
 	        <View 
 	            android:id="@+id/view_line1"
 	            android:layout_width="fill_parent"
 	            android:layout_height="0.5dp"
-	            android:layout_below="@+id/textView_time"
-	            android:layout_marginTop="5dp"
+	            android:layout_below="@+id/ll_button"
 	            android:background="@color/grey05"
 	            />
 	       

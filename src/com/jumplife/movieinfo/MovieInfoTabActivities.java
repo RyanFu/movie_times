@@ -1,16 +1,12 @@
 package com.jumplife.movieinfo;
 
 import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
-import com.google.ads.AdRequest;
-import com.google.ads.AdSize;
-import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedTabActivity;
 import com.jumplife.ad.AdGenerator;
 import com.jumplife.sharedpreferenceio.SharePreferenceIO;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,8 +31,6 @@ public class MovieInfoTabActivities extends TrackedTabActivity implements OnTabC
     private LinearLayout topbarLayout;
 	private int movie_id;
 	private int theater_id;
-	private AdView adView;
-	
 	public static String TAG = "MovieInfoTabActivities";
 	
 	/** Called when the activity is first created. */
@@ -55,7 +49,7 @@ public class MovieInfoTabActivities extends TrackedTabActivity implements OnTabC
         textViewFeedback.setOnClickListener(new OnClickListener(){
 			public void onClick(View arg0) {
 				Uri uri = Uri.parse("mailto:jumplives@gmail.com");  
-				String[] ccs={"abooyaya@gmail.com, chunyuko85@gmail.com, raywu07@gmail.com, supermfb@gmail.com, form.follow.fish@gmail.com"};
+				String[] ccs={"abooyaya@gmail.com, raywu07@gmail.com, supermfb@gmail.com, form.follow.fish@gmail.com"};
 				Intent it = new Intent(Intent.ACTION_SENDTO, uri);
 				it.putExtra(Intent.EXTRA_CC, ccs); 
 				it.putExtra(Intent.EXTRA_SUBJECT, "[電影時刻表] 建議回饋(電影 : " + movie_name + ")");
@@ -77,9 +71,9 @@ public class MovieInfoTabActivities extends TrackedTabActivity implements OnTabC
         
         setTabClickLog();
         
-        Bundle bundle = this.getIntent().getExtras();
+        /*Bundle bundle = this.getIntent().getExtras();
         if(bundle == null)
-        	tabHost.setCurrentTab(0);
+        	tabHost.setCurrentTab(0);*/
         
         topbarLayout.setVisibility(View.VISIBLE);		
 		//tabHost.setOnTabChangedListener(this);
@@ -92,9 +86,9 @@ public class MovieInfoTabActivities extends TrackedTabActivity implements OnTabC
     @Override
     public void onResume(){
 		super.onResume();
-		Bundle bundle = this.getIntent().getExtras();
+		/*Bundle bundle = this.getIntent().getExtras();
         if(bundle != null)
-        	tabHost.setCurrentTab(bundle.getInt("tabNo"));
+        	tabHost.setCurrentTab(bundle.getInt("tabNo"));*/
 	}
     
     @Override

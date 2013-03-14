@@ -3,9 +3,6 @@ package com.jumplife.movieinfo;
 import java.util.ArrayList;
 
 import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
-import com.google.ads.AdRequest;
-import com.google.ads.AdSize;
-import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.ad.AdGenerator;
@@ -23,7 +20,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnKeyListener;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -45,7 +41,6 @@ import android.widget.Toast;
 
 public class MovieList extends TrackedActivity implements AdWhirlInterface{
 	
-	private AdView adView;
 	private SharePreferenceIO shIO;
 	private boolean likeTheater = false;
 	String[] likeTheaters;
@@ -143,8 +138,14 @@ public class MovieList extends TrackedActivity implements AdWhirlInterface{
 		theaterCheck.setOnClickListener(new OnClickListener() {  
 			public void onClick(View arg0) {
 				EasyTracker.getTracker().trackEvent("電影院資訊", "訂票", "", (long)0);
-				Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(theater.getBuyLink()));
-				startActivity(intent);
+				if(theater.getBuyLink().contains("movietimes_jl")) {
+					Intent newAct = new Intent();
+	                newAct.setClass(MovieList.this, EzCheckActivity.class);
+	                startActivity(newAct);
+				} else {
+					Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(theater.getBuyLink()));
+					startActivity(intent);
+				}
 			}
 		});
 		theaterPhone.setOnClickListener(new OnClickListener() {

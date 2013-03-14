@@ -48,8 +48,10 @@ public class MovieGalleryAdapter extends BaseAdapter{
 		
 		rank.setText(String.valueOf((position + 1)));
 		
-		name.setText(movies.get(position).getChineseName());
-		imageLoader.DisplayImage(movies.get(position).getPosterUrl(), poster);
+		if(position < movies.size()) {
+			name.setText(movies.get(position).getChineseName());
+			imageLoader.DisplayImage(movies.get(position).getPosterUrl(), poster);
+		}
 		
 		return converView;
 	}

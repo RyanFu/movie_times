@@ -7,9 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
-import com.google.ads.AdRequest;
-import com.google.ads.AdSize;
-import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.ad.AdGenerator;
@@ -25,7 +22,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
-import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -35,7 +32,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterface{
@@ -47,9 +43,7 @@ public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterfa
 	private ImageView level;
 	private TextView runningtime;
 	private Button play_btn;
-	private AdView adView;
-	//private Button schedule_btn;
-	
+	private Button ezcheck_btn;
 	private TextView textView_time;
 	//private TextView textView_drama;
 	private TextView textView_director;
@@ -150,6 +144,20 @@ public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterfa
 	    			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(movie.getYoutubeVideoUrl())));
 			}
 		});
+		
+		if(movie.get_is_ezding()) {
+			ezcheck_btn.setClickable(true);
+			Drawable ezding = getResources().getDrawable(R.drawable.btn_ezcheck);
+			ezcheck_btn.setTextColor(getResources().getColor(R.color.textcolor_grey));
+			ezcheck_btn.setCompoundDrawablesWithIntrinsicBounds(ezding, null, null, null);
+			ezcheck_btn.setOnClickListener(new OnClickListener() {
+		    	public void onClick(View v) {
+		    		Intent newAct = new Intent();
+	                newAct.setClass(MovieInfoActivity.this, EzCheckActivity.class);
+	                startActivity(newAct);
+				}
+			});
+		}
 	}
 	
 	private void findViews() {
@@ -167,9 +175,8 @@ public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterfa
 		 level = (ImageView)findViewById(R.id.imageView_level);
 		 runningtime = (TextView)findViewById(R.id.textView_runningtime);
 		 play_btn = (Button)findViewById(R.id.button_video);
-		 //schedule_btn = (Button)findViewById(R.id.button_schedule);
+		 ezcheck_btn = (Button)findViewById(R.id.button_ezcheck);
 		 textView_time = (TextView)findViewById(R.id.textView_time);
-		 //textView_drama = (TextView)findViewById(R.id.textView_drama);
 		 textView_director = (TextView)findViewById(R.id.textView_director);
 		 textView_actor = (TextView)findViewById(R.id.textView_actor);	
 	}
@@ -177,6 +184,8 @@ public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterfa
     private void fetchData() {
     	SQLiteMovieDiary sqlMovieDiary = new SQLiteMovieDiary(this);
 		movie = sqlMovieDiary.getMovie(movie_id);
+    	MovieAPI movieAPI = new MovieAPI();
+    	movie = movieAPI.getMovieInfo(movie);
 	}
     
     class UpdateMovieTask extends AsyncTask<Integer, Integer, String>{
@@ -265,10 +274,10 @@ public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterfa
 	        	setViews();
 	            setListener();
         	}
-        	if(movie != null && (movie.getReleaseDate() == null || movie.getRunningTime() == 0 || movie.getYoutubeId() == null)) {                
+        	/*if(movie != null && (movie.getReleaseDate() == null || movie.getRunningTime() == 0 || movie.getYoutubeId() == null)) {                
                 UpdateMovieTask updateTask = new UpdateMovieTask();
                 updateTask.execute();
-        	}
+        	}*/
             super.onPostExecute(result);  
         }  
           
