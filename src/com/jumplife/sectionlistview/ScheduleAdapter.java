@@ -3,6 +3,7 @@ package com.jumplife.sectionlistview;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.jumplife.imageload.ImageLoader;
 import com.jumplife.movieinfo.EzCheckActivity;
 import com.jumplife.movieinfo.R;
@@ -79,10 +80,12 @@ public class ScheduleAdapter extends BaseAdapter{
 						parameters.put("LINK", url);
 						
 						if(theater.getBuyLink().contains("http://www.ezding.com.tw/jumplife")) {
+							EasyTracker.getTracker().trackEvent("時刻表", "訂票", "EZ訂", (long)0);
 							Intent newAct = new Intent();
 			                newAct.setClass(mContext, EzCheckActivity.class);
 			                mContext.startActivity(newAct);
 						} else {
+							EasyTracker.getTracker().trackEvent("時刻表", "訂票", url, (long)0);
 							Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url));
 							mContext.startActivity(intent);
 						}

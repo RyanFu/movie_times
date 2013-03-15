@@ -137,12 +137,13 @@ public class MovieList extends TrackedActivity implements AdWhirlInterface{
 		});
 		theaterCheck.setOnClickListener(new OnClickListener() {  
 			public void onClick(View arg0) {
-				EasyTracker.getTracker().trackEvent("電影院資訊", "訂票", "", (long)0);
 				if(theater.getBuyLink().contains("movietimes_jl")) {
+					EasyTracker.getTracker().trackEvent("電影院資訊", "訂票", "EZ訂", (long)0);
 					Intent newAct = new Intent();
 	                newAct.setClass(MovieList.this, EzCheckActivity.class);
 	                startActivity(newAct);
 				} else {
+					EasyTracker.getTracker().trackEvent("電影院資訊", "訂票", "非EZ訂", (long)0);
 					Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(theater.getBuyLink()));
 					startActivity(intent);
 				}

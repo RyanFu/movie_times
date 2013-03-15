@@ -152,6 +152,7 @@ public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterfa
 			ezcheck_btn.setCompoundDrawablesWithIntrinsicBounds(ezding, null, null, null);
 			ezcheck_btn.setOnClickListener(new OnClickListener() {
 		    	public void onClick(View v) {
+		    		EasyTracker.getTracker().trackEvent("電影簡介", "EZ訂訂票", "", (long)0);
 		    		Intent newAct = new Intent();
 	                newAct.setClass(MovieInfoActivity.this, EzCheckActivity.class);
 	                startActivity(newAct);
