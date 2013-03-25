@@ -1,6 +1,7 @@
 package com.jumplife.movieinfo;
 
 import com.google.analytics.tracking.android.TrackedActivity;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.webkit.WebSettings.ZoomDensity;
 import android.webkit.WebView;
@@ -10,6 +11,7 @@ public class EzCheckActivity extends TrackedActivity {
 	
 	private WebView webviewPic;
 	
+	@SuppressLint("SetJavaScriptEnabled")
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -22,6 +24,7 @@ public class EzCheckActivity extends TrackedActivity {
 		
 		webviewPic.loadUrl("http://www.ezding.com.tw/jumplife/mmb.do?campaign_code=movietimes_jl");
 		webviewPic.getSettings().setSupportZoom(true);
+		webviewPic.getSettings().setJavaScriptEnabled(true);
 		webviewPic.getSettings().setBuiltInZoomControls(true);
 		webviewPic.setInitialScale(100);
 		webviewPic.getSettings().setDefaultZoom(ZoomDensity.FAR);

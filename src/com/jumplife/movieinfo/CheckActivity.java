@@ -12,10 +12,10 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 
 public class CheckActivity extends TrackedActivity {
-	private RelativeLayout viewshow, amb, miamar, in, sbc, lie, westin, ez, dingok;
+	private ImageView viewshow, amb, miamar, in, sbc, lie, westin, ez, dingok;
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,15 +25,15 @@ public class CheckActivity extends TrackedActivity {
     }
 	
 	private void findView(){
-		viewshow = (RelativeLayout)findViewById(R.id.relative_viewshow); 
-		amb = (RelativeLayout)findViewById(R.id.relative_amb); 
-		miamar = (RelativeLayout)findViewById(R.id.relative_miramar); 
-		in = (RelativeLayout)findViewById(R.id.relative_in); 
-		sbc = (RelativeLayout)findViewById(R.id.relative_sbc);
-		lie = (RelativeLayout)findViewById(R.id.relative_lie); 
-		westin = (RelativeLayout)findViewById(R.id.relative_westin);
-		ez = (RelativeLayout)findViewById(R.id.relative_ez);
-		dingok  = (RelativeLayout)findViewById(R.id.relative_dingok);
+		viewshow = (ImageView)findViewById(R.id.image_viewshow); 
+		amb = (ImageView)findViewById(R.id.image_amb); 
+		miamar = (ImageView)findViewById(R.id.image_miramar); 
+		in = (ImageView)findViewById(R.id.image_in); 
+		sbc = (ImageView)findViewById(R.id.image_sbc);
+		lie = (ImageView)findViewById(R.id.image_lie); 
+		westin = (ImageView)findViewById(R.id.image_westin);
+		ez = (ImageView)findViewById(R.id.image_ez);
+		dingok  = (ImageView)findViewById(R.id.image_dingok);
 	}
 	
 	private void setListListener() {
