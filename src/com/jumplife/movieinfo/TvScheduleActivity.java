@@ -171,7 +171,7 @@ public class TvScheduleActivity extends TrackedActivity implements AdWhirlInterf
 	    				Integer.parseInt(time[0]), Integer.parseInt(time[1]), 0);
 	    		intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
 	    		  calDate.getTimeInMillis());
-	    		calDate.set(date.getYear()+1900, month, day,
+	    		calDate.set(date.getYear()+1900, month-1, day,
 	    				Integer.parseInt(time[0]), Integer.parseInt(time[1]) + 10, 0);
 	    		intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
 	    		  calDate.getTimeInMillis());

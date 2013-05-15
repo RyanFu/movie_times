@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.jumplife.movieinfo.TvScheduleActivity;
+import com.jumplife.movieinfo.entity.AppProject;
 import com.jumplife.movieinfo.entity.Movie;
 import com.jumplife.movieinfo.entity.News;
 import com.jumplife.movieinfo.entity.Record;
@@ -832,6 +833,90 @@ public class MovieAPI {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public ArrayList<AppProject> getAppProjectList (Activity mActivity) {
+		ArrayList<AppProject> appList = new ArrayList<AppProject>(10);
+		String requestMethod = "GET";
+		URL url;
+		String message = null;
+		try {
+			url = new URL("http://mmedia.jumplife.com.tw/api/v1/appprojects.json");
+			JSONObject json = null;
+			
+			HttpURLConnection connection;
+			connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod(requestMethod);
+			
+			connection.setRequestProperty("Content-Type",  "application/json;charset=utf-8");
+			if(requestMethod.equalsIgnoreCase("POST"))
+				connection.setDoOutput(true);
+			else
+				connection.setDoInput(true);
+			connection.connect();
+			
+			
+			if(requestMethod.equalsIgnoreCase("POST")) {
+				OutputStream outputStream;
+				
+				outputStream = connection.getOutputStream();
+				if(DEBUG)
+					Log.d("post message", json.toString());
+				
+				outputStream.write(json.toString().getBytes());
+				outputStream.flush();
+				outputStream.close();
+			}
+			
+			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			StringBuilder lines = new StringBuilder();
+			String tempStr;
+			
+			while ((tempStr = reader.readLine()) != null) {
+	            lines = lines.append(tempStr);
+	        }
+			if(DEBUG)
+				Log.d(TAG, lines.toString());
+			
+			reader.close();
+			connection.disconnect();
+			
+			message =  lines.toString();
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(message == null) {
+			return null;
+		}
+		else {
+			JSONArray appArray;
+			
+			try {
+				appArray = new JSONArray(message.toString());
+				for (int i = 0; i < appArray.length() ; i++) {
+					JSONObject appJson = appArray.getJSONObject(i);
+					String name = appJson.getString("name"); 
+					String iconurl = appJson.getString("iconurl");
+					String pack = appJson.getString("pack");
+					String clas = appJson.getString("clas");
+					
+					if(!mActivity.getApplicationContext().getPackageName().equals(pack)) {
+				    	AppProject appProject = new AppProject(name, iconurl, pack, clas);
+				    	appList.add(appProject);
+				    }
+				}
+			} 
+			catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return appList;
 	}
 	
 	public void getPromotion(String picUrl, String link, String title, String description) {
