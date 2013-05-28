@@ -18,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.util.Log;
 
@@ -30,6 +31,7 @@ import com.jumplife.movieinfo.entity.Theater;
 import com.jumplife.movieinfo.entity.User;
 import com.jumplife.sqlite.SQLiteMovieDiary;
 
+@SuppressLint("SimpleDateFormat")
 public class MovieAPI {
 
 	private String urlAddress;
@@ -43,7 +45,7 @@ public class MovieAPI {
 	private boolean doOutput;
 	
 	public static final String TAG = "MOVIE_API";
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	
 	public static final String FILTER_RECENT = "FILTER_RECENT";
 	public static final String FILTER_FIRST_ROUND = "FILTER_FIRST_ROUND";
@@ -835,6 +837,7 @@ public class MovieAPI {
 		}
 	}
 	
+	@SuppressWarnings("null")
 	public ArrayList<AppProject> getAppProjectList (Activity mActivity) {
 		ArrayList<AppProject> appList = new ArrayList<AppProject>(10);
 		String requestMethod = "GET";

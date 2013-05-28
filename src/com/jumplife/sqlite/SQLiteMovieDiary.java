@@ -377,7 +377,7 @@ public class SQLiteMovieDiary extends SQLiteOpenHelper {
         ArrayList<Integer> returnsID = new ArrayList<Integer>();
         ArrayList<Integer> dbsID = new ArrayList<Integer>();
         openDataBase();
-        Cursor cursor = db.rawQuery("SELECT id FROM " + MovieTable, null);
+        Cursor cursor = db.rawQuery("SELECT id FROM \"movies\" ", null);
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
                 dbsID.add(cursor.getInt(0));
