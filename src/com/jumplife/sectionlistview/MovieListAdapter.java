@@ -11,19 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MovieListAdapter extends BaseAdapter implements Filterable{
+public class MovieListAdapter extends BaseAdapter {
 	
-    public static final int ALL=-1; //全部需要  
-    public static final int FILTER_HEAD=0;//从头开始过滤  
-    public static final int FILTER_FOOT=1;//从后开始过滤  
-    public static final int FILTER_BODY=2;//任意过滤  
-    
-    Context mContext;
+	Context mContext;
     private ArrayList<Movie> movies;
 	private ImageLoader imageLoader;
 	
@@ -51,27 +44,24 @@ public class MovieListAdapter extends BaseAdapter implements Filterable{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
 		LayoutInflater myInflater = LayoutInflater.from(mContext);
-		View converView = myInflater.inflate(R.layout.listview_movies, null);
+		View converView = myInflater.inflate(R.layout.fragment_movietime_listitem, null);
 		
-		ImageView poster = (ImageView)converView.findViewById(R.id.movie_poster);
-		TextView name = (TextView)converView.findViewById(R.id.movie_name);
-		TextView name_en = (TextView)converView.findViewById(R.id.movie_name_en);
-		TextView hall = (TextView)converView.findViewById(R.id.movie_hall);
+		ImageView poster = (ImageView)converView.findViewById(R.id.listitem_movie_poster);
+		TextView name = (TextView)converView.findViewById(R.id.listitem_movie_name);
+		TextView name_en = (TextView)converView.findViewById(R.id.listitem_movie_name_en);
+		TextView date = (TextView)converView.findViewById(R.id.listitem_movie_release_date);
 		name.setText(movies.get(position).getChineseName());
 		name_en.setText(movies.get(position).getEnglishName());
-		if(movies.get(position).getHall()!= null && !movies.get(position).getHall().equals("")) {
-			hall.setText(movies.get(position).getHall());
-			hall.setVisibility(View.VISIBLE);
+		if(movies.get(position).getReleaseDate()!= null && !movies.get(position).getReleaseDate().equals("")) {
+			String dateString = String.format("yyyy-mm-dd", movies.get(position).getReleaseDate());
+			date.setText(dateString);
+			date.setVisibility(View.VISIBLE);
 		} else
-			hall.setVisibility(View.GONE);
+			date.setVisibility(View.GONE);
 		imageLoader.DisplayImage(movies.get(position).getPosterUrl(), poster);
 		
 		return converView;
 
 	}
 
-	public Filter getFilter() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

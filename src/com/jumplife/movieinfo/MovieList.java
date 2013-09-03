@@ -227,7 +227,7 @@ public class MovieList extends TrackedActivity implements AdWhirlInterface{
 			movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_RECENT);
 		else if (listType == TYPE.FIRSTROUND)
 			movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_FIRST_ROUND);
-		else if (listType == TYPE.SECONDROUND)
+        else if (listType == TYPE.SECONDROUND)
 			movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_SECOND_ROUND);
 		else if (listType == TYPE.WEEKLY)
 			movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_THIS_WEEK);

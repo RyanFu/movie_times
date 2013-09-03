@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    
     <color name="main_color_yellow">#f6c737</color>
     <color name="main_color_grey_dark">#2a2723</color>
+    
+    <!-- NEW MOVIE TIME COLOR -->
+    <color name="color_white_a">#ffffff</color>
+    <color name="color_grey_b">#2b2b2b</color>
+    <color name="color_bgtx_c">#0a0a0a</color>
+    <color name="color_yellow_d">#daa60b</color>
+    <color name="color_darkyellow_e">#6d4b00</color>
+    
     
      <!-- Add for Report -->
     <color name="report_view_1">#f6c737</color>

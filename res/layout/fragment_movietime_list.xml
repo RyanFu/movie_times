@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bgtx_c" >
+    <ListView
+	        android:id="@+id/frag_listview_movie"
+	        android:layout_width="match_parent"
+    		android:layout_height="match_parent"
+	        android:background="@color/color_bgtx_c"
+	        android:divider="@color/color_grey_b"
+    		android:dividerHeight="1dp" 
+    		android:paddingLeft="10dp"
+    		android:paddingRight="10dp"/>
+    <ImageView 
+        	android:id="@+id/iv_movie_list_refresh"
+        	android:layout_width="match_parent"
+    		android:layout_height="match_parent"
+    		android:src="@drawable/renew"
+    		android:background="@null"
+    		android:contentDescription="@null"/>
+
+</RelativeLayout>

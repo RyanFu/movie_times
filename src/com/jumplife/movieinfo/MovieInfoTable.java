@@ -154,7 +154,7 @@ public class MovieInfoTable extends TrackedActivity {
        
             Intent newAct = new Intent();
     		newAct.putExtra("movielist", 1);
-            newAct.setClass( MovieInfoTable.this, MovieSectionList.class );
+            newAct.setClass( MovieInfoTable.this, MovieSectionList.class);
             startActivity( newAct );
 		}
     };

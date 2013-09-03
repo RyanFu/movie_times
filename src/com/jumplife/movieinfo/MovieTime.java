@@ -29,7 +29,7 @@ public class MovieTime extends TrackedActivity {
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movietime);
         loading = (TextView)findViewById(R.id.textview_loading);
         loading.setText("更新資料中...");
@@ -83,8 +83,11 @@ public class MovieTime extends TrackedActivity {
 	}
 	
 	private void setData(){
+		SharePreferenceIO spIO = new SharePreferenceIO(this);
+		spIO.SharePreferenceI("typeId", 1);
+		
 		Intent newAct = new Intent();
-		newAct.setClass( MovieTime.this, MovieTabActivities.class );
+		newAct.setClass( MovieTime.this, MainMenuActivity.class );
 		startActivity(newAct);
     	finish();
 	}

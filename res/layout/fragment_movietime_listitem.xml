@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content" 
+    android:layout_width="match_parent" 
+    android:padding="6dp"
+    android:background="@drawable/listitem_background" 
+    android:weightSum="13">
+    <LinearLayout
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_weight="3">
+    <ImageView android:id="@+id/listitem_movie_poster"
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_gravity="center_vertical"
+        android:paddingBottom="4dp"
+        android:src="@drawable/stub" 
+        android:background="@drawable/listitem_background"
+        android:contentDescription="@null"
+        />
+    </LinearLayout>
+    <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="match_parent" 
+        android:orientation="vertical"
+        android:layout_weight="10" 
+        android:weightSum="15">
+    	<LinearLayout	android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp" 
+        android:layout_weight="14" >
+	        <TextView android:text="電影名稱"
+	            android:textStyle="bold"
+	            android:id="@+id/listitem_movie_name"
+	            android:layout_width="wrap_content" android:layout_height="wrap_content"
+	            android:singleLine="true" 
+	            android:textSize="28dp"
+	            android:textColor="@color/color_white_a" />
+	        <TextView android:text="English Name"
+	            android:id="@+id/listitem_movie_name_en"
+	            android:layout_width="wrap_content" android:layout_height="wrap_content"
+	            android:layout_marginTop="5dp"
+	            android:textSize="20dp"
+	            android:textColor="@color/color_white_a" />
+		</LinearLayout>
+		<LinearLayout	android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1" >
+        <TextView
+            android:id="@+id/listitem_movie_release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上映日期:2013-09-03"
+            android:singleLine="true"
+            android:textColor="@color/color_white_a"
+            android:textSize="19dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
+
+ 

@@ -173,9 +173,9 @@ public class MovieSectionList extends TrackedActivity implements AdWhirlInterfac
         SQLiteMovieDiary sqlMovieDiary = new SQLiteMovieDiary(this);
         if (listType == TYPE.RECENT)
             movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_RECENT);
-        else if (listType == TYPE.FIRSTROUND)
-            movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_FIRST_ROUND);
-        else if (listType == TYPE.SECONDROUND)
+        else if (listType == TYPE.FIRSTROUND){
+        	movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_FIRST_ROUND);
+        }else if (listType == TYPE.SECONDROUND)
             movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_SECOND_ROUND);
         else if (listType == TYPE.WEEKLY)
             movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_THIS_WEEK);
