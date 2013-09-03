@@ -1,13 +1,16 @@
-package com.jumplife.sectionlistview;
+package com.jumplife.adapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.google.analytics.tracking.android.EasyTracker;
-import com.jumplife.imageload.ImageLoader;
 import com.jumplife.movieinfo.EzCheckActivity;
 import com.jumplife.movieinfo.R;
 import com.jumplife.movieinfo.entity.Theater;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import android.content.Context;
 import android.content.Intent;
@@ -30,12 +33,22 @@ import android.widget.TextView;
 public class ScheduleAdapter extends BaseAdapter{
 	ArrayList<Theater> theaters;
     Context mContext;
-    private ImageLoader imageLoader;
+	private ImageLoader imageLoader = ImageLoader.getInstance();
+	private DisplayImageOptions options;
 	
 	public ScheduleAdapter(Context mContext, ArrayList<Theater> theaterList){
 		this.theaters = theaterList;
 		this.mContext = mContext;
-		imageLoader=new ImageLoader(mContext);
+		
+		options = new DisplayImageOptions.Builder()
+		.showStubImage(R.drawable.stub)
+		.showImageForEmptyUri(R.drawable.stub)
+		.showImageOnFail(R.drawable.stub)
+		.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+		.cacheOnDisc()
+		.cacheInMemory()
+		.displayer(new SimpleBitmapDisplayer())
+		.build();
 	}
 
 	public int getCount() {
@@ -128,12 +141,12 @@ public class ScheduleAdapter extends BaseAdapter{
 				String[] tags = theater.getHallType().split("\\*\\*\\*") ;
 				Log.d(null, "tags : " + tags[0]);
 				if(tags.length == 1) {
-					imageLoader.DisplayImage(tags[0], imageviewTag1);
+					imageLoader.displayImage(tags[0], imageviewTag1, options);
 					imageviewTag1.setVisibility(View.VISIBLE);
 					imageviewTag2.setVisibility(View.GONE);
 				} else if (tags.length == 2) {
-					imageLoader.DisplayImage(tags[0], imageviewTag1);
-					imageLoader.DisplayImage(tags[1], imageviewTag2);
+					imageLoader.displayImage(tags[0], imageviewTag1, options);
+					imageLoader.displayImage(tags[1], imageviewTag2, options);
 					imageviewTag1.setVisibility(View.VISIBLE);
 					imageviewTag2.setVisibility(View.VISIBLE);
 				}					

@@ -9,9 +9,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleLis
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.jumplife.ad.AdGenerator;
+import com.jumplife.adapter.NewsAdapter;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.News;
-import com.jumplife.sectionlistview.NewsAdapter;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;

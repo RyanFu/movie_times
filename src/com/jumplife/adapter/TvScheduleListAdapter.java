@@ -1,4 +1,4 @@
-package com.jumplife.sectionlistview;
+package com.jumplife.adapter;
 
 import java.util.ArrayList;
 

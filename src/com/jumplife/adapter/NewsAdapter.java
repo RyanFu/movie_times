@@ -1,8 +1,9 @@
-package com.jumplife.sectionlistview;
+package com.jumplife.adapter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,18 +12,33 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jumplife.imageload.ImageLoader;
 import com.jumplife.movieinfo.R;
 import com.jumplife.movieinfo.entity.News;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
+@SuppressLint("SimpleDateFormat")
 public class NewsAdapter extends BaseAdapter{
 	private Context mContext;
-	 private ArrayList<News> newsList;
-	 private ImageLoader imageLoader;
+	private ArrayList<News> newsList;
+	private ImageLoader imageLoader = ImageLoader.getInstance();
+	private DisplayImageOptions options;
+	
 	public NewsAdapter(Context mContext,  ArrayList<News> newsList){
 		this.newsList = newsList;
 		this.mContext = mContext;
-		imageLoader = new ImageLoader(mContext); 
+		
+		options = new DisplayImageOptions.Builder()
+		.showStubImage(R.drawable.stub)
+		.showImageForEmptyUri(R.drawable.stub)
+		.showImageOnFail(R.drawable.stub)
+		.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+		.cacheOnDisc()
+		.cacheInMemory()
+		.displayer(new SimpleBitmapDisplayer())
+		.build(); 
 	}
 
 	public int getCount() {
@@ -51,7 +67,7 @@ public class NewsAdapter extends BaseAdapter{
 		TextView textViewRealeaseDate = (TextView)converView.findViewById(R.id.textviewofreleasedate);
 		if (newsList.get(position).getThumbnailUrl() != null) {
 			//Log.d("NewsAdapter", "Thumbnail: " + newsList.get(position).getThumbnailUrl());
-			imageLoader.DisplayImage(newsList.get(position).getThumbnailUrl(), imageviewThumbnail);
+			imageLoader.displayImage(newsList.get(position).getThumbnailUrl(), imageviewThumbnail, options);
 		}
 		textvieTitle.setText(newsList.get(position).getTitle());
 		

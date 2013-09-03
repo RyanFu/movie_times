@@ -16,7 +16,9 @@
     <string name="thanks">不用,謝謝</string>
     <string name="advice_and_feedback">建議回饋</string>
     <string name="facebook">FB粉絲團</string>
-    <string name="entertainment_news">電影報</string>
+    <string name="entertainment_news">電影報</string>   
+    <string name="clear">清除緩衝</string>
+    <string name="clear_finish">清除緩衝完成</string>
     
     <string name="ga_api_key">UA-33141342-3</string>
     <!-- <string name="admob_key">a1508932444a8e4</string>  admob only -->

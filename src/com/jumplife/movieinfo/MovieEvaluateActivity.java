@@ -14,6 +14,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -30,11 +31,11 @@ import android.widget.TextView;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedActivity;
+import com.jumplife.adapter.RecordListAdapter;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.Movie;
 import com.jumplife.movieinfo.entity.Record;
-import com.jumplife.sectionlistview.RecordListAdapter;
-import com.jumplife.sqlite.SQLiteMovieDiary;
+import com.jumplife.sqlite.SQLiteMovieInfoHelper;
 
 public class MovieEvaluateActivity extends TrackedActivity {
 
@@ -107,8 +108,15 @@ public class MovieEvaluateActivity extends TrackedActivity {
 				    		"com.jumplife.moviediary.MovieShowActivity"));
 			    	appStartIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			    	appStartIntent.putExtra("movie_id", movie_id);
-			    	SQLiteMovieDiary sqlMovieDiary = new SQLiteMovieDiary(MovieEvaluateActivity.this);
-			    	Movie movie = sqlMovieDiary.getMovie(movie_id);
+
+			    	SQLiteMovieInfoHelper instance = SQLiteMovieInfoHelper.getInstance(MovieEvaluateActivity.this);
+		    		SQLiteDatabase db = instance.getReadableDatabase();
+		    		
+			    	Movie movie = instance.getMovie(db, movie_id);
+			    	
+			    	db.close();
+			    	instance.closeHelper();
+			    	
 			    	appStartIntent.putExtra("chineseName", movie.getChineseName());
 			    	appStartIntent.putExtra("posterUrl", movie.getPosterUrl());
 				    MovieEvaluateActivity.this.startActivity(appStartIntent);
@@ -137,7 +145,7 @@ public class MovieEvaluateActivity extends TrackedActivity {
 			    if(null != appStartIntent) {
 			    	appStartIntent.addCategory("android.intent.category.LAUNCHER");
 			    	appStartIntent.setComponent(new ComponentName("com.jumplife.moviediary",
-				    		"com.jumplife.moviediary.MovieTabActivities"));
+				    		"com.jumplife.moviediary.MovieDiary"));
 			    	appStartIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				    MovieEvaluateActivity.this.startActivity(appStartIntent);
 			    }

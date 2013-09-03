@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.movieinfo.entity.Movie;
-import com.jumplife.sqlite.SQLiteMovieDiary;
+import com.jumplife.sqlite.SQLiteMovieInfoHelper;
 
 public class MovieIntroContentActivity extends TrackedActivity{
 	
@@ -43,8 +44,11 @@ public class MovieIntroContentActivity extends TrackedActivity{
 	}
 
 	private void fetchData() {
-    	SQLiteMovieDiary sqlMovieDiary = new SQLiteMovieDiary(this);
-		movie = sqlMovieDiary.getMovie(movie_id);
+		SQLiteMovieInfoHelper instance = SQLiteMovieInfoHelper.getInstance(this);
+		SQLiteDatabase db = instance.getReadableDatabase();
+    	movie = instance.getMovie(db, movie_id);
+    	db.close();
+    	instance.closeHelper();
 	}
 	
 	private void setViews() {

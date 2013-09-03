@@ -1,10 +1,13 @@
-package com.jumplife.sectionlistview;
+package com.jumplife.adapter;
 
 import java.util.ArrayList;
 
-import com.jumplife.imageload.ImageLoader;
 import com.jumplife.movieinfo.R;
 import com.jumplife.movieinfo.entity.Movie;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,11 +21,22 @@ public class MovieGalleryAdapter extends BaseAdapter{
 
 	private ArrayList<Movie> movies;
 	private Context mContext;
-	private ImageLoader imageLoader;
+	private ImageLoader imageLoader = ImageLoader.getInstance();
+	private DisplayImageOptions options;
+	
 	public MovieGalleryAdapter(Context mContext, ArrayList<Movie> movies, boolean showVideo){
 		this.movies = movies;
 		this.mContext = mContext;
-		this.imageLoader=new ImageLoader(mContext);
+		
+		options = new DisplayImageOptions.Builder()
+		.showStubImage(R.drawable.stub)
+		.showImageForEmptyUri(R.drawable.stub)
+		.showImageOnFail(R.drawable.stub)
+		.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+		.cacheOnDisc()
+		.cacheInMemory()
+		.displayer(new SimpleBitmapDisplayer())
+		.build();
 	}
 	
 	
@@ -50,7 +64,7 @@ public class MovieGalleryAdapter extends BaseAdapter{
 		
 		if(position < movies.size()) {
 			name.setText(movies.get(position).getChineseName());
-			imageLoader.DisplayImage(movies.get(position).getPosterUrl(), poster);
+			imageLoader.displayImage(movies.get(position).getPosterUrl(), poster, options);
 		}
 		
 		return converView;

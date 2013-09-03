@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.jumplife.movieinfo.TvScheduleActivity;
@@ -29,7 +30,8 @@ import com.jumplife.movieinfo.entity.News;
 import com.jumplife.movieinfo.entity.Record;
 import com.jumplife.movieinfo.entity.Theater;
 import com.jumplife.movieinfo.entity.User;
-import com.jumplife.sqlite.SQLiteMovieDiary;
+import com.jumplife.sharedpreferenceio.SharePreferenceIO;
+import com.jumplife.sqlite.SQLiteMovieInfoHelper;
 
 @SuppressLint("SimpleDateFormat")
 public class MovieAPI {
@@ -37,7 +39,6 @@ public class MovieAPI {
 	private String urlAddress;
 	private HttpURLConnection connection;
 	private String requestedMethod;
-	private Activity mActivity;
 	private int connectionTimeout;
 	private int readTimeout;
 	private boolean usercaches;
@@ -45,7 +46,7 @@ public class MovieAPI {
 	private boolean doOutput;
 	
 	public static final String TAG = "MOVIE_API";
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	
 	public static final String FILTER_RECENT = "FILTER_RECENT";
 	public static final String FILTER_FIRST_ROUND = "FILTER_FIRST_ROUND";
@@ -71,13 +72,8 @@ public class MovieAPI {
 		this(new String(urlAddress), 5000, 5000);
 	}
 	
-	public MovieAPI(Activity a) {
-		this(new String("http://106.187.101.252"));
-		this.mActivity = a;
-	}
-	
 	public MovieAPI() {
-		this(new String("http://106.187.101.252"));
+		this(new String("http://mdiary.jumplife.com.tw"));
 	}
 	
 	public int connect(String requestedMethod, String apiPath) {
@@ -249,7 +245,7 @@ public class MovieAPI {
 	}
 	
 	//取得電影資訊
-	public Movie getMovieInfo(Movie movie) {
+	public Movie getMovieInfo(SQLiteMovieInfoHelper instance, SQLiteDatabase db, Movie movie) {
 		    
 			DateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
 			String message = getMessageFromServer("GET", "/api/v1/movies/" + movie.getId() + "/movie_info.json", null);
@@ -274,6 +270,28 @@ public class MovieAPI {
 						movie.set_is_ezding(movieJson.getBoolean("is_ezding"));
 					else
 						movie.set_is_ezding(false);
+					if (!movieJson.isNull("intro"))
+						movie.setInttroduction(movieJson.getString("intro"));
+					
+					//actor list
+					ArrayList<String> actors = new ArrayList<String>(5);
+					JSONArray actorsArray = movieJson.getJSONArray("actors");
+					if(!(movieJson.isNull("actors"))) {
+						for (int j = 0; j < actorsArray.length(); j++) {
+							actors.add(actorsArray.getString(j));
+						}
+					}
+					movie.setActors(actors);
+					
+					//director list
+					ArrayList<String> directors = new ArrayList<String>(3);
+					if(!(movieJson.isNull("directors"))) {
+						JSONArray directorsArray = movieJson.getJSONArray("directors");
+						for (int k = 0; k < directorsArray.length(); k++) {
+							directors.add(directorsArray.getString(k));
+						}
+					}
+					movie.setDirectors(directors);
 					
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -285,13 +303,13 @@ public class MovieAPI {
 					return movie;
 				}
 			}
-			SQLiteMovieDiary sqlMovieDiary = new SQLiteMovieDiary(mActivity);
-			sqlMovieDiary.updateMovie(movie);
+			instance.updateMovie(db, movie);
+
 			return movie;
 	}
 		
 	//取得電影時刻表
-	public Movie getMovieUpdate(Movie movie) {
+	public Movie getMovieUpdate(SQLiteMovieInfoHelper instance, SQLiteDatabase db, Movie movie) {
 		    
 		    DateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
 			String message = getMessageFromServer("GET", "/api/v1/movies/" + movie.getId() + "/update_release_date_running_time_youtube.json", null);
@@ -326,14 +344,34 @@ public class MovieAPI {
 					return movie;
 				}
 			}
-			SQLiteMovieDiary sqlMovieDiary = new SQLiteMovieDiary(mActivity);
-			sqlMovieDiary.updateMovie(movie);
+    		
+			instance.updateMovie(db, movie);
+			
 			return movie;
 	}
 	
-	public void AddMoviesFromInfo(String idlst) {
+	public Movie getMovieUpdateAll(SQLiteMovieInfoHelper instance, SQLiteDatabase db, Movie movie) {
+		String message = getMessageFromServer("GET", "/api/v1/movies/movies_info.json?movies_id=" + movie.getId(), null);
+		
+		if(message != null) {
+			try {
+				JSONArray movieArray;		
+				movieArray = new JSONArray(message.toString());
+				for (int i = 0; i < movieArray.length() ; i++) {
+					JSONObject movieJson = movieArray.getJSONObject(i);
+					movie = movieJsonToClass(movieJson);
+				}	    		
+	    		instance.updateMovieAll(db, movie);
+			} catch (JSONException e) {
+				e.printStackTrace();
+				return movie;
+			}
+		}
+		return movie;
+	}
+	
+	public void AddMoviesFromInfo(SQLiteMovieInfoHelper instance, SQLiteDatabase db, String idlst) {
 		String message = getMessageFromServer("GET", "/api/v1/movies/movies_info.json?movies_id=" + idlst, null);
-		SQLiteMovieDiary sqlMovieDiary = new SQLiteMovieDiary(mActivity);
 		
 		if(message != null) {
 			try {
@@ -341,12 +379,11 @@ public class MovieAPI {
 				movieArray = new JSONArray(message.toString());
 				ArrayList<Movie> movies = new ArrayList<Movie>();
 				for (int i = 0; i < movieArray.length() ; i++) {
-					Log.d(TAG, "i : " + i);
 					JSONObject movieJson = movieArray.getJSONObject(i);
 					Movie movie = movieJsonToClass(movieJson);
 					movies.add(movie);
-				}
-				sqlMovieDiary.insertMovies(movies);
+				}	    		
+	    		instance.insertMovies(db, movies);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -420,7 +457,7 @@ public class MovieAPI {
 		
 		ArrayList<Theater> threaterList = new ArrayList<Theater>(10);
 		
-		String message = getMessageFromServer("GET", "api/v1/movies/" + movieId + "/timetable.json", null);
+		String message = getMessageFromServer("GET", "api/v1/movies/" + movieId + "/timetablev2.json", null);
 		
 		if(message == null) {
 			return null;
@@ -474,7 +511,7 @@ public class MovieAPI {
 		
 		ArrayList<Theater> threaterList = new ArrayList<Theater>(10);
 		
-		String message = getMessageFromServer("GET", "/api/v1/movies/" + movieId + "/timetable.json?theater_id=" + theaterId, null);
+		String message = getMessageFromServer("GET", "/api/v1/movies/" + movieId + "/timetablev2.json?theater_id=" + theaterId, null);
 		
 		if(message == null) {
 			return null;
@@ -694,8 +731,10 @@ public class MovieAPI {
 				//actor list
 				ArrayList<String> actors = new ArrayList<String>(5);
 				JSONArray actorsArray = movieJson.getJSONArray("actors");
-				for (int j = 0; j < actorsArray.length(); j++) {
-					actors.add(actorsArray.getString(j));
+				if(!(movieJson.isNull("actors"))) {
+					for (int j = 0; j < actorsArray.length(); j++) {
+						actors.add(actorsArray.getString(j));
+					}
 				}
 				
 				//director list
@@ -754,6 +793,7 @@ public class MovieAPI {
 				boolean is_hot = false;
 				boolean is_second_round = false;
 				boolean is_this_week = false;
+				boolean is_ezding = false;
 				if(!movieJson.isNull("is_comming"))
 					is_comming = movieJson.getBoolean("is_comming");
 				if(!movieJson.isNull("is_first_round"))
@@ -764,12 +804,29 @@ public class MovieAPI {
 					is_second_round = movieJson.getBoolean("is_second_round");
 				if(!movieJson.isNull("is_this_week"))
 					is_this_week = movieJson.getBoolean("is_this_week");
+				if(!movieJson.isNull("is_ezding"))
+					is_ezding = movieJson.getBoolean("is_ezding");
 				
 				
-				 movie = new Movie(movieJson.getInt("id"), movieJson.getString("name"), movieJson.getString("name_en"), movieJson.getString("intro"), 
-						 releaseDate, movieJson.getString("poster_url"), runningTime, movieJson.getString("level_url"), actors, directors, recordList, 
-						 movieJson.getString("youtube_video_id"), 0, 0, is_first_round,  is_second_round,  is_hot,  is_this_week, is_comming);
-				 
+				 movie = new Movie(
+						 movieJson.getInt("id"), 
+						 movieJson.getString("name"), 
+						 movieJson.getString("name_en"), 
+						 movieJson.getString("intro"), 
+						 releaseDate, movieJson.getString("poster_url"), 
+						 runningTime, movieJson.getString("level_url"), 
+						 actors, 
+						 directors, 
+						 recordList, 
+						 movieJson.getString("youtube_video_id"), 
+						 0, 
+						 0, 
+						 is_first_round,  
+						 is_second_round,  
+						 is_hot,  
+						 is_this_week, 
+						 is_comming);
+				 movie.set_is_ezding(is_ezding);
 			} 
 			catch (JSONException e) {
 				e.printStackTrace();
@@ -837,79 +894,35 @@ public class MovieAPI {
 		}
 	}
 	
-	@SuppressWarnings("null")
+
+	
 	public ArrayList<AppProject> getAppProjectList (Activity mActivity) {
 		ArrayList<AppProject> appList = new ArrayList<AppProject>(10);
-		String requestMethod = "GET";
-		URL url;
-		String message = null;
-		try {
-			url = new URL("http://mmedia.jumplife.com.tw/api/v1/appprojects.json");
-			JSONObject json = null;
-			
-			HttpURLConnection connection;
-			connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestMethod(requestMethod);
-			
-			connection.setRequestProperty("Content-Type",  "application/json;charset=utf-8");
-			if(requestMethod.equalsIgnoreCase("POST"))
-				connection.setDoOutput(true);
-			else
-				connection.setDoInput(true);
-			connection.connect();
-			
-			
-			if(requestMethod.equalsIgnoreCase("POST")) {
-				OutputStream outputStream;
-				
-				outputStream = connection.getOutputStream();
-				if(DEBUG)
-					Log.d("post message", json.toString());
-				
-				outputStream.write(json.toString().getBytes());
-				outputStream.flush();
-				outputStream.close();
-			}
-			
-			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			StringBuilder lines = new StringBuilder();
-			String tempStr;
-			
-			while ((tempStr = reader.readLine()) != null) {
-	            lines = lines.append(tempStr);
-	        }
-			if(DEBUG)
-				Log.d(TAG, lines.toString());
-			
-			reader.close();
-			connection.disconnect();
-			
-			message =  lines.toString();
-		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
+		String message = getMessageFromServer("GET", "api/v1/appprojects.json", null);
 		if(message == null) {
 			return null;
 		}
-		else {
-			JSONArray appArray;
-			
+		else {			
 			try {
-				appArray = new JSONArray(message.toString());
+				JSONObject tmp = new JSONObject(message.toString());
+				
+				int probability = tmp.getInt("probability");
+				SharePreferenceIO shIO = new SharePreferenceIO(mActivity);
+				shIO.SharePreferenceI("app_promote_probability", probability);
+				
+				JSONArray appArray = tmp.getJSONArray("promotions");
 				for (int i = 0; i < appArray.length() ; i++) {
 					JSONObject appJson = appArray.getJSONObject(i);
-					String name = appJson.getString("name"); 
+					String name = appJson.getString("name");
+					String title = appJson.getString("promo_title");
+					String description = appJson.getString("content");
 					String iconurl = appJson.getString("iconurl");
 					String pack = appJson.getString("pack");
 					String clas = appJson.getString("clas");
 					
 					if(!mActivity.getApplicationContext().getPackageName().equals(pack)) {
-				    	AppProject appProject = new AppProject(name, iconurl, pack, clas);
+				    	AppProject appProject = new AppProject(name, title, description, iconurl, pack, clas);
 				    	appList.add(appProject);
 				    }
 				}
@@ -921,6 +934,7 @@ public class MovieAPI {
 		
 		return appList;
 	}
+	
 	
 	public void getPromotion(String picUrl, String link, String title, String description) {
 				

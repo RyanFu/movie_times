@@ -3,6 +3,7 @@ package com.jumplife.movieinfo;
 import java.util.ArrayList;
 
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -48,13 +49,15 @@ public class AreasActivity extends TrackedActivity{
 			R.id.button22,
 			R.id.button23,
 			R.id.button24,
-			R.id.button25
+			R.id.button25,
+			R.id.button28
 	};
 	private String[] mStrings;
 	private int displayWidth;
 	private int position;
 	
 
+	@SuppressLint("NewApi")
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +81,6 @@ public class AreasActivity extends TrackedActivity{
 				R.id.button18,
 				R.id.button26,
 				R.id.button27,
-				R.id.button28,
 				R.id.button29,
 				R.id.button30
 		};
@@ -192,7 +194,8 @@ class LoadDataTask extends AsyncTask<Integer, Integer, String>{
 
 	        alt_bld.setMessage("是否重新載入資料？").setCancelable(true).setPositiveButton("確定", new DialogInterface.OnClickListener()
 	        {
-	            public void onClick(DialogInterface dialog, int id)
+	            @SuppressLint("NewApi")
+				public void onClick(DialogInterface dialog, int id)
 	            {
 	            	loadDataTask = new LoadDataTask();
 	            	if(Build.VERSION.SDK_INT < 11)

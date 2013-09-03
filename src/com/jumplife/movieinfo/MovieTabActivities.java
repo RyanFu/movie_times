@@ -7,9 +7,13 @@ import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedTabActivity;
 import com.jumplife.ad.AdGenerator;
-import com.jumplife.imageload.ImageLoader;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.sharedpreferenceio.SharePreferenceIO;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -43,6 +47,8 @@ public class MovieTabActivities extends TrackedTabActivity implements OnTabChang
 	private int version;
 	private LoadPromoteTask loadPromoteTask;	
 	private AdView adView;
+	private ImageLoader imageLoader = ImageLoader.getInstance();
+	private DisplayImageOptions options;
 	
 	public static String TAG = "MovieTabActivities";
 	
@@ -294,9 +300,20 @@ public class MovieTabActivities extends TrackedTabActivity implements OnTabChang
 	            ImageView imageView = (ImageView)viewPromotion.findViewById(R.id.imageView1);
 	            TextView textviewTitle = (TextView)viewPromotion.findViewById(R.id.textView1);
 	            TextView textviewDescription = (TextView)viewPromotion.findViewById(R.id.textView2);
-	            ImageLoader imageLoader = new ImageLoader(MovieTabActivities.this);			
+
+	    		
+	    		options = new DisplayImageOptions.Builder()
+	    		.showStubImage(R.drawable.stub)
+	    		.showImageForEmptyUri(R.drawable.stub)
+	    		.showImageOnFail(R.drawable.stub)
+	    		.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+	    		.cacheOnDisc()
+	    		.cacheInMemory()
+	    		.displayer(new SimpleBitmapDisplayer())
+	    		.build();
+	    		
 				if(!promotion[0].equals("null"))
-					imageLoader.DisplayImage(promotion[0], imageView);
+					imageLoader.displayImage(promotion[0], imageView, options);
 				else
 					imageView.setVisibility(View.GONE);
 				if(!promotion[2].equals("null"))

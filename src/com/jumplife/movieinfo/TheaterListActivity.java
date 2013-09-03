@@ -4,19 +4,16 @@ package com.jumplife.movieinfo;
 import java.util.ArrayList;
 
 import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
-import com.google.ads.AdRequest;
-import com.google.ads.AdSize;
-import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedActivity;
 
 import com.jumplife.ad.AdGenerator;
+import com.jumplife.adapter.AreaListAdapter;
+import com.jumplife.adapter.TheaterListAdapter;
 import com.jumplife.movieinfo.entity.Area;
 import com.jumplife.movieinfo.entity.Theater;
-import com.jumplife.sectionlistview.AreaListAdapter;
-import com.jumplife.sectionlistview.TheaterListAdapter;
 import com.jumplife.sharedpreferenceio.SharePreferenceIO;
-import com.jumplife.sqlite.SQLiteMovieDiary;
+import com.jumplife.sqlite.SQLiteMovieInfoHelper;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -24,7 +21,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
-import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,7 +40,6 @@ public class TheaterListActivity extends TrackedActivity implements AdWhirlInter
 	private ArrayList<Theater> theaters;
 	private static String[] mStrings;
 	
-	private AdView adView;
 	private SharePreferenceIO shIO;
 	
 	public enum TYPE
@@ -93,13 +89,18 @@ public class TheaterListActivity extends TrackedActivity implements AdWhirlInter
 					mStrings[i] = areaList.get(i).getName();
 			}
 		}else{
-			SQLiteMovieDiary sqlMovieDiary = new SQLiteMovieDiary(this);
+			SQLiteMovieInfoHelper instance = SQLiteMovieInfoHelper.getInstance(this);
+    		SQLiteDatabase db = instance.getReadableDatabase();
+    		
 			if(area.getId() != -1)
-				theaters = sqlMovieDiary.getTheaterList(area.getId());
+				theaters = instance.getTheaterList(db, area.getId());
 			else {
 				shIO = new SharePreferenceIO(TheaterListActivity.this);
-				theaters = sqlMovieDiary.getTheaterListById(shIO.SharePreferenceO("like_theater", ""));
+				theaters = instance.getTheaterListById(db, shIO.SharePreferenceO("like_theater", ""));
 			}
+			
+			db.close();
+	        instance.closeHelper();        
 		}
 		
 	}
