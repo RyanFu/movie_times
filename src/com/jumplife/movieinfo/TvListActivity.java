@@ -9,9 +9,9 @@ import org.json.JSONObject;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedActivity;
+import com.jumplife.adapter.TvListAdapter;
 import com.jumplife.movieinfo.entity.Channel;
 import com.jumplife.movieinfo.promote.PromoteAPP;
-import com.jumplife.sectionlistview.TvListAdapter;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;

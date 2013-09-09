@@ -4,18 +4,19 @@ import java.util.ArrayList;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedActivity;
+import com.jumplife.adapter.MovieGalleryAdapter;
 import com.jumplife.movieinfo.MovieIntroContentActivity.LoadDataTask;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.Movie;
 import com.jumplife.movieinfo.promote.PromoteAPP;
-import com.jumplife.sectionlistview.MovieGalleryAdapter;
 import com.jumplife.sharedpreferenceio.SharePreferenceIO;
-import com.jumplife.sqlite.SQLiteMovieDiary;
+import com.jumplife.sqlite.SQLiteMovieInfoHelper;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -182,8 +183,12 @@ public class MovieInfoTable extends TrackedActivity {
     };
     
     private void fetchData() {
-    	SQLiteMovieDiary sqlMovieDiary = new SQLiteMovieDiary(this);
-    	ArrayList<Movie> tmpList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_TOP_10);
+    	SQLiteMovieInfoHelper instance = SQLiteMovieInfoHelper.getInstance(this);
+		SQLiteDatabase db = instance.getWritableDatabase();
+    	ArrayList<Movie> tmpList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_TOP_10);
+    	db.close();
+        instance.closeHelper();
+    	
     	SharePreferenceIO spIO = new SharePreferenceIO(this);
     	String hotString = spIO.SharePreferenceO("hot_movie", null);
     	if(hotString != null) {

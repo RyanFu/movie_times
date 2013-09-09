@@ -9,9 +9,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleLis
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.jumplife.ad.AdGenerator;
+import com.jumplife.adapter.NewsAdapter;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.News;
-import com.jumplife.sectionlistview.NewsAdapter;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -57,8 +57,8 @@ public class NewsActivity extends TrackedActivity implements AdWhirlInterface{
 	}
 	
 	private void findViews() {
-		TextView topbar_text = (TextView)findViewById(R.id.topbar_text);
-        topbar_text.setText("電影報");
+		
+       
         
 		newsListView = (PullToRefreshListView)findViewById(R.id.listview_news);
 		pullMore = (LinearLayout)findViewById(R.id.progressBar_pull_more);

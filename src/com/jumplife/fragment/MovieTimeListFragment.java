@@ -1,15 +1,16 @@
 package com.jumplife.fragment;
 
+
 import java.util.ArrayList;
 
+
+import com.jumplife.adapter.MovieListAdapter;
 import com.jumplife.movieinfo.MovieInfoActivity;
+import com.jumplife.movieinfo.MovieInfoAppliccation;
 import com.jumplife.movieinfo.R;
-import com.jumplife.movieinfo.MovieList.TYPE;
-import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.Movie;
-import com.jumplife.sectionlistview.MovieListAdapter;
-import com.jumplife.sharedpreferenceio.SharePreferenceIO;
-import com.jumplife.sqlite.SQLiteMovieDiary;
+import com.jumplife.sqlite.SQLiteMovieInfoHelper;
+
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.PauseOnScrollListener;
 
@@ -17,43 +18,48 @@ import com.nostra13.universalimageloader.core.assist.PauseOnScrollListener;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.RelativeLayout;
 
 public class MovieTimeListFragment extends Fragment {
+	
 	private View fragmentView;
+	//private ImageButton	ibRefresh;
+	
 	private ListView lvMovie; 
+	private MovieListAdapter adapter;
+	private ArrayList<Movie> movieList;
 	private FragmentActivity mFragmentActivity;    
 	private LoadDataTask loadtask;
-	private ImageButton		ibRefresh;
-	private ArrayList<Movie> movieList;
-	private MovieListAdapter adapter;
+	private int typeID;
 	
 	public static MovieTimeListFragment NewInstance(int typeId) {
 		MovieTimeListFragment fragment = new MovieTimeListFragment();
 	    Bundle args = new Bundle();
 	    args.putInt("typeId", typeId);
 	    fragment.setArguments(args);
-		return fragment;
+	    MovieInfoAppliccation.shIO.edit().putInt("typeId", typeId).commit();
+	    return fragment;
 	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
+		typeID = MovieInfoAppliccation.shIO.getInt("typeId", 0);
 		fragmentView = inflater.inflate(R.layout.fragment_movietime_list, container, false);
 		
 		initView();
@@ -73,9 +79,10 @@ public class MovieTimeListFragment extends Fragment {
     }
 	
 	private void initView() {
-        lvMovie = (ListView)fragmentView.findViewById(R.id.frag_listview_movie);
-       
-        ibRefresh = (ImageButton)fragmentView.findViewById(R.id.iv_movie_list_refresh);
+		
+		lvMovie = (ListView)fragmentView.findViewById(R.id.frag_listview_movie);
+		
+       /* ibRefresh = (ImageButton)fragmentView.findViewById(R.id.ib_movie_list_refresh);
 		ibRefresh.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
             	loadtask = new LoadDataTask();
@@ -85,6 +92,7 @@ public class MovieTimeListFragment extends Fragment {
                 	loadtask.executeOnExecutor(LoadDataTask.THREAD_POOL_EXECUTOR, 0);
             }
         });
+        */
 	}
 	class LoadDataTask extends AsyncTask<Integer, Integer, String>{  
         
@@ -94,7 +102,7 @@ public class MovieTimeListFragment extends Fragment {
 			ivLoadingCircle.setVisibility(View.VISIBLE);
 			ivLoadingCircle.startAnimation(animation);*/
 			
-			ibRefresh.setVisibility(View.GONE);
+			//ibRefresh.setVisibility(View.GONE);
     		super.onPreExecute();  
         }  
           
@@ -116,10 +124,10 @@ public class MovieTimeListFragment extends Fragment {
         		setListAdatper();
         		setListener();
             	lvMovie.setVisibility(View.VISIBLE);
-            	ibRefresh.setVisibility(View.GONE);		
+            	//ibRefresh.setVisibility(View.GONE);		
     		} else {
     			lvMovie.setVisibility(View.GONE);
-    			ibRefresh.setVisibility(View.VISIBLE);
+    			//ibRefresh.setVisibility(View.VISIBLE);
     		}
         	
         	/*animation.cancel();
@@ -131,7 +139,7 @@ public class MovieTimeListFragment extends Fragment {
         }
     }
 	private void setListAdatper() {
-		adapter	= new MovieListAdapter(mFragmentActivity, movieList);
+		adapter	= new MovieListAdapter(mFragmentActivity, movieList, typeID);
 		lvMovie.setAdapter(adapter);
 	}
 	private void setListener() {
@@ -146,16 +154,18 @@ public class MovieTimeListFragment extends Fragment {
 		});
         lvMovie.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), true, true));
 	}
+	
 	private void fetchData() {
 		movieList = new ArrayList<Movie>();
 		if(getArguments().containsKey("typeId")) {
 			try {	
-					MovieAPI movieAPI = new MovieAPI();
-					SQLiteMovieDiary sqlMovieDiary = new SQLiteMovieDiary(mFragmentActivity);
+					SQLiteMovieInfoHelper instance = SQLiteMovieInfoHelper.getInstance(mFragmentActivity);
+					SQLiteDatabase db = instance.getReadableDatabase();
+					db.beginTransaction();
 					if (getArguments().getInt("typeId", 0) == 1){
-						ArrayList<Movie> tmpList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_FIRST_ROUND);
-				    	SharePreferenceIO spIO = new SharePreferenceIO(mFragmentActivity);
-				    	String hotString = spIO.SharePreferenceO("hot_movie", null);
+						ArrayList<Movie> tmpList = instance.getMovieList(db,SQLiteMovieInfoHelper.FILTER_FIRST_ROUND);
+				    	
+				    	String hotString = MovieInfoAppliccation.shIO.getString("hot_movie", null);
 				    	if(hotString != null) {
 					        String[] hotSeq = hotString.split(",");
 					        if(hotSeq != null) {
@@ -170,13 +180,14 @@ public class MovieTimeListFragment extends Fragment {
 					        	}
 					        } 
 				    	}
+				    	movieList.addAll(tmpList);
 					}
 			        else if (getArguments().getInt("typeId", 0) == 2)
-						movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_SECOND_ROUND);
+			        	movieList = instance.getMovieList(db,SQLiteMovieInfoHelper.FILTER_THIS_WEEK);
 			        else if (getArguments().getInt("typeId", 0) == 3)
-						movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_RECENT);
+						movieList = instance.getMovieList(db,SQLiteMovieInfoHelper.FILTER_RECENT);
 					else if (getArguments().getInt("typeId", 0) == 4)
-						movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_THIS_WEEK);
+						movieList = instance.getMovieList(db,SQLiteMovieInfoHelper.FILTER_SECOND_ROUND);
 					else{/*
 						ArrayList<Movie> movies = movieAPI.getMoviesIdandHallList(theater);
 						if (movies != null && movies.size() > 0) {
@@ -195,19 +206,16 @@ public class MovieTimeListFragment extends Fragment {
 						} else
 							movieList = new ArrayList<Movie>();*/
 					}
-				
-		    }
-					
-					/*SQLiteTvAnimationHelper instance = SQLiteTvAnimationHelper.getInstance(mFragmentActivity);
-					SQLiteDatabase db = instance.getReadableDatabase();
-					animateList = instance.getTvAnimationTypeList(db, getArguments().getInt("typeId", 0));
-					db.close();
-			        instance.closeHelper();*/
-			 catch (Exception e) {
+					db.setTransactionSuccessful();
+			        db.endTransaction();
+			        db.close();
+			        instance.closeHelper();
+		    } catch (Exception e) {
 				
 			}
 		
 		}
 	}
+	
 	
 }

@@ -56,7 +56,8 @@ public class Area {
   						"{\"area\":{\"id\":74,\"name\":\"\u5b9c\u862d\"}}," +
   						"{\"area\":{\"id\":75,\"name\":\"\u82b1\u84ee\"}}," +
   						"{\"area\":{\"id\":76,\"name\":\"\u5c4f\u6771\"}}," +
-  						"{\"area\":{\"id\":77,\"name\":\"\u6f8e\u6e56\"}}]";
+  						"{\"area\":{\"id\":77,\"name\":\"\u6f8e\u6e56\"}}," +
+  						"{\"area\":{\"id\":78,\"name\":\"台東\"}}]";
   		
   		JSONArray areaArray;
 		try {

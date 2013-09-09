@@ -3,10 +3,13 @@ package com.jumplife.movieinfo;
 import java.util.ArrayList;
 
 import com.google.analytics.tracking.android.EasyTracker;
-import com.jumplife.imageload.ImageLoader;
-import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.AppProject;
 import com.jumplife.movieinfo.promote.PromoteAPP;
+import com.jumplife.sqlite.SQLiteMovieInfoHelper;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -15,6 +18,7 @@ import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -30,13 +34,15 @@ import android.widget.ProgressBar;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.Toast;
 
 public class AboutUsActivity extends Activity {
 	
 	private LinearLayout llAboutUs;
 	private ProgressBar pbInit;
 	private ArrayList<AppProject> appProject;
-	private ImageLoader imageLoader;
+	private ImageLoader imageLoader = ImageLoader.getInstance();
+	private DisplayImageOptions options;
 	
 	private Activity mActivity;
 	
@@ -73,7 +79,15 @@ public class AboutUsActivity extends Activity {
     }
 
 	private void initView(){
-		imageLoader = new ImageLoader(mActivity);
+		options = new DisplayImageOptions.Builder()
+		.showStubImage(R.drawable.stub)
+		.showImageForEmptyUri(R.drawable.stub)
+		.showImageOnFail(R.drawable.stub)
+		.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+		.cacheOnDisc()
+		.cacheInMemory()
+		.displayer(new SimpleBitmapDisplayer())
+		.build();
 		
 		pbInit = (ProgressBar)findViewById(R.id.pb_about_us);
 		llAboutUs = (LinearLayout)findViewById(R.id.ll_aboutus);
@@ -84,7 +98,7 @@ public class AboutUsActivity extends Activity {
 	@SuppressLint("InlinedApi")
 	private void initBasicView() {
 		TableRow Schedule_row_first = new TableRow(mActivity);
-		//TableRow Schedule_row_second = new TableRow(mActivity);
+		TableRow Schedule_row_second = new TableRow(mActivity);
 		
 
         
@@ -219,30 +233,31 @@ public class AboutUsActivity extends Activity {
 		llAboutUs.addView(Schedule_row_first);
 
 
-		/*TextView tvClear = new TextView(mActivity);
+		TextView tvClear = new TextView(mActivity);
 		ImageView ivClear = new ImageView(mActivity);
-		RelativeLayout rlClear = new RelativeLayout(mActivity);		
+		LinearLayout llClear = new LinearLayout(mActivity);		
 			
 		ivClear.setScaleType(ImageView.ScaleType.CENTER_CROP);
         ivClear.setImageResource(R.drawable.delete);
-        rlClear.addView(ivClear, rlIvParams);
+        llClear.addView(ivClear, llIvParams);
 		
-        RelativeLayout.LayoutParams rlTvClearParams = new RelativeLayout.LayoutParams
+        LinearLayout.LayoutParams llTvClearParams = new LinearLayout.LayoutParams
 				(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        rlTvClearParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        rlTvClearParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        rlTvClearParams.setMargins(mActivity.getResources().getDimensionPixelSize(R.dimen.about_us_margin), 
+        //rlTvClearParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        //rlTvClearParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        llTvClearParams.setMargins(mActivity.getResources().getDimensionPixelSize(R.dimen.about_us_margin), 
 				0, 
 				mActivity.getResources().getDimensionPixelSize(R.dimen.about_us_margin), 
 				mActivity.getResources().getDimensionPixelSize(R.dimen.about_us_margin));
 		tvClear.setText(mActivity.getResources().getString(R.string.clear));
 		tvClear.setTextSize(mActivity.getResources().getDimensionPixelSize(R.dimen.about_us_title));
-		tvClear.setTextColor(mActivity.getResources().getColor(R.color.about_us_tv));
-		rlClear.addView(tvClear, rlTvClearParams);		
+		llClear.addView(tvClear, llTvClearParams);		
 		
-		rlClear.setBackgroundResource(R.drawable.about_us_item_background);
-		rlClear.setLayoutParams(Params);
-		rlClear.setOnClickListener(new OnClickListener(){
+		llClear.setBackgroundResource(R.drawable.button_aboutus_bg);
+		llClear.setOrientation(LinearLayout.VERTICAL);
+		llClear.setGravity(Gravity.CENTER_HORIZONTAL);
+		llClear.setLayoutParams(Params);
+		llClear.setOnClickListener(new OnClickListener(){
 			public void onClick(View arg0) {
 				imageLoader.clearMemoryCache();
 				imageLoader.clearDiscCache();
@@ -252,28 +267,33 @@ public class AboutUsActivity extends Activity {
                 toast.show();
 			}			
 		});
-		Schedule_row_second.addView(rlClear);
+		Schedule_row_second.addView(llClear);
 
-		RelativeLayout rltmps1 = new RelativeLayout(mActivity);
-		rltmps1.setBackgroundResource(R.drawable.button_aboutus_bg);	
-		rltmps1.setLayoutParams(Params);
-		Schedule_row_second.addView(rltmps1);
-		RelativeLayout rltmps2 = new RelativeLayout(mActivity);
-		rltmps2.setBackgroundResource(R.drawable.button_aboutus_bg);	
-		rltmps2.setLayoutParams(Params);
-		Schedule_row_second.addView(rltmps2);
+		LinearLayout lltmps1 = new LinearLayout(mActivity);
+		lltmps1.setBackgroundResource(R.drawable.button_aboutus_bg);	
+		lltmps1.setLayoutParams(Params);
+		Schedule_row_second.addView(lltmps1);
+		LinearLayout lltmps2 = new LinearLayout(mActivity);
+		lltmps2.setBackgroundResource(R.drawable.button_aboutus_bg);	
+		lltmps2.setLayoutParams(Params);
+		Schedule_row_second.addView(lltmps2);
 		
         
         Schedule_row_second.setLayoutParams(new LayoutParams
 				(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-		llAboutUs.addView(Schedule_row_second);*/
+		llAboutUs.addView(Schedule_row_second);
 		
 		
 	}
 	
 	private String fetchData() {
-		MovieAPI api = new MovieAPI();
-		appProject = api.getAppProjectList(mActivity);
+
+		SQLiteMovieInfoHelper instance = SQLiteMovieInfoHelper.getInstance(this);
+		SQLiteDatabase db = instance.getReadableDatabase();
+		appProject = instance.getAppProjectList(db);
+		db.close();
+        instance.closeHelper();
+        
 		return "progress end";
 	}
 	
@@ -304,7 +324,7 @@ public class AboutUsActivity extends Activity {
 					ll.addView(iv, llIvParams);
 			        iv.getLayoutParams().width = width;
 			        iv.getLayoutParams().height = width;
-			        imageLoader.DisplayImage(appProject.get(index).getIconUrl(), iv);
+			        imageLoader.displayImage(appProject.get(index).getIconUrl(), iv, options);
 					
 			        LinearLayout.LayoutParams llTvParams = new LinearLayout.LayoutParams
 							(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);

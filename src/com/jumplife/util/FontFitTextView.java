@@ -1,6 +1,5 @@
 package com.jumplife.util;
 
-
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Rect;

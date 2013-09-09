@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bgtx_c" >
+    <ImageView android:id="@+id/iv_large_poster"
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:contentDescription="@null"
+    	android:src="@drawable/stub"/>
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       	android:background="@color/transparent80">
+       	<LinearLayout android:id="@+id/ll_movieinfo"
+       	    android:layout_width="match_parent"
+       	    android:layout_height="wrap_content"
+       	    android:orientation="vertical"
+       	    android:background="@null">
+       	    <RelativeLayout android:id="@+id/rl_poster_name_mv"
+       	        android:layout_width="match_parent"
+       	        android:layout_height="match_parent"
+       	        android:background="@null">
+       	        <ImageView android:id="@+id/iv_small_poster"
+       	            android:layout_width="120dp"
+       	            android:layout_height="180dp"
+       	            android:contentDescription="@null"/>
+       	        <LinearLayout android:id="@+id/ll_name_mv"
+       	            android:layout_width="120dp"
+       	            android:layout_height="180dp" 
+       	            android:layout_toRightOf="@+id/iv_small_poster"	
+       	            android:orientation="horizontal">"
+       	            
+       	        </LinearLayout>
+       	        
+       	        
+       	    </RelativeLayout>
+       	    
+       	    
+       	    
+       	</LinearLayout>
+        
+    </ScrollView>
+    	
+
+</RelativeLayout>

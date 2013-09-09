@@ -10,18 +10,23 @@ import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.ad.AdGenerator;
-import com.jumplife.imageload.ImageLoader;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.Movie;
 import com.jumplife.movieinfo.entity.Record;
-import com.jumplife.sqlite.SQLiteMovieDiary;
+import com.jumplife.sqlite.SQLiteMovieInfoHelper;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -34,6 +39,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+@SuppressLint("SimpleDateFormat")
 public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterface{
 	
 	//private TextView topbar_text;
@@ -48,7 +54,8 @@ public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterfa
 	//private TextView textView_drama;
 	private TextView textView_director;
 	private TextView textView_actor;
-	private ImageLoader imageLoader;
+	private ImageLoader imageLoader = ImageLoader.getInstance();
+	private DisplayImageOptions options;
 	private int movie_id;
 	private Movie movie;
 	private LoadDataTask taskLoad;
@@ -63,7 +70,6 @@ public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterfa
         Bundle extras = getIntent().getExtras();
         movie_id = extras.getInt("movie_id");
         extras.getInt("theater_id");
-        imageLoader = new ImageLoader(MovieInfoActivity.this);
         findViews();
         
         taskLoad = new LoadDataTask();
@@ -81,14 +87,14 @@ public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterfa
 		
 	private void setViews() {
         //topbar_text.setText("電影資訊");
-		imageLoader.DisplayImage(movie.getPosterUrl(), poster);
+		imageLoader.displayImage(movie.getPosterUrl(), poster, options);
 		chinese_name.setText(movie.getChineseName());
 		english_name.setText(movie.getEnglishName());
 		
 		if(movie.getLevelUrl() == null || movie.getLevelUrl().equals("null"))
 			level.setVisibility(View.INVISIBLE);
 		else {
-			imageLoader.DisplayImage(movie.getLevelUrl(), level);
+			imageLoader.displayImage(movie.getLevelUrl(), level, options);
 			level.setVisibility(View.VISIBLE);
 		}
 			
@@ -162,7 +168,17 @@ public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterfa
 	}
 	
 	private void findViews() {
-		 //topbar_text = (TextView)findViewById(R.id.topbar_text);
+		
+		options = new DisplayImageOptions.Builder()
+		.showStubImage(R.drawable.stub)
+		.showImageForEmptyUri(R.drawable.stub)
+		.showImageOnFail(R.drawable.stub)
+		.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+		.cacheOnDisc()
+		.cacheInMemory()
+		.displayer(new SimpleBitmapDisplayer())
+		.build();
+		
 		 poster = (ImageView)findViewById(R.id.imageview_movie_poster);
 		 poster.setClickable(true);
 		 poster.setOnClickListener(new OnClickListener(){
@@ -183,10 +199,13 @@ public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterfa
 	}
 	
     private void fetchData() {
-    	SQLiteMovieDiary sqlMovieDiary = new SQLiteMovieDiary(this);
-		movie = sqlMovieDiary.getMovie(movie_id);
-    	MovieAPI movieAPI = new MovieAPI();
-    	movie = movieAPI.getMovieInfo(movie);
+    	SQLiteMovieInfoHelper instance = SQLiteMovieInfoHelper.getInstance(this);
+		SQLiteDatabase db = instance.getReadableDatabase();
+		
+		movie = instance.getMovie(db, movie_id);
+    	
+    	db.close();
+    	instance.closeHelper();
 	}
     
     class UpdateMovieTask extends AsyncTask<Integer, Integer, String>{
@@ -195,8 +214,16 @@ public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterfa
 
 		@Override
 		protected String doInBackground(Integer... params) {
+        	Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+			
+			SQLiteMovieInfoHelper instance = SQLiteMovieInfoHelper.getInstance(MovieInfoActivity.this);
+			SQLiteDatabase db = instance.getWritableDatabase();
+			
 			MovieAPI movieAPI = new MovieAPI();
-			updatedMovie = movieAPI.getMovieUpdate(movie);
+			updatedMovie = movieAPI.getMovieInfo(instance, db, movie);
+			
+			db.close();
+			instance.closeHelper();
 			
 			return null;
 		}
@@ -269,16 +296,19 @@ public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterfa
         @Override  
         protected void onPostExecute(String result) {
         	progressdialogInit.dismiss();
-        	if(movie==null){
+        	if(movie == null) {
         		showReloadDialog(MovieInfoActivity.this);
-        	}else{
+        	} else {
 	        	setViews();
 	            setListener();
         	}
-        	/*if(movie != null && (movie.getReleaseDate() == null || movie.getRunningTime() == 0 || movie.getYoutubeId() == null)) {                
-                UpdateMovieTask updateTask = new UpdateMovieTask();
-                updateTask.execute();
-        	}*/
+        	
+            UpdateMovieTask updateTask = new UpdateMovieTask();
+            if(Build.VERSION.SDK_INT < 11)
+            	updateTask.execute();
+            else
+            	updateTask.executeOnExecutor(UpdateMovieTask.THREAD_POOL_EXECUTOR, 0);
+        	
             super.onPostExecute(result);  
         }  
           
@@ -327,9 +357,9 @@ public class MovieInfoActivity extends TrackedActivity implements AdWhirlInterfa
 	        alert.show();		
 	}
 
-public void adWhirlGeneric()
-{
-	// TODO Auto-generated method stub
-	
-}
+	public void adWhirlGeneric()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }

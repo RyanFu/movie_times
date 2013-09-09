@@ -1,19 +1,20 @@
 package com.jumplife.movieinfo;
 
-
-import com.actionbarsherlock.app.ActionBar;
-import com.jumplife.fragment.MenuFragement;
-import com.jumplife.fragment.MovieTimeListFragment;
-import com.jumplife.sharedpreferenceio.SharePreferenceIO;
-import com.slidingmenu.lib.SlidingMenu;
-import com.slidingmenu.lib.SlidingMenu.OnCloseListener;
-import com.slidingmenu.lib.app.SlidingFragmentActivity;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.MenuItem;
+import com.jumplife.fragment.MenuFragement;
+import com.jumplife.fragment.MovieTimeListFragment;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.slidingmenu.lib.SlidingMenu;
+import com.slidingmenu.lib.SlidingMenu.OnCloseListener;
+import com.slidingmenu.lib.SlidingMenu.OnOpenListener;
+import com.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class MainMenuActivity extends SlidingFragmentActivity {
 
@@ -22,9 +23,9 @@ public class MainMenuActivity extends SlidingFragmentActivity {
 	
 	public final static int 
 	FLAG_ONEROUND = 1,
-	FLAG_TWOROUND = 2,
+	FLAG_WEEK = 2,
 	FLAG_COMING = 3,
-	FLAG_WEEK = 4,
+	FLAG_TWOROUND = 4,
 	
 	FLAG_TVTIME = -1,
 	FLAG_THEATER = -2,
@@ -38,8 +39,8 @@ public class MainMenuActivity extends SlidingFragmentActivity {
 	    getSupportActionBar().setIcon(R.drawable.movietime);
 		getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg));
 		
-		SharePreferenceIO spIO = new SharePreferenceIO(this);
-		typeId = spIO.SharePreferenceO("type_Id", 1);
+		
+		typeId = MovieInfoAppliccation.shIO.getInt("typeId", 1);
 		
 		setActionBarTitle(typeId);
 		
@@ -52,6 +53,7 @@ public class MainMenuActivity extends SlidingFragmentActivity {
 		
 	}
 	
+	
 	private void initSlidingMenu(Bundle savedInstanceState) {
 		/*
 		 * Init SlidingMenu
@@ -61,10 +63,16 @@ public class MainMenuActivity extends SlidingFragmentActivity {
 		int screenWidth = displayMetrics.widthPixels;
 		
 		menu = getSlidingMenu();
-	    menu.setShadowWidth(screenWidth/4);
+	    //menu.setShadowWidth(screenWidth/4);
 	    menu.setBehindOffset(screenWidth/2);
-	    menu.setFadeDegree(0.35f);
+	   // menu.setFadeDegree(0.35f);
 	    menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+	    menu.setOnOpenListener(new OnOpenListener(){
+			@Override
+			public void onOpen() {
+				getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+			}	    	
+	    });
 	    menu.setOnCloseListener(new OnCloseListener(){
 			@Override
 			public void onClose() {
@@ -90,7 +98,7 @@ public class MainMenuActivity extends SlidingFragmentActivity {
 		 */
 				
 
-		setContentView(R.layout.fragmentlayout_movietime_menu);
+		setContentView(R.layout.fragmentlayout_movietime_content);
 		
 		if(typeId == FLAG_TVTIME) {/*
 			TvtimeFragment tvTime = new TvtimeFragment();
@@ -120,13 +128,23 @@ public class MainMenuActivity extends SlidingFragmentActivity {
 			MovieTimeListFragment tvchannels = MovieTimeListFragment.NewInstance(typeId); 
 			getSupportFragmentManager()
 			.beginTransaction()
-			.replace(R.id.menu_frame, tvchannels)
+			.replace(R.id.content_frame, tvchannels)
 			.commit();
 		}
 		
-		//setSlidingActionBarEnabled(false);
+		setSlidingActionBarEnabled(false);
 		 
 	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			toggle();
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
 	/*
 	 * Sliding Menu Exchange Content Fragment
 	 */
@@ -135,7 +153,7 @@ public class MainMenuActivity extends SlidingFragmentActivity {
 		
 		getSupportFragmentManager()
 		.beginTransaction()
-		.replace(R.id.menu_frame, fragment)
+		.replace(R.id.content_frame, fragment)
 		.commit();
 		menu.showContent();		
 	}
@@ -180,4 +198,5 @@ public class MainMenuActivity extends SlidingFragmentActivity {
 			break;
 		}
 	}
+
 }

@@ -1,10 +1,13 @@
-package com.jumplife.sectionlistview;
+package com.jumplife.adapter;
 
 import java.util.ArrayList;
 
-import com.jumplife.imageload.ImageLoader;
 import com.jumplife.movieinfo.R;
 import com.jumplife.movieinfo.entity.Record;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -22,12 +25,22 @@ public class RecordListAdapter extends BaseAdapter{
 	
 	Context mContext;
     private ArrayList<Record> records;
-	private ImageLoader imageLoader;
+	private ImageLoader imageLoader = ImageLoader.getInstance();
+	private DisplayImageOptions options;
 	
 	public RecordListAdapter(Context mContext, ArrayList<Record> recordList){
 		this.records = recordList;
 		this.mContext = mContext;
-		imageLoader=new ImageLoader(mContext);
+		
+		options = new DisplayImageOptions.Builder()
+		.showStubImage(R.drawable.stub)
+		.showImageForEmptyUri(R.drawable.stub)
+		.showImageOnFail(R.drawable.stub)
+		.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+		.cacheOnDisc()
+		.cacheInMemory()
+		.displayer(new SimpleBitmapDisplayer())
+		.build();
 	}
 
 	public int getCount() {
@@ -70,7 +83,7 @@ public class RecordListAdapter extends BaseAdapter{
 		
 		rlItemEvaluate.setPadding(10, 10, 10, 10);
 		
-		imageLoader.DisplayImage(records.get(position).getUser().getIconUrl(), user_avatar);		
+		imageLoader.displayImage(records.get(position).getUser().getIconUrl(), user_avatar, options);		
 		name.setText(records.get(position).getUser().getName());
 		score.setText("評價 :" + records.get(position).getScoreString());
 		user_comment.setText(records.get(position).getComment());

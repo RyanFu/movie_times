@@ -3,9 +3,9 @@ package com.jumplife.movieinfo;
 import java.util.ArrayList;
 
 import com.google.analytics.tracking.android.TrackedActivity;
+import com.jumplife.adapter.ScheduleAdapter;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.Theater;
-import com.jumplife.sectionlistview.ScheduleAdapter;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -35,8 +35,8 @@ public class MovieScheduleActivity extends TrackedActivity {
 	private String[] location = {"台北東區", "台北西區", "台北南區", "台北北區",
 								"新北市", "台北二輪", "基隆", "桃園", "中壢", "新竹", 
 								"苗栗", "台中", "彰化", "雲林", "南投", "嘉義", "台南", 
-								"高雄", "宜蘭", "花蓮", "屏東", "澎湖"}; 
-	private int[] locationId = {56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77};
+								"高雄", "宜蘭", "花蓮", "台東", "屏東", "澎湖"}; 
+	private int[] locationId = {56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 78, 76, 77};
 	private String[] locationAct;
 	private int[] locationIdAct;
 	private ArrayList<String> locationLst = new ArrayList<String>(); 

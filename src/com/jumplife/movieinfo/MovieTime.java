@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.movieinfo.api.MovieAPI;
-import com.jumplife.sharedpreferenceio.SharePreferenceIO;
-import com.jumplife.sqlite.SQLiteMovieDiary;
+import com.jumplife.movieinfo.entity.AppProject;
+import com.jumplife.sqlite.SQLiteMovieInfoHelper;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -52,39 +53,54 @@ public class MovieTime extends TrackedActivity {
         animationDrawable.start();
     } 
 	
-	private String fetchData(){
+	private String fetchData() {
 		long startTime = System.currentTimeMillis();
-		MovieAPI api = new MovieAPI(MovieTime.this);
-        SQLiteMovieDiary sqlMovieDiary = new SQLiteMovieDiary(this);
+		MovieAPI api = new MovieAPI();
+		
         ArrayList<Integer>[] a = api.getUpdateMoviesId();
         if(a != null) {
+    		
+    		SQLiteMovieInfoHelper instance = SQLiteMovieInfoHelper.getInstance(this);
+    		instance.createDataBase();
+    		SQLiteDatabase db = instance.getWritableDatabase();
+    		db.beginTransaction();
+    		
 	        ArrayList<Integer> moviesId = new ArrayList<Integer>();
-	        SQLiteMovieDiary.openDataBase();
-	        moviesId = sqlMovieDiary.findMoviesIdNotInDB(a[5]);
+	        moviesId = instance.findMoviesIdNotInDB(db, a[5]);
 	        if (moviesId.size()>0){
 		        String idLst = "";
 		        for(int i=0; i<moviesId.size(); i++)
 		           idLst = moviesId.get(i) + "," +idLst;
-		        api.AddMoviesFromInfo(idLst);
+		        api.AddMoviesFromInfo(instance, db, idLst);
 	        }
-	        sqlMovieDiary.updateMovieIs(a);
+	        instance.updateMovieIs(db, a);
 	        long endTime = System.currentTimeMillis();
-	        SharePreferenceIO spIO = new SharePreferenceIO(this);
+	       
 	        String hotSeq = "";
 	        for(int i=0; i<a[3].size(); i++)
 	        	hotSeq = hotSeq + a[3].get(i) + ",";
-	        spIO.SharePreferenceI("hot_movie", hotSeq);
+	        MovieInfoAppliccation.shIO.edit().putString("hot_movie", hotSeq);
 	    	Log.e(TAG, "sample method took（movie time activity) %%%%%%%%%%%%%%%%%%%%%%%%%%%%"+(endTime-startTime)+"ms");
-
+			
+	    	ArrayList<AppProject> appProject = api.getAppProjectList(MovieTime.this);
+	    	if(appProject != null) {
+	    		instance.updateProject(db, appProject);
+	    	}
+	        
+			db.setTransactionSuccessful();
+	        db.endTransaction();
+	        db.close();
+	        instance.closeHelper();        
+	    	
 			return "progress end";
         } else {
         	return "progress fail";
-        }        
+        }
 	}
 	
 	private void setData(){
-		SharePreferenceIO spIO = new SharePreferenceIO(this);
-		spIO.SharePreferenceI("typeId", 1);
+		
+		MovieInfoAppliccation.shIO.edit().putInt("typeId", 1);
 		
 		Intent newAct = new Intent();
 		newAct.setClass( MovieTime.this, MainMenuActivity.class );

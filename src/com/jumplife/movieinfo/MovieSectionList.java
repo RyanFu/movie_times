@@ -9,12 +9,14 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeMap;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -31,12 +33,14 @@ import com.google.analytics.tracking.android.TrackedActivity;
 import com.ifixit.android.sectionheaders.SectionHeadersAdapter;
 import com.ifixit.android.sectionheaders.SectionListView;
 import com.jumplife.ad.AdGenerator;
+import com.jumplife.adapter.MovieSectionAdapter;
+import com.jumplife.movieinfo.MovieList.TYPE;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.Movie;
 import com.jumplife.movieinfo.entity.Theater;
-import com.jumplife.sectionlistview.MovieSectionAdapter;
-import com.jumplife.sqlite.SQLiteMovieDiary;
+import com.jumplife.sqlite.SQLiteMovieInfoHelper;
 
+@SuppressLint("SimpleDateFormat")
 public class MovieSectionList extends TrackedActivity implements AdWhirlInterface{
 
     private TreeMap<Date, ArrayList<Movie>> movieMap;
@@ -170,22 +174,42 @@ public class MovieSectionList extends TrackedActivity implements AdWhirlInterfac
 
     private void fetchData() {
         MovieAPI movieAPI = new MovieAPI();
-        SQLiteMovieDiary sqlMovieDiary = new SQLiteMovieDiary(this);
-        if (listType == TYPE.RECENT)
-            movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_RECENT);
-        else if (listType == TYPE.FIRSTROUND){
-        	movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_FIRST_ROUND);
-        }else if (listType == TYPE.SECONDROUND)
-            movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_SECOND_ROUND);
-        else if (listType == TYPE.WEEKLY)
-            movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_THIS_WEEK);
-        else {
-            theater = movieAPI.getMovieList(theater, null);
-            if (theater.getMovies() == null)
-                movieList = null;
-            else
-                movieList = theater.getMovies();
-        }
+
+        SQLiteMovieInfoHelper instance = SQLiteMovieInfoHelper.getInstance(this);
+		SQLiteDatabase db = instance.getReadableDatabase();
+		db.beginTransaction();
+		
+		if (listType == TYPE.RECENT)
+			movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_RECENT);
+		else if (listType == TYPE.FIRSTROUND)
+			movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_FIRST_ROUND);
+        else if (listType == TYPE.SECONDROUND)
+        	movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_SECOND_ROUND);
+		else if (listType == TYPE.WEEKLY)
+			movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_THIS_WEEK);
+		else{
+			ArrayList<Movie> movies = movieAPI.getMoviesIdandHallList(theater);
+			if (movies != null && movies.size() > 0) {
+				movieList = instance.getMovieListWithHall(db, movies);
+				Log.d(null, "movieList size :" + movieList.size());
+				for(int i=0; i<movieList.size(); i++) {
+					for(int j=0; j<movies.size(); j++) {
+						if(movieList.get(i).getId() == movies.get(j).getId()) 
+							movieList.get(i).setHall(movies.get(j).getHall());
+					}
+				}
+				ArrayList<Movie> tmpList = (ArrayList<Movie>) movieList.clone();
+				movieList.clear();
+				for (int i = tmpList.size()-1; i>-1; i--)
+					movieList.add(tmpList.get(i));
+			} else
+				movieList = new ArrayList<Movie>();
+		}
+		
+		db.setTransactionSuccessful();
+        db.endTransaction();
+        db.close();
+        instance.closeHelper();
 
         // 利用上映時間把電影做分類
         movieMap = new TreeMap<Date, ArrayList<Movie>>();

@@ -3,21 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_bgtx_c" >
+    
     <ListView
 	        android:id="@+id/frag_listview_movie"
 	        android:layout_width="match_parent"
     		android:layout_height="match_parent"
 	        android:background="@color/color_bgtx_c"
-	        android:divider="@color/color_grey_b"
-    		android:dividerHeight="1dp" 
-    		android:paddingLeft="10dp"
-    		android:paddingRight="10dp"/>
-    <ImageView 
-        	android:id="@+id/iv_movie_list_refresh"
+	        />
+   <!--  <ImageButtom 
+        	android:id="@+id/ib_movie_list_refresh"
         	android:layout_width="match_parent"
-    		android:layout_height="match_parent"
-    		android:src="@drawable/renew"
-    		android:background="@null"
-    		android:contentDescription="@null"/>
+        	android:layout_height="match_parent"
+       	 	android:layout_alignParentTop="true"
+        	android:contentDescription="@null"
+        	android:visibility="gone"
+       		android:background="@drawable/ib_renew_bg"
+        	android:src="@drawable/renew"/>--> 
 
 </RelativeLayout>

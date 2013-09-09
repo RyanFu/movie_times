@@ -1,4 +1,4 @@
-package com.jumplife.sectionlistview;
+package com.jumplife.adapter;
 
 import java.util.ArrayList;
 
@@ -13,23 +13,36 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.ifixit.android.sectionheaders.Section;
-import com.jumplife.imageload.ImageLoader;
 import com.jumplife.movieinfo.MovieInfoTabActivities;
 import com.jumplife.movieinfo.R;
 import com.jumplife.movieinfo.entity.Movie;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 public class MovieSectionAdapter extends Section implements Filterable{
 
 	private Context mContext;
     private ArrayList<Movie> movieList;
-	private ImageLoader imageLoader;
 	private String headerString;
+	private ImageLoader imageLoader = ImageLoader.getInstance();
+	private DisplayImageOptions options;
 	
 	public MovieSectionAdapter(Context context, ArrayList<Movie> movieList, String headerString) {
 		this.mContext = context;
 		this.movieList = movieList;
 		this.headerString = headerString;
-		imageLoader=new ImageLoader(mContext);
+		
+		options = new DisplayImageOptions.Builder()
+		.showStubImage(R.drawable.stub)
+		.showImageForEmptyUri(R.drawable.stub)
+		.showImageOnFail(R.drawable.stub)
+		.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+		.cacheOnDisc()
+		.cacheInMemory()
+		.displayer(new SimpleBitmapDisplayer())
+		.build();
 	}
 	
 	public int getCount() {
@@ -54,7 +67,7 @@ public class MovieSectionAdapter extends Section implements Filterable{
 		name.setText(movieList.get(position).getChineseName());
 		name_en.setText(movieList.get(position).getEnglishName());
 
-		imageLoader.DisplayImage(movieList.get(position).getPosterUrl(), poster);
+		imageLoader.displayImage(movieList.get(position).getPosterUrl(), poster, options);
 		
 		return converView;
 	}

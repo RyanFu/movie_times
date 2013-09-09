@@ -6,12 +6,12 @@ import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.ad.AdGenerator;
+import com.jumplife.adapter.MovieListAdapter;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.Movie;
 import com.jumplife.movieinfo.entity.Theater;
-import com.jumplife.sectionlistview.MovieListAdapter;
 import com.jumplife.sharedpreferenceio.SharePreferenceIO;
-import com.jumplife.sqlite.SQLiteMovieDiary;
+import com.jumplife.sqlite.SQLiteMovieInfoHelper;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -20,6 +20,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnKeyListener;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -222,19 +223,23 @@ public class MovieList extends TrackedActivity implements AdWhirlInterface{
 	@SuppressWarnings("unchecked")
 	private void fetchData() {
 		MovieAPI movieAPI = new MovieAPI();
-		SQLiteMovieDiary sqlMovieDiary = new SQLiteMovieDiary(this);
+		
+		SQLiteMovieInfoHelper instance = SQLiteMovieInfoHelper.getInstance(this);
+		SQLiteDatabase db = instance.getReadableDatabase();
+		db.beginTransaction();
+		
 		if (listType == TYPE.RECENT)
-			movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_RECENT);
+			movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_RECENT);
 		else if (listType == TYPE.FIRSTROUND)
-			movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_FIRST_ROUND);
+			movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_FIRST_ROUND);
         else if (listType == TYPE.SECONDROUND)
-			movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_SECOND_ROUND);
+        	movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_SECOND_ROUND);
 		else if (listType == TYPE.WEEKLY)
-			movieList = sqlMovieDiary.getMovieList(SQLiteMovieDiary.FILTER_THIS_WEEK);
+			movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_THIS_WEEK);
 		else{
 			ArrayList<Movie> movies = movieAPI.getMoviesIdandHallList(theater);
 			if (movies != null && movies.size() > 0) {
-				movieList = sqlMovieDiary.getMovieListWithHall(movies);
+				movieList = instance.getMovieListWithHall(db, movies);
 				Log.d(null, "movieList size :" + movieList.size());
 				for(int i=0; i<movieList.size(); i++) {
 					for(int j=0; j<movies.size(); j++) {
@@ -249,6 +254,11 @@ public class MovieList extends TrackedActivity implements AdWhirlInterface{
 			} else
 				movieList = new ArrayList<Movie>();
 		}
+		
+		db.setTransactionSuccessful();
+        db.endTransaction();
+        db.close();
+        instance.closeHelper();
     }
 
 	private void setListAdatper() {
@@ -256,7 +266,7 @@ public class MovieList extends TrackedActivity implements AdWhirlInterface{
 			movieListView.addHeaderView(viewHeader);
 		}
 		
-		movieListView.setAdapter(new MovieListAdapter(MovieList.this, movieList));
+		//movieListView.setAdapter(new MovieListAdapter(MovieList.this, movieList ));
 		movieListView.setTextFilterEnabled(true);
 	}
 

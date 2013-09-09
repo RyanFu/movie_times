@@ -1,14 +1,16 @@
 package com.jumplife.fragment;
 
+import com.jumplife.movieinfo.MovieInfoAppliccation;
 import com.jumplife.movieinfo.R;
 import com.jumplife.movieinfo.MainMenuActivity;
-import com.jumplife.sharedpreferenceio.SharePreferenceIO;
+
 import com.jumplife.fragment.MovieTimeListFragment;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,43 +20,45 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MenuFragement extends Fragment {
+	
 	private View fragmentView;
 	private LinearLayout llMovieinfo,
-		llOneround,
-		llTworound,
-		llComeing,
-		llWeek,
-		llTvtime,
-		llTheater,
-		llFavorite,
-		llSetting;
+						 llOneround,
+						 llTworound,
+						 llComeing,
+						 llWeek,
+						 llTheater,
+						 llTvtime,
+						 llFavorite,
+						 llSetting;
 			
 	private View vOneround,
-		vTworound,
-		vComeing,
-	 	vWeek;
-	private TextView
-		tvOneround,
-		tvTworound,
-		tvComeing,
-		tvWeek,
-		tvTvtime,
-		tvTheater,
-		tvFavorite,
-		tvSetting;
-	private ImageView
-		ivTvtime,
-		ivTheater,
-		ivFavorite,
-		ivSetting;
+				 vTworound,
+				 vComeing,
+			 	 vWeek;
+	
+	private TextView tvOneround,
+					 tvTworound,
+					 tvComeing,
+					 tvWeek,
+					 tvTheater,
+					 tvTvtime,
+					 tvFavorite,
+					 tvSetting;
+					 
+	private ImageView ivTvtime,
+					  ivTheater,
+					  ivFavorite,
+					  ivSetting;
+	
 	public final static int 
 		FLAG_ONEROUND = 1,
-		FLAG_TWOROUND = 2,
+		FLAG_WEEK =2,
 		FLAG_COMING = 3,
-		FLAG_WEEK = 4,
+		FLAG_TWOROUND = 4,
 		
-		FLAG_TVTIME = -1,
-		FLAG_THEATER = -2,
+		FLAG_THEATER = -1,
+		FLAG_TVTIME = -2,
 		FLAG_FAVORITE = -3,
 		FLAG_SETTING = -4;
 		
@@ -62,7 +66,7 @@ public class MenuFragement extends Fragment {
 	private int typeId;
 	
 	private FragmentActivity mFragmentActivity;
-	private SharePreferenceIO spIO = new SharePreferenceIO(mFragmentActivity);
+	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,13 +78,15 @@ public class MenuFragement extends Fragment {
 		
 		return fragmentView;
 	}
+	
 	@Override
     public void onAttach(Activity activity) {
     	mFragmentActivity = getActivity();
         super.onAttach(activity);
     }
+	
 	private void initView() {
-		//llOneround = (LinearLayout)fragmentView.findViewById(R.id.ll_oneround);
+		llMovieinfo = (LinearLayout)fragmentView.findViewById(R.id.ll_movieinfo);
 		llOneround = (LinearLayout)fragmentView.findViewById(R.id.ll_oneround);
 		llTworound = (LinearLayout)fragmentView.findViewById(R.id.ll_tworound);
 		llComeing = (LinearLayout)fragmentView.findViewById(R.id.ll_comeing);
@@ -109,7 +115,7 @@ public class MenuFragement extends Fragment {
 		ivFavorite = (ImageView)fragmentView.findViewById(R.id.iv_myfavorite);
 		ivSetting = (ImageView)fragmentView.findViewById(R.id.iv_setting);
 		
-		typeId = spIO.SharePreferenceO("typeId", 1);
+		typeId = MovieInfoAppliccation.shIO.getInt("typeId", 1);
 		switchItemState();
 	}
 	private void switchItemState() {		
@@ -191,27 +197,30 @@ public class MenuFragement extends Fragment {
 		
 		llOneround.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
+				
 				typeId = FLAG_ONEROUND;
 				switchItemState();
-				spIO.SharePreferenceI("typeId", FLAG_ONEROUND);
+				MovieInfoAppliccation.shIO.edit().putInt("typeId", FLAG_ONEROUND).commit();
 				MovieTimeListFragment movieTypes = MovieTimeListFragment.NewInstance(FLAG_ONEROUND);
 				switchFragment(movieTypes, false);
 			}			
 		});		
 		llTworound.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
+			
 				typeId = FLAG_TWOROUND;
 				switchItemState();
-				spIO.SharePreferenceI("typeId", FLAG_TWOROUND);
+				MovieInfoAppliccation.shIO.edit().putInt("typeId", FLAG_TWOROUND).commit();
 				MovieTimeListFragment movieTypes = MovieTimeListFragment.NewInstance(FLAG_TWOROUND);
 				switchFragment(movieTypes, false);
 			}			
 		});
 		llComeing.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
+				
 				typeId = FLAG_COMING;
 				switchItemState();
-				spIO.SharePreferenceI("typeId", FLAG_COMING);
+				MovieInfoAppliccation.shIO.edit().putInt("typeId", FLAG_COMING).commit();
 				MovieTimeListFragment movieTypes = MovieTimeListFragment.NewInstance(FLAG_COMING);
 				switchFragment(movieTypes, false);
 			}			 
@@ -220,16 +229,16 @@ public class MenuFragement extends Fragment {
 			public void onClick(View arg0) {
 				typeId = FLAG_WEEK;
 				switchItemState();
-				spIO.SharePreferenceI("typeId", FLAG_WEEK);
+				MovieInfoAppliccation.shIO.edit().putInt("typeId", FLAG_WEEK).commit();
 				MovieTimeListFragment movieTypes = MovieTimeListFragment.NewInstance(FLAG_WEEK);
 				switchFragment(movieTypes, false);
 			}			
 		});
-		/*llTvtime.setOnClickListener(new OnClickListener() {
+		llTvtime.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
 				typeId = FLAG_TVTIME;
 				switchItemState();
-				spIO.SharePreferenceI("typeId", FLAG_TVTIME);
+				MovieInfoAppliccation.shIO.edit().putInt("typeId", FLAG_TVTIME).commit();
 				TvtimeFragment tvTime = new TvtimeFragment();
 				switchFragment(tvTime, true);
 			}			
@@ -238,7 +247,7 @@ public class MenuFragement extends Fragment {
 			public void onClick(View arg0) {
 				typeId = FLAG_THEATER;
 				switchItemState();
-				spIO.SharePreferenceI("typeId", FLAG_THEATER);
+				MovieInfoAppliccation.shIO.edit().putInt("typeId", FLAG_THEATER).commit();
 				TheaterFragment Theater = new TheaterFragment();
 				switchFragment(Theater, true);
 			}			
@@ -247,7 +256,7 @@ public class MenuFragement extends Fragment {
 			public void onClick(View arg0) {
 				typeId = FLAG_FAVORITE;
 				switchItemState();
-				spIO.SharePreferenceI("typeId", FLAG_FAVORITE);
+				MovieInfoAppliccation.shIO.edit().putInt("typeId", FLAG_FAVORITE).commit();
 				MyFavoriteFragment myFavorite = new MyFavoriteFragment();
 				switchFragment(myFavorite, true);
 			}			
@@ -256,16 +265,16 @@ public class MenuFragement extends Fragment {
 			 public void onClick(View arg0) {
 				typeId = FLAG_SETTING;
 				switchItemState();
-				spIO.SharePreferenceI("typeId", FLAG_SETTING);
+				MovieInfoAppliccation.shIO.edit().putInt("typeId", FLAG_SETTING).commit();
 				SettingFragment setting = new SettingFragment();
 				switchFragment(setting, true);
+				
 			 }			
 		 });
-		*/
+		
 		 
 	}
 
-	// the meat of switching the above fragment
 	private void switchFragment(Fragment fragment, boolean isAdd) {
 		if (mFragmentActivity == null)
 			return;

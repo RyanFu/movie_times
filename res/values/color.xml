@@ -8,9 +8,10 @@
     <color name="color_white_a">#ffffff</color>
     <color name="color_grey_b">#2b2b2b</color>
     <color name="color_bgtx_c">#0a0a0a</color>
-    <color name="color_yellow_d">#daa60b</color>
+    <color name="color_yellow_d">#fcc809</color><!-- #daa60b  #ecba0b-->
     <color name="color_darkyellow_e">#6d4b00</color>
-    
+    <color name="color_area_diver">#2b2b2b</color>
+    <color name="transparent80">#33000000</color>
     
      <!-- Add for Report -->
     <color name="report_view_1">#f6c737</color>

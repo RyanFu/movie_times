@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">  
     <item android:state_pressed="true" >  
         <shape>  
-            <solid android:color="@color/tab_press_bg_dark"/> 
+            <solid android:color="@color/color_grey_b"/> 
         </shape>  
     </item>   
     <item>        
         <shape>  
-            <solid android:color="@color/tab_normal_bg_dark"/>
+            <solid android:color="@color/color_bgtx_c"/>
         </shape>  
     </item>  
 </selector> 

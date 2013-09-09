@@ -8,8 +8,8 @@ import java.util.GregorianCalendar;
 import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.ad.AdGenerator;
+import com.jumplife.adapter.TvScheduleListAdapter;
 import com.jumplife.movieinfo.api.MovieAPI;
-import com.jumplife.sectionlistview.TvScheduleListAdapter;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
