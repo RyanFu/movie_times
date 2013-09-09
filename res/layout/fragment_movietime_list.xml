@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bgtx_c" >
+    
+    <ListView
+	        android:id="@+id/frag_listview_movie"
+	        android:layout_width="match_parent"
+    		android:layout_height="match_parent"
+	        android:background="@color/color_bgtx_c"
+	        />
+   <!--  <ImageButtom 
+        	android:id="@+id/ib_movie_list_refresh"
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+       	 	android:layout_alignParentTop="true"
+        	android:contentDescription="@null"
+        	android:visibility="gone"
+       		android:background="@drawable/ib_renew_bg"
+        	android:src="@drawable/renew"/>--> 
+
+</RelativeLayout>

@@ -523,7 +523,11 @@ public class SQLiteMovieInfoHelper extends SQLiteOpenHelper {
         if (filter == FILTER_ALL)
             cursor = db.rawQuery("SELECT * FROM " + MovieTable, null);
         else
-            cursor = db.rawQuery("SELECT id, name, name_en, poster_url, release_date FROM " + MovieTable + " WHERE " + filter + " = 't'", null);
+            cursor = db.rawQuery("SELECT id, name, name_en, poster_url, release_date FROM " + MovieTable + " WHERE " 
+            											+ filter + " = 't' ORDER BY release_date DESC", null);
+        if(filter ==FILTER_RECENT){
+        	cursor = db.rawQuery("SELECT id, name, name_en, poster_url, release_date FROM " + MovieTable + " WHERE " 
+				+ filter + " = 't' ORDER BY release_date ASC", null);}
         while (cursor.moveToNext()) {
             Movie movie = new Movie();
             movie.setId(cursor.getInt(0));

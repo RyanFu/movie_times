@@ -1,7 +1,7 @@
 package com.jumplife.movieinfo;
 
 import com.google.analytics.tracking.android.TrackedActivity;
-import com.jumplife.log.flurry.FlurryLogTag;
+
 
 import android.os.Bundle;
 import android.util.DisplayMetrics;

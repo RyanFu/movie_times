@@ -57,8 +57,8 @@ public class NewsActivity extends TrackedActivity implements AdWhirlInterface{
 	}
 	
 	private void findViews() {
-		TextView topbar_text = (TextView)findViewById(R.id.topbar_text);
-        topbar_text.setText("電影報");
+		
+       
         
 		newsListView = (PullToRefreshListView)findViewById(R.id.listview_news);
 		pullMore = (LinearLayout)findViewById(R.id.progressBar_pull_more);

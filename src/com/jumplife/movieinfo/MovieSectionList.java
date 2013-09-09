@@ -34,6 +34,7 @@ import com.ifixit.android.sectionheaders.SectionHeadersAdapter;
 import com.ifixit.android.sectionheaders.SectionListView;
 import com.jumplife.ad.AdGenerator;
 import com.jumplife.adapter.MovieSectionAdapter;
+import com.jumplife.movieinfo.MovieList.TYPE;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.Movie;
 import com.jumplife.movieinfo.entity.Theater;
@@ -178,21 +179,32 @@ public class MovieSectionList extends TrackedActivity implements AdWhirlInterfac
 		SQLiteDatabase db = instance.getReadableDatabase();
 		db.beginTransaction();
 		
-        if (listType == TYPE.RECENT)
-            movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_RECENT);
-        else if (listType == TYPE.FIRSTROUND)
-            movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_FIRST_ROUND);
+		if (listType == TYPE.RECENT)
+			movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_RECENT);
+		else if (listType == TYPE.FIRSTROUND)
+			movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_FIRST_ROUND);
         else if (listType == TYPE.SECONDROUND)
-            movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_SECOND_ROUND);
-        else if (listType == TYPE.WEEKLY)
-            movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_THIS_WEEK);
-        else {
-            theater = movieAPI.getMovieList(theater, null);
-            if (theater.getMovies() == null)
-                movieList = null;
-            else
-                movieList = theater.getMovies();
-        }
+        	movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_SECOND_ROUND);
+		else if (listType == TYPE.WEEKLY)
+			movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_THIS_WEEK);
+		else{
+			ArrayList<Movie> movies = movieAPI.getMoviesIdandHallList(theater);
+			if (movies != null && movies.size() > 0) {
+				movieList = instance.getMovieListWithHall(db, movies);
+				Log.d(null, "movieList size :" + movieList.size());
+				for(int i=0; i<movieList.size(); i++) {
+					for(int j=0; j<movies.size(); j++) {
+						if(movieList.get(i).getId() == movies.get(j).getId()) 
+							movieList.get(i).setHall(movies.get(j).getHall());
+					}
+				}
+				ArrayList<Movie> tmpList = (ArrayList<Movie>) movieList.clone();
+				movieList.clear();
+				for (int i = tmpList.size()-1; i>-1; i--)
+					movieList.add(tmpList.get(i));
+			} else
+				movieList = new ArrayList<Movie>();
+		}
 		
 		db.setTransactionSuccessful();
         db.endTransaction();

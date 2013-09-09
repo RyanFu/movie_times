@@ -12,5 +12,28 @@
     <dimen name="about_us_title">8dp</dimen>
     <dimen name="about_us_margin">8dp</dimen>
     <dimen name="about_us_seperate">2dp</dimen>
-
+    
+    <!-- fragment menu -->
+    <dimen name="menu_fragment_item_mark_width">5dp</dimen>
+    <dimen name="menu_fragment_item_mark_height">50dp</dimen>
+    <dimen name="menu_fragment_margin_rl">20dp</dimen>
+    <dimen name="menu_fragment_item_imagetsize">28dp</dimen>
+    <dimen name="menu_fragment_item_text_margin">10dp</dimen>
+    <dimen name="menu_fragment_item_textsize">20dp</dimen>
+	<dimen name="menu_fragment_divider">1dp</dimen>
+	<dimen name="menu_fragment_infotype_text_margin">28dp</dimen>
+	
+	<!-- fragment Area-->
+	<dimen name="area_fragment_divider">1dp</dimen>
+	<dimen name="area_item_view_margin">10dp</dimen>
+	
+	 <!-- Setting Fragment -->
+    <dimen name="setting_fragment_seperate_height">1dp</dimen>
+    <dimen name="setting_fragment_margin">20dp</dimen>    
+    <dimen name="setting_fragment_itemsize">50dp</dimen>        
+    <dimen name="setting_fragment_itempadding">10dp</dimen>        
+    <dimen name="setting_fragment_itemmargin">6dp</dimen>
+    <dimen name="setting_fragment_textsize">25dp</dimen>
+    <dimen name="setting_fragment_imagesize">40dp</dimen>
+    
 </resources>

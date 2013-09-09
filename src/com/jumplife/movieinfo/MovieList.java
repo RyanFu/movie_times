@@ -232,8 +232,8 @@ public class MovieList extends TrackedActivity implements AdWhirlInterface{
 			movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_RECENT);
 		else if (listType == TYPE.FIRSTROUND)
 			movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_FIRST_ROUND);
-		else if (listType == TYPE.SECONDROUND)
-			movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_SECOND_ROUND);
+        else if (listType == TYPE.SECONDROUND)
+        	movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_SECOND_ROUND);
 		else if (listType == TYPE.WEEKLY)
 			movieList = instance.getMovieList(db, SQLiteMovieInfoHelper.FILTER_THIS_WEEK);
 		else{
@@ -266,7 +266,7 @@ public class MovieList extends TrackedActivity implements AdWhirlInterface{
 			movieListView.addHeaderView(viewHeader);
 		}
 		
-		movieListView.setAdapter(new MovieListAdapter(MovieList.this, movieList));
+		//movieListView.setAdapter(new MovieListAdapter(MovieList.this, movieList ));
 		movieListView.setTextFilterEnabled(true);
 	}
 

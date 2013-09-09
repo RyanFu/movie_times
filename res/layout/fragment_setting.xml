@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bgtx_c">
+    
+    <ScrollView 
+        android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:background="@color/color_bgtx_c"
+        android:layout_alignParentTop="true" 
+        android:layout_above="@+id/ad_layout">
+        <LinearLayout android:id="@+id/ll_aboutus" 
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"
+		    android:layout_margin="@dimen/setting_fragment_margin"
+		    android:background="@color/color_bgtx_c" >
+        	
+	    
+	    </LinearLayout>
+    </ScrollView>
+    <ProgressBar android:id="@+id/pb_about_us"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+        
+    <RelativeLayout
+        android:id="@+id/ad_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/background"
+        android:gravity="center_horizontal" 
+        android:layout_gravity="center_horizontal"/>    
+    
+</RelativeLayout>
+<!-- <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bgtx_c" >
+    
+	<LinearLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:layout_margin="@dimen/setting_fragment_margin"
+	    android:background="@color/color_bgtx_c" >
+	    
+	    <RelativeLayout android:id="@+id/rl_feedback"
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/setting_fragment_itemsize"
+	        android:paddingLeft="@dimen/setting_fragment_itempadding"
+	        android:background="@drawable/setting_item_bg" >
+	            <ImageView android:id="@+id/iv_feedback"
+	                android:layout_width="@dimen/setting_fragment_imagesize"
+	                android:layout_height="@dimen/setting_fragment_imagesize"
+	                android:layout_centerVertical="true"
+	                android:layout_marginLeft="@dimen/setting_fragment_itemmargin"
+	                android:duplicateParentState="true"
+	                android:contentDescription="@null"
+	                android:src="@drawable/feedback" />
+	            <TextView  
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_centerVertical="true"
+	                android:layout_toRightOf="@+id/iv_feedback"
+	                android:layout_marginLeft="@dimen/setting_fragment_itemmargin"
+	                android:duplicateParentState="true"
+			        android:textSize="@dimen/setting_fragment_textsize"
+			        android:textColor="@drawable/area_text_color"
+	                android:text="@string/advice_and_feedback" />
+	    </RelativeLayout>
+	    <View 
+	        android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_fragment_seperate_height"
+            android:background="@color/color_grey_b" />
+	    <RelativeLayout android:id="@+id/rl_delete"
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/setting_fragment_itemsize"
+	        android:paddingLeft="@dimen/setting_fragment_itempadding"
+	        android:background="@drawable/setting_item_bg" >
+	            <ImageView android:id="@+id/iv_delete"
+	                android:layout_width="@dimen/setting_fragment_imagesize"
+	                android:layout_height="@dimen/setting_fragment_imagesize"
+	                android:layout_centerVertical="true"
+	                android:layout_marginLeft="@dimen/setting_fragment_itemmargin"
+	                android:duplicateParentState="true"
+	                android:contentDescription="@null"
+	                android:src="@drawable/delete" />
+	            <TextView  
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_centerVertical="true"
+	                android:layout_toRightOf="@+id/iv_delete"
+	                android:layout_marginLeft="@dimen/setting_fragment_itemmargin"
+	                android:duplicateParentState="true"
+			        android:textSize="@dimen/setting_fragment_textsize"
+			        android:textColor="@drawable/area_text_color"
+	                android:text="@string/clear" />
+	    </RelativeLayout>
+	    <View 
+	        android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_fragment_seperate_height"
+            android:background="@color/color_grey_b" />
+	    <RelativeLayout android:id="@+id/rl_news"
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/setting_fragment_itemsize"
+	        android:paddingLeft="@dimen/setting_fragment_itempadding"
+	        android:background="@drawable/setting_item_bg" >
+	            <ImageView android:id="@+id/iv_news"
+	                android:layout_width="@dimen/setting_fragment_imagesize"
+	                android:layout_height="@dimen/setting_fragment_imagesize"
+	                android:layout_centerVertical="true"
+	                android:layout_marginLeft="@dimen/setting_fragment_itemmargin"
+	                android:duplicateParentState="true"
+	                android:contentDescription="@null"
+	                android:src="@drawable/news" />
+	            <TextView  
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_centerVertical="true"
+	                android:layout_toRightOf="@+id/iv_news"
+	                android:layout_marginLeft="@dimen/setting_fragment_itemmargin"
+	                android:duplicateParentState="true"
+			        android:textSize="@dimen/setting_fragment_textsize"
+			        android:textColor="@drawable/area_text_color"
+	                android:text="@string/entertainment_news" />
+	    </RelativeLayout>
+	    <View 
+	        android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_fragment_seperate_height"
+            android:background="@color/color_grey_b" />
+	  	<RelativeLayout android:id="@+id/rl_facebook"
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/setting_fragment_itemsize"
+	        android:paddingLeft="@dimen/setting_fragment_itempadding"
+	        android:background="@drawable/setting_item_bg" >
+	            <ImageView android:id="@+id/iv_facebook"
+	                android:layout_width="@dimen/setting_fragment_imagesize"
+	                android:layout_height="@dimen/setting_fragment_imagesize"
+	                android:layout_centerVertical="true"
+	                android:layout_marginLeft="@dimen/setting_fragment_itemmargin"
+	                android:duplicateParentState="true"
+	                android:contentDescription="@null"
+	                android:src="@drawable/facebook" />
+	            <TextView  
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_centerVertical="true"
+	                android:layout_toRightOf="@+id/iv_facebook"
+	                android:layout_marginLeft="@dimen/setting_fragment_itemmargin"
+	                android:duplicateParentState="true"
+			        android:textSize="@dimen/setting_fragment_textsize"
+			        android:textColor="@drawable/area_text_color"
+	                android:text="@string/facebook" />
+	    </RelativeLayout>
+	    <View 
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/setting_fragment_seperate_height"
+	        android:background="@color/color_grey_b" />
+	    <RelativeLayout android:id="@+id/rl_moviediary"
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/setting_fragment_itemsize"
+	        android:paddingLeft="@dimen/setting_fragment_itempadding"
+	        android:background="@drawable/setting_item_bg" >
+	            <ImageView android:id="@+id/iv_moviediary"
+	                android:layout_width="@dimen/setting_fragment_imagesize"
+	                android:layout_height="@dimen/setting_fragment_imagesize"
+	                android:layout_centerVertical="true"
+	                android:layout_marginLeft="@dimen/setting_fragment_itemmargin"
+	                android:duplicateParentState="true"
+	                android:contentDescription="@null"
+	                android:src="@drawable/movie_64" />
+	            <TextView  
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_centerVertical="true"
+	                android:layout_toRightOf="@+id/iv_moviediary"
+	                android:layout_marginLeft="@dimen/setting_fragment_itemmargin"
+	                android:duplicateParentState="true"
+			        android:textSize="@dimen/setting_fragment_textsize"
+			        android:textColor="@drawable/area_text_color"
+	                android:text="@string/movie_notes" />
+	    </RelativeLayout>
+	    <View 
+	        android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_fragment_seperate_height"
+            android:background="@color/color_grey_b" />
+	    <RelativeLayout android:id="@+id/rl_tvdrama"
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/setting_fragment_itemsize"
+	        android:paddingLeft="@dimen/setting_fragment_itempadding"
+	        android:background="@drawable/setting_item_bg" >
+	            <ImageView android:id="@+id/iv_tvdrama"
+	                android:layout_width="@dimen/setting_fragment_imagesize"
+	                android:layout_height="@dimen/setting_fragment_imagesize"
+	                android:layout_centerVertical="true"
+	                android:layout_marginLeft="@dimen/setting_fragment_itemmargin"
+	                android:duplicateParentState="true"
+	                android:contentDescription="@null"
+	                android:src="@drawable/tvdrama" />
+	            <TextView  
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_centerVertical="true"
+	                android:layout_toRightOf="@+id/iv_tvdrama"
+	                android:layout_marginLeft="@dimen/setting_fragment_itemmargin"
+	                android:duplicateParentState="true"
+			        android:textSize="@dimen/setting_fragment_textsize"
+			        android:textColor="@drawable/area_text_color"
+	                android:text="@string/tv_drama" />
+	    </RelativeLayout>
+	    <View 
+	        android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_fragment_seperate_height"
+            android:background="@color/color_grey_b" />
+	    <RelativeLayout android:id="@+id/rl_tvvariety"
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/setting_fragment_itemsize"
+	        android:paddingLeft="@dimen/setting_fragment_itempadding"
+	        android:background="@drawable/setting_item_bg" >
+	            <ImageView android:id="@+id/iv_tvvariety"
+	                android:layout_width="@dimen/setting_fragment_imagesize"
+	                android:layout_height="@dimen/setting_fragment_imagesize"
+	                android:layout_centerVertical="true"
+	                android:layout_marginLeft="@dimen/setting_fragment_itemmargin"
+	                android:duplicateParentState="true"
+	                android:contentDescription="@null"
+	                android:src="@drawable/tvvariety" />
+	            <TextView  
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_centerVertical="true"
+	                android:layout_toRightOf="@+id/iv_tvvariety"
+	                android:layout_marginLeft="@dimen/setting_fragment_itemmargin"
+	                android:duplicateParentState="true"
+			        android:textSize="@dimen/setting_fragment_textsize"
+			        android:textColor="@drawable/area_text_color"
+	                android:text="@string/tv_entertainment" />
+	    </RelativeLayout>
+	   
+	    
+	   
+	    
+	    
+	</LinearLayout>
+</RelativeLayout> -->
+
+
+
+

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_movie_list_item" 
+    android:layout_height="match_parent" 
+    android:layout_width="match_parent" 
+    android:padding="2dp"
+    android:background="@drawable/listitem_background" 
+    >
+	    <RelativeLayout android:id="@+id/rl_poster" 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content">
+	   		<ImageView android:id="@+id/listitem_movie_poster"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_gravity="center_vertical"
+		        android:src="@drawable/stub" 
+		        android:background="@drawable/listitem_background"
+		        android:contentDescription="@null" />
+	   		<RelativeLayout android:id="@+id/rl_rank_label"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignParentRight="true"
+			    android:layout_alignParentBottom="true"
+			    android:visibility="gone">
+		   	 	<ImageView android:id="@+id/iv_rank_label"
+		   		    android:layout_width="wrap_content" 
+			        android:layout_height="wrap_content" 
+			        android:layout_alignParentRight="true"
+			        android:layout_alignParentBottom="true"
+			        android:src="@drawable/rankinglabel"/>
+		   	 	<TextView android:id="@+id/tv_rank_num"
+		   		    android:layout_width="wrap_content" 
+			        android:layout_height="wrap_content" 
+			        android:text="20"
+			        android:layout_alignParentRight="true"
+			        android:layout_alignParentBottom="true"
+			        android:textColor="@color/color_bgtx_c"
+			        /> 	
+	   		</RelativeLayout>
+	    </RelativeLayout>
+    <RelativeLayout android:id="@+id/rl_names_date" 
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/rl_poster"
+        android:layout_marginLeft="10dp">
+        <TextView android:text="電影名稱"
+            android:textStyle="bold"
+            android:id="@+id/listitem_movie_name"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:singleLine="true" 
+            android:textSize="28dp"
+            android:textColor="@color/color_white_a" />
+        <TextView android:text="English Name"
+            android:id="@+id/listitem_movie_name_en"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="20dp"
+            android:textColor="@color/color_white_a"
+            android:layout_below="@+id/listitem_movie_name" />
+        <TextView
+            android:id="@+id/listitem_movie_release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上映日期:2013-09-03"
+            android:singleLine="true"
+            android:textColor="@color/color_white_a"
+            android:textSize="19dp" 
+            android:layout_alignParentBottom="true"
+            />
+        
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/area_fragment_divider"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_grey_b"
+            />
+           
+            
+</RelativeLayout>

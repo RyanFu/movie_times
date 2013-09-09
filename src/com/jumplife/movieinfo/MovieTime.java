@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.AppProject;
-import com.jumplife.sharedpreferenceio.SharePreferenceIO;
 import com.jumplife.sqlite.SQLiteMovieInfoHelper;
 
 import android.content.Intent;
@@ -31,7 +30,7 @@ public class MovieTime extends TrackedActivity {
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movietime);
         loading = (TextView)findViewById(R.id.textview_loading);
         loading.setText("更新資料中...");
@@ -76,11 +75,11 @@ public class MovieTime extends TrackedActivity {
 	        }
 	        instance.updateMovieIs(db, a);
 	        long endTime = System.currentTimeMillis();
-	        SharePreferenceIO spIO = new SharePreferenceIO(this);
+	       
 	        String hotSeq = "";
 	        for(int i=0; i<a[3].size(); i++)
 	        	hotSeq = hotSeq + a[3].get(i) + ",";
-	        spIO.SharePreferenceI("hot_movie", hotSeq);
+	        MovieInfoAppliccation.shIO.edit().putString("hot_movie", hotSeq);
 	    	Log.e(TAG, "sample method took（movie time activity) %%%%%%%%%%%%%%%%%%%%%%%%%%%%"+(endTime-startTime)+"ms");
 			
 	    	ArrayList<AppProject> appProject = api.getAppProjectList(MovieTime.this);
@@ -100,8 +99,11 @@ public class MovieTime extends TrackedActivity {
 	}
 	
 	private void setData(){
+		
+		MovieInfoAppliccation.shIO.edit().putInt("typeId", 1);
+		
 		Intent newAct = new Intent();
-		newAct.setClass( MovieTime.this, MovieTabActivities.class );
+		newAct.setClass( MovieTime.this, MainMenuActivity.class );
 		startActivity(newAct);
     	finish();
 	}
