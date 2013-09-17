@@ -22,8 +22,7 @@ import android.widget.TextView;
 public class MenuFragement extends Fragment {
 	
 	private View fragmentView;
-	private LinearLayout llMovieinfo,
-						 llOneround,
+	private LinearLayout llOneround,
 						 llTworound,
 						 llComeing,
 						 llWeek,
@@ -35,8 +34,12 @@ public class MenuFragement extends Fragment {
 	private View vOneround,
 				 vTworound,
 				 vComeing,
-			 	 vWeek;
-	
+			 	 vWeek,
+				 vTheater,
+				 vTvtime,
+				 vFavorite,
+				 vSetting;
+	 
 	private TextView tvOneround,
 					 tvTworound,
 					 tvComeing,
@@ -46,7 +49,11 @@ public class MenuFragement extends Fragment {
 					 tvFavorite,
 					 tvSetting;
 					 
-	private ImageView ivTvtime,
+	private ImageView ivOneround,
+	 				  ivTworound,
+	 				  ivComeing,
+	 				  ivWeek,
+	 				  ivTvtime,
 					  ivTheater,
 					  ivFavorite,
 					  ivSetting;
@@ -86,7 +93,7 @@ public class MenuFragement extends Fragment {
     }
 	
 	private void initView() {
-		llMovieinfo = (LinearLayout)fragmentView.findViewById(R.id.ll_movieinfo);
+		//llMovieinfo = (LinearLayout)fragmentView.findViewById(R.id.ll_movieinfo);
 		llOneround = (LinearLayout)fragmentView.findViewById(R.id.ll_oneround);
 		llTworound = (LinearLayout)fragmentView.findViewById(R.id.ll_tworound);
 		llComeing = (LinearLayout)fragmentView.findViewById(R.id.ll_comeing);
@@ -100,7 +107,11 @@ public class MenuFragement extends Fragment {
 		vTworound = (View)fragmentView.findViewById(R.id.v_tworound);
 		vComeing = (View)fragmentView.findViewById(R.id.v_comeing);
 	 	vWeek = (View)fragmentView.findViewById(R.id.v_week);
-		
+	 	vTvtime = (View)fragmentView.findViewById(R.id.v_tvtime);
+	 	vTheater = (View)fragmentView.findViewById(R.id.v_theater);
+	 	vFavorite = (View)fragmentView.findViewById(R.id.v_myfavorite);
+	 	vSetting = (View)fragmentView.findViewById(R.id.v_setting);
+	 	
 	 	tvOneround = (TextView)fragmentView.findViewById(R.id.tv_oneround);
 		tvTworound = (TextView)fragmentView.findViewById(R.id.tv_tworound);
 		tvComeing = (TextView)fragmentView.findViewById(R.id.tv_comeing);
@@ -110,6 +121,10 @@ public class MenuFragement extends Fragment {
 		tvFavorite = (TextView)fragmentView.findViewById(R.id.tv_myfavorite);
 		tvSetting = (TextView)fragmentView.findViewById(R.id.tv_setting);
 		
+		ivOneround = (ImageView)fragmentView.findViewById(R.id.iv_oneround);
+		ivTworound = (ImageView)fragmentView.findViewById(R.id.iv_tworound);
+		ivComeing = (ImageView)fragmentView.findViewById(R.id.iv_coming);
+		ivWeek = (ImageView)fragmentView.findViewById(R.id.iv_week);
 		ivTvtime = (ImageView)fragmentView.findViewById(R.id.iv_tvtime);
 		ivTheater = (ImageView)fragmentView.findViewById(R.id.iv_theater);
 		ivFavorite = (ImageView)fragmentView.findViewById(R.id.iv_myfavorite);
@@ -133,6 +148,12 @@ public class MenuFragement extends Fragment {
 		tvFavorite.setTextColor(getResources().getColor(R.color.color_white_a));
 		tvSetting.setTextColor(getResources().getColor(R.color.color_white_a));
 		
+		
+		ivOneround.setBackgroundResource(R.drawable.theater_normal);
+		ivTworound.setBackgroundResource(R.drawable.theater_normal);
+		ivComeing.setBackgroundResource(R.drawable.theater_normal);
+		ivWeek.setBackgroundResource(R.drawable.theater_normal);
+		
 		ivTvtime.setBackgroundResource(R.drawable.tvtime_normal);
 		ivTheater.setBackgroundResource(R.drawable.theater_normal);
 		ivFavorite.setBackgroundResource(R.drawable.liketheater_normal);
@@ -142,6 +163,10 @@ public class MenuFragement extends Fragment {
 		vTworound.setVisibility(View.INVISIBLE);
 		vComeing.setVisibility(View.INVISIBLE);
 		vWeek.setVisibility(View.INVISIBLE);
+		vTvtime.setVisibility(View.INVISIBLE);
+		vTheater.setVisibility(View.INVISIBLE);
+		vFavorite.setVisibility(View.INVISIBLE);
+		vSetting.setVisibility(View.INVISIBLE);
 		
 	}
 	/*
@@ -160,32 +185,40 @@ public class MenuFragement extends Fragment {
 		case FLAG_ONEROUND :
 			tvOneround.setTextColor(getResources().getColor(R.color.color_yellow_d));
 			vOneround.setVisibility(View.VISIBLE);
+			ivOneround.setBackgroundResource(R.drawable.theater_press);
 			break;
 		case FLAG_TWOROUND :
 			tvTworound.setTextColor(getResources().getColor(R.color.color_yellow_d));
 			vTworound.setVisibility(View.VISIBLE);
+			ivTworound.setBackgroundResource(R.drawable.theater_press);
 			break;
 		case FLAG_COMING :
 			tvComeing.setTextColor(getResources().getColor(R.color.color_yellow_d));
 			vComeing.setVisibility(View.VISIBLE);
+			ivComeing.setBackgroundResource(R.drawable.theater_press);
 			break;
 		case FLAG_WEEK :
 			tvWeek.setTextColor(getResources().getColor(R.color.color_yellow_d));
 			vWeek.setVisibility(View.VISIBLE);
+			ivWeek.setBackgroundResource(R.drawable.theater_press);
 			break;
 		case FLAG_TVTIME :
+			vTvtime.setVisibility(View.VISIBLE);
 			tvTvtime.setTextColor(getResources().getColor(R.color.color_yellow_d));
 			ivTvtime.setBackgroundResource(R.drawable.tvtime_press);
 			break;
 		case FLAG_THEATER :
+			vTheater.setVisibility(View.VISIBLE);
 			tvTheater.setTextColor(getResources().getColor(R.color.color_yellow_d));
 			ivTheater.setBackgroundResource(R.drawable.theater_press);
 			break;
 		case FLAG_FAVORITE :
+			vFavorite.setVisibility(View.VISIBLE);
 			tvFavorite.setTextColor(getResources().getColor(R.color.color_yellow_d));
 			ivFavorite.setBackgroundResource(R.drawable.liketheater_press);
 			break;
 		case FLAG_SETTING :
+			vSetting.setVisibility(View.VISIBLE);
 			tvSetting.setTextColor(getResources().getColor(R.color.color_yellow_d));
 			ivSetting.setBackgroundResource(R.drawable.aboutus_press);
 			break;
@@ -198,39 +231,39 @@ public class MenuFragement extends Fragment {
 		llOneround.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
 				
-				typeId = FLAG_ONEROUND;
+				typeId = 1;
 				switchItemState();
-				MovieInfoAppliccation.shIO.edit().putInt("typeId", FLAG_ONEROUND).commit();
-				MovieTimeListFragment movieTypes = MovieTimeListFragment.NewInstance(FLAG_ONEROUND);
+				MovieInfoAppliccation.shIO.edit().putInt("typeId",typeId).commit();
+				MovieTimeListFragment movieTypes = MovieTimeListFragment.NewInstance(typeId);
 				switchFragment(movieTypes, false);
 			}			
 		});		
 		llTworound.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
 			
-				typeId = FLAG_TWOROUND;
+				typeId = 4;
 				switchItemState();
-				MovieInfoAppliccation.shIO.edit().putInt("typeId", FLAG_TWOROUND).commit();
-				MovieTimeListFragment movieTypes = MovieTimeListFragment.NewInstance(FLAG_TWOROUND);
+				MovieInfoAppliccation.shIO.edit().putInt("typeId", typeId).commit();
+				MovieTimeListFragment movieTypes = MovieTimeListFragment.NewInstance(typeId);
 				switchFragment(movieTypes, false);
 			}			
 		});
 		llComeing.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
 				
-				typeId = FLAG_COMING;
+				typeId = 3;
 				switchItemState();
-				MovieInfoAppliccation.shIO.edit().putInt("typeId", FLAG_COMING).commit();
-				MovieTimeListFragment movieTypes = MovieTimeListFragment.NewInstance(FLAG_COMING);
+				MovieInfoAppliccation.shIO.edit().putInt("typeId", typeId).commit();
+				MovieTimeListFragment movieTypes = MovieTimeListFragment.NewInstance(typeId);
 				switchFragment(movieTypes, false);
 			}			 
 		});		
 		llWeek.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
-				typeId = FLAG_WEEK;
+				typeId = 2;
 				switchItemState();
-				MovieInfoAppliccation.shIO.edit().putInt("typeId", FLAG_WEEK).commit();
-				MovieTimeListFragment movieTypes = MovieTimeListFragment.NewInstance(FLAG_WEEK);
+				MovieInfoAppliccation.shIO.edit().putInt("typeId", typeId).commit();
+				MovieTimeListFragment movieTypes = MovieTimeListFragment.NewInstance(typeId);
 				switchFragment(movieTypes, false);
 			}			
 		});

@@ -3,96 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/main_color_grey_dark">
-    
-	<LinearLayout
-	    android:id="@+id/linearlayout_list"
-	    android:orientation="vertical"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:background="@color/main_color_grey_dark"
-	    android:layout_above="@+id/ad_layout" >
-		
-		<include android:id="@+id/topbar" layout="@layout/topbar"/>
-				
-	    <ListView
-	        android:id="@+id/listview_theater"
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
-	        android:background="@color/main_color_grey_dark" />
-        <TextView 
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="6dp"
-            android:textColor="@color/textcolor_grey"
-            android:textSize="17dp"
-            android:text="尚未新增最愛影城"/>
-        <TextView 
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="6dp"
-            android:textColor="@color/textcolor_grey"
-            android:textSize="17dp"
-            android:text="在影城詳細資料頁面可以將您常瀏覽的影城加入，以方便快速操作。" />
-        
-        <TextView 
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:padding="5dp"
-            android:textColor="@color/textcolor_grey"
-            android:textSize="17dp"
-            android:text="圖示說明 : " />
-        
-        <LinearLayout
-	        android:orientation="horizontal"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" >
-	        <ImageView 
-	            android:layout_width="30dp"
-	            android:layout_height="30dp"
-	            android:padding="2dp"
-	            android:layout_marginLeft="5dp"
-	            android:background="@drawable/theater_button_background"
-	            android:clickable="false"
-                android:src="@drawable/theater_like" />
-	        <TextView 
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:padding="5dp"
-	            android:textColor="@color/textcolor_grey"
-	            android:textSize="17dp"
-                android:text="已加入最愛影城" />
-        </LinearLayout>
-        
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-	        <ImageView 
-	            android:layout_width="30dp"
-	            android:layout_height="30dp"
-	            android:padding="2dp"
-	            android:layout_marginLeft="5dp"
-	            android:background="@drawable/theater_button_background"
-	            android:clickable="false"
-	            android:src="@drawable/theater_unlike"/>
-	        <TextView 
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textColor="@color/textcolor_grey"
-                android:textSize="17dp"
-                android:text="未加入最愛影城" />
-	        </LinearLayout>
-        
-	</LinearLayout>
-	
-	<RelativeLayout
+    android:background="@color/color_bgtx_c">
+    <ListView
+        android:id="@+id/listview_theater"
+        android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+	    android:background="@color/color_bgtx_c"
+	    android:divider="@null"
+	    />
+     
+     <RelativeLayout
         android:id="@+id/ad_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal" 
         android:layout_gravity="center_horizontal"/>
+	
 </RelativeLayout>

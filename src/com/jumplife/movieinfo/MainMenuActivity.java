@@ -1,14 +1,22 @@
 package com.jumplife.movieinfo;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.jumplife.fragment.MenuFragement;
 import com.jumplife.fragment.MovieTimeListFragment;
+import com.jumplife.fragment.MyFavoriteFragment;
+import com.jumplife.fragment.SettingFragment;
+import com.jumplife.fragment.TheaterFragment;
+import com.jumplife.fragment.TvtimeFragment;
+import com.jumplife.movieinfo.promote.PromoteAPP;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.slidingmenu.lib.SlidingMenu;
@@ -27,8 +35,8 @@ public class MainMenuActivity extends SlidingFragmentActivity {
 	FLAG_COMING = 3,
 	FLAG_TWOROUND = 4,
 	
-	FLAG_TVTIME = -1,
-	FLAG_THEATER = -2,
+	FLAG_TVTIME = -2,
+	FLAG_THEATER = -1,
 	FLAG_FAVORITE = -3,
 	FLAG_SETTING = -4;
 	
@@ -63,9 +71,9 @@ public class MainMenuActivity extends SlidingFragmentActivity {
 		int screenWidth = displayMetrics.widthPixels;
 		
 		menu = getSlidingMenu();
-	    //menu.setShadowWidth(screenWidth/4);
-	    menu.setBehindOffset(screenWidth/2);
-	   // menu.setFadeDegree(0.35f);
+	    menu.setShadowWidth(screenWidth/4);
+	    menu.setBehindOffset(screenWidth/3);
+	    menu.setFadeDegree(0.35f);
 	    menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 	    menu.setOnOpenListener(new OnOpenListener(){
 			@Override
@@ -100,30 +108,30 @@ public class MainMenuActivity extends SlidingFragmentActivity {
 
 		setContentView(R.layout.fragmentlayout_movietime_content);
 		
-		if(typeId == FLAG_TVTIME) {/*
+		if(typeId == FLAG_TVTIME) {
 			TvtimeFragment tvTime = new TvtimeFragment();
 			getSupportFragmentManager()
 			.beginTransaction()
 			.replace(R.id.content_frame, tvTime)
-			.commit();	*/		
-		} else if(typeId == FLAG_THEATER) {/*
+			.commit();			
+		} else if(typeId == FLAG_THEATER) {
 			TheaterFragment theater = new TheaterFragment();
 			getSupportFragmentManager()
 			.beginTransaction()
 			.replace(R.id.content_frame, theater)
-			.commit();	*/		
-		} else if(typeId == FLAG_FAVORITE) {/*
+			.commit();			
+		} else if(typeId == FLAG_FAVORITE) {
 			MyFavoriteFragment myFavorite = new MyFavoriteFragment();
 			getSupportFragmentManager()
 			.beginTransaction()
 			.replace(R.id.content_frame, myFavorite)
-			.commit();	*/		
-		} else if(typeId == FLAG_SETTING) {/*
+			.commit();			
+		} else if(typeId == FLAG_SETTING) {
 			SettingFragment setting = new SettingFragment();
 			getSupportFragmentManager()
 			.beginTransaction()
 			.replace(R.id.content_frame, setting)
-			.commit();*/
+			.commit();
 		} else {
 			MovieTimeListFragment tvchannels = MovieTimeListFragment.NewInstance(typeId); 
 			getSupportFragmentManager()
@@ -198,5 +206,26 @@ public class MainMenuActivity extends SlidingFragmentActivity {
 			break;
 		}
 	}
+	 @Override
+	    public boolean onKeyDown(int keyCode, KeyEvent event) {
+	        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+
+	        	PromoteAPP promoteAPP = new PromoteAPP(MainMenuActivity.this);
+	        	if(!promoteAPP.isPromote) {
+		        	new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.leave_app))
+		            .setPositiveButton(getResources().getString(R.string.leave), new DialogInterface.OnClickListener() {
+		                // do something when the button is clicked
+		                public void onClick(DialogInterface arg0, int arg1) {
+		                	MainMenuActivity.this.finish();
+		                }
+		            }).setNegativeButton(getResources().getString(R.string.cancel), null)
+		            .show();
+			    } else
+			    	promoteAPP.promoteAPPExe();
+
+	            return true;
+	        } else
+	            return super.onKeyDown(keyCode, event);
+	    }
 
 }

@@ -109,10 +109,10 @@ public class SettingFragment extends Fragment {
     	LinearLayout llFacebook = new LinearLayout(mFragmentActivity);
     	
     	
-    	llFeed = createItem(mFragmentActivity.getResources().getString(R.string.advice_and_feedback),R.drawable.feedback);
-    	llClear = createItem(mFragmentActivity.getResources().getString(R.string.clear),R.drawable.delete);
-    	llNews = createItem(mFragmentActivity.getResources().getString(R.string.entertainment_news),R.drawable.news);
-    	llFacebook = createItem(mFragmentActivity.getResources().getString(R.string.facebook),R.drawable.facebook);
+    	llFeed = createItem(mFragmentActivity.getResources().getString(R.string.advice_and_feedback),R.drawable.feedback,"",0);
+    	llClear = createItem(mFragmentActivity.getResources().getString(R.string.clear),R.drawable.delete,"",0);
+    	llNews = createItem(mFragmentActivity.getResources().getString(R.string.entertainment_news),R.drawable.news,"",0);
+    	llFacebook = createItem(mFragmentActivity.getResources().getString(R.string.facebook),R.drawable.facebook,"",0);
     	
     	llAboutUs.addView(llFeed);
     	llAboutUs.addView(createLine());
@@ -125,7 +125,7 @@ public class SettingFragment extends Fragment {
 		
     	llFeed.setOnClickListener(new OnClickListener(){
 			public void onClick(View arg0) {
-				//EasyTracker.getTracker().sendEvent("關於我們", "點擊", "建議回饋", (long)0);
+				
 				Uri uri = Uri.parse("mailto:jumplives@gmail.com");  
 				String[] ccs={"abooyaya@gmail.com, raywu07@gmail.com, supermfb@gmail.com, form.follow.fish@gmail.com"};
 				Intent it = new Intent(Intent.ACTION_SENDTO, uri);
@@ -136,7 +136,7 @@ public class SettingFragment extends Fragment {
 		});
 		llNews.setOnClickListener(new OnClickListener(){
         	public void onClick(View arg0) {
-        		EasyTracker.getTracker().trackEvent("關於我們", "影劇報", "", (long)0);
+        		
 				Intent newAct = new Intent();
 				newAct.setClass( mFragmentActivity, NewsActivity.class );
                 startActivity( newAct );
@@ -144,7 +144,7 @@ public class SettingFragment extends Fragment {
 		});
         llFacebook.setOnClickListener(new OnClickListener(){
 			public void onClick(View arg0) {
-				//EasyTracker.getTracker().sendEvent("關於我們", "點擊", "FB粉絲團", (long)0);
+				
 				Uri uri = Uri.parse("http://www.facebook.com/movietalked");
                 Intent it = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(it);
@@ -172,7 +172,7 @@ public class SettingFragment extends Fragment {
     	vLine.setBackgroundColor(mFragmentActivity.getResources().getColor(R.color.color_grey_b));
 		return vLine;
 	}
-	private LinearLayout createItem(String tvText, int ivSrc) {
+	private LinearLayout createItem(String tvText, int ivSrc ,String url ,int index) {
 		// TODO Auto-generated method stub
     	/*setting item*/
 		tvItem = new TextView(mFragmentActivity);
@@ -193,18 +193,20 @@ public class SettingFragment extends Fragment {
 		
 		ivItem.setPadding(mFragmentActivity.getResources().getDimensionPixelSize(R.dimen.setting_fragment_itemmargin), 0, 0, 0);
 		ivItem.setDuplicateParentStateEnabled(true);
-		ivItem.setImageResource(ivSrc);
 		
+		if( ivSrc==0){
+			imageLoader.displayImage(appProject.get(index).getIconUrl(), ivItem, options);
+		}else{
+			ivItem.setImageResource(ivSrc);
+		}
 		LinearLayout.LayoutParams llParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
 				mFragmentActivity.getResources().getDimensionPixelSize(R.dimen.setting_fragment_itemsize));
 		llItem.setOrientation(LinearLayout.HORIZONTAL);
 		llItem.setGravity(Gravity.CENTER_VERTICAL);
 		llItem.setPadding(mFragmentActivity.getResources()
 				.getDimensionPixelSize(R.dimen.setting_fragment_itempadding), 0, 0, 0);
-		llItem.setBackground(mFragmentActivity.getResources().getDrawable(R.drawable.setting_item_bg));
+		llItem.setBackgroundResource(R.drawable.setting_item_bg);
 		llItem.setLayoutParams(llParams);
-		
-		
 		llItem.addView(ivItem);
 		llItem.addView(tvItem);
 		
@@ -250,25 +252,22 @@ public class SettingFragment extends Fragment {
         
 		return "progress end";
 	}
-private void setView(){
+	private void setView(){
 		for(int index = 0 ; index < appProject.size() ; index++ ){
 			LinearLayout llProject = new LinearLayout(mFragmentActivity);
-	    	
-	    	
-	    	
-	    	llProject = createItem(mFragmentActivity.getResources().getString(R.string.advice_and_feedback),R.drawable.feedback);
-	    	
+			
+	    	llProject = createItem(appProject.get(index).getName(),0,appProject.get(index).getIconUrl(),index);
 	    	
 	    	llAboutUs.addView(llProject);
 	    	llAboutUs.addView(createLine());
-	    	
+	    	llProject.setOnClickListener(new ItemButtonClick(index, mFragmentActivity));
 			
 		}  
 	}
 	class ItemButtonClick implements OnClickListener {
 		private int position;
 		
-		ItemButtonClick(int pos) {
+		ItemButtonClick(int pos, FragmentActivity mFragmentActivity) {
 			position = pos;
 			
 	}

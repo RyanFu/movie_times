@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/color_bgtx_c">
+    <FrameLayout android:id="@+id/fl_theater_list"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:background="@color/color_bgtx_c" >
+    	<ListView android:id="@+id/lv_theater_list"
+	        android:layout_width="match_parent"
+    		android:layout_height="wrap_content"
+	        android:background="@color/color_bgtx_c"
+	        android:divider="@null"
+	        />
+    </FrameLayout>
+    
+    <FrameLayout android:id="@+id/fl_no_theater_list"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:background="@color/color_bgtx_c"
+	    android:visibility="invisible">
+    	<LinearLayout
+    	    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:background="@color/color_bgtx_c"
+		    android:orientation="vertical">
+    	<TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:textColor="@color/textcolor_grey"
+            android:textSize="@dimen/main_textsize"
+            android:text="尚未新增最愛戲院"/>
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:textColor="@color/textcolor_grey"
+            android:textSize="@dimen/main_textsize"
+            android:text="在戲院詳細資料頁面可以將您常瀏覽的戲院加入，以方便快速操作。" />
+        
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:textColor="@color/color_white_a"
+            android:textSize="@dimen/main_textsize"
+            android:text="圖示說明 : " />
+        
+        <LinearLayout
+	        android:orientation="horizontal"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" >
+	        <ImageView 
+	            android:layout_width="30dp"
+	            android:layout_height="30dp"
+	            android:padding="2dp"
+	            android:layout_marginLeft="5dp"
+	            android:background="@drawable/theater_button_background"
+	            android:clickable="false"
+                android:src="@drawable/addlike" />
+	        <TextView 
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:padding="5dp"
+	            android:textColor="@color/color_white_a"
+	            android:textSize="@dimen/main_textsize"
+                android:text="已加入最愛戲院" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+	        <ImageView 
+	            android:layout_width="30dp"
+	            android:layout_height="30dp"
+	            android:padding="2dp"
+	            android:layout_marginLeft="5dp"
+	            android:background="@drawable/theater_button_background"
+	            android:clickable="false"
+	            android:src="@drawable/addlike_normal"/>
+	        <TextView 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textColor="@color/color_white_a"
+                android:textSize="@dimen/main_textsize"
+                android:text="未加入最愛戲院" />
+	        </LinearLayout>
+    	</LinearLayout>
+      </FrameLayout>
+    
+    
+    
+</RelativeLayout>
+

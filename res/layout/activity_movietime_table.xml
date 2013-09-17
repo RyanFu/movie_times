@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearlayout_toptitle"
+    android:orientation="vertical" 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/main_color_grey_dark">
+    <RelativeLayout
+        android:id="@+id/button_linearlayout"
+        android:orientation="horizontal"
+        android:layout_height="40dp"
+        android:layout_width="fill_parent"
+        android:layout_alignParentTop="true"
+        android:background="@color/main_color_grey_dark"
+        >
+        <ImageButton 
+	        android:id="@+id/btn_pre"
+	        android:layout_width="50dp"
+	        android:layout_height="50dp"
+	        android:layout_alignParentLeft="true"
+	        android:scaleType="fitCenter"
+	        android:padding="5dp"
+            android:gravity="center"
+            android:background="@color/color_grey_b"
+            android:src="@drawable/navigation_pre_yellow"/>
+        <View android:id="@+id/line_left"
+            android:layout_width="2dp"
+            android:layout_height="50dp"
+            android:background="@color/color_grey_b"
+            android:layout_toRightOf="@+id/btn_pre" />
+	    <TextView 
+	        android:id="@+id/textview_date"
+	        android:layout_width="fill_parent"
+	        android:layout_height="50dp"
+	        android:layout_gravity="center"
+	        android:layout_toLeftOf="@+id/line_right"
+	        android:layout_toRightOf="@+id/line_left" 
+	        android:paddingLeft="5dp"
+	        android:paddingRight="5dp"
+	        android:background="@color/color_grey_b"
+	        android:textColor="@color/color_white_a"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:text="01 月 01 日 (一)" />
+	        <!-- android:drawableLeft="@drawable/schedule_cycle" -->
+	    <View android:id="@+id/line_right"
+            android:layout_width="2dp"
+            android:layout_height="50dp"
+            android:background="@color/color_grey_b"
+            android:layout_toLeftOf="@+id/btn_next" />
+	    <ImageButton
+	        android:id="@+id/btn_next" 
+	        android:layout_width="50dp"
+	        android:layout_height="50dp"
+	        android:layout_gravity="center"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitCenter"
+            android:padding="5dp"
+            android:background="@color/color_grey_b"
+	        android:src="@drawable/navigation_next_yellow"/>
+        
+    </RelativeLayout>
+ 
+    <ListView android:id="@+id/listview_schedule"
+   		android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:background="@color/main_color_grey_dark"
+    	android:fastScrollEnabled="true" />            
+   
+    <ImageButton android:id="@+id/refresh"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitCenter"
+        android:visibility="gone"
+        android:background="@drawable/button_background"
+        android:src="@drawable/renew"/>
+</LinearLayout>

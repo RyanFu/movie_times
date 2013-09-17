@@ -6,44 +6,49 @@
     android:padding="2dp"
     android:background="@drawable/listitem_background" 
     >
-	    <RelativeLayout android:id="@+id/rl_poster" 
+    <RelativeLayout android:id="@+id/rl_poster" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+   		<ImageView android:id="@+id/listitem_movie_poster"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content">
-	   		<ImageView android:id="@+id/listitem_movie_poster"
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:layout_gravity="center_vertical"
-		        android:src="@drawable/stub" 
-		        android:background="@drawable/listitem_background"
-		        android:contentDescription="@null" />
-	   		<RelativeLayout android:id="@+id/rl_rank_label"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical"
+	        android:src="@drawable/stub" 
+	        android:background="@drawable/listitem_background"
+	        android:contentDescription="@null" />
+   		<RelativeLayout android:id="@+id/rl_rank_label"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+		    android:layout_alignParentBottom="true"
+		    android:visibility="gone">
+	   	 	<ImageView android:id="@+id/iv_rank_label"
+	   		    android:layout_width="wrap_content" 
+		        android:layout_height="wrap_content" 
 		        android:layout_alignParentRight="true"
-			    android:layout_alignParentBottom="true"
-			    android:visibility="gone">
-		   	 	<ImageView android:id="@+id/iv_rank_label"
-		   		    android:layout_width="wrap_content" 
-			        android:layout_height="wrap_content" 
-			        android:layout_alignParentRight="true"
-			        android:layout_alignParentBottom="true"
-			        android:src="@drawable/rankinglabel"/>
-		   	 	<TextView android:id="@+id/tv_rank_num"
-		   		    android:layout_width="wrap_content" 
-			        android:layout_height="wrap_content" 
-			        android:text="20"
-			        android:layout_alignParentRight="true"
-			        android:layout_alignParentBottom="true"
-			        android:textColor="@color/color_bgtx_c"
-			        /> 	
-	   		</RelativeLayout>
-	    </RelativeLayout>
+		        android:layout_alignParentBottom="true"
+		        android:src="@drawable/rankinglabel"/>
+	   	 	<TextView android:id="@+id/tv_rank_num"
+	   		    android:layout_width="wrap_content" 
+		        android:layout_height="wrap_content" 
+		        android:text="20"
+		        android:layout_alignParentRight="true"
+		        android:layout_alignParentBottom="true"
+		        android:textColor="@color/color_bgtx_c"
+		        /> 	
+   		</RelativeLayout>
+    </RelativeLayout>
     <RelativeLayout android:id="@+id/rl_names_date" 
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/rl_poster"
-        android:layout_marginLeft="10dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        >
         <TextView android:text="電影名稱"
             android:textStyle="bold"
             android:id="@+id/listitem_movie_name"
@@ -70,11 +75,12 @@
             />
         
         </RelativeLayout>
-        <View
+        <View android:id="@+id/v_movie_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/area_fragment_divider"
             android:layout_alignParentBottom="true"
             android:background="@color/color_grey_b"
+            android:layout_centerHorizontal="true"
             />
            
             

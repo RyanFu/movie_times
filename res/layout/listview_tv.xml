@@ -2,23 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" 
 	android:layout_height="wrap_content"
-	android:background="@drawable/item_background"
-	>
+	android:background="@color/color_bgtx_c">
 	<TextView 
         android:id="@+id/theater_name" 
         android:layout_width="wrap_content" 
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/textcolor_grey"
-        android:textSize="25dp"
-        android:text="頻道"
-        android:gravity="center_vertical"></TextView> 
-    <ImageView android:id="@+id/cate_manag_list_image"
-		android:layout_alignParentRight="true"
-		android:layout_width="wrap_content" 
-		android:layout_height="wrap_content"
-		android:layout_centerVertical="true"
-		android:layout_marginLeft="30dp"
-		android:src="@drawable/navigation_next" ></ImageView>
+        android:textColor="@drawable/area_text_color"
+        android:textSize="@dimen/main_textsize"
+        android:text="頻道"/>
+	<View android:id="@+id/v_tv_divider"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/area_fragment_divider"
+          android:layout_below="@+id/theater_name" 
+          android:background="@color/color_grey_b"
+          android:layout_centerHorizontal="true"
+          />
+		
 </RelativeLayout>

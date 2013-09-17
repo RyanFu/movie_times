@@ -4,29 +4,26 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/main_color_grey_dark">
-	
-	<include android:id="@+id/topbar" layout="@layout/topbar"
-	    android:layout_alignParentTop="true"/>
-			
-    <ListView
+    android:background="@color/color_bgtx_c">
+	<ListView
         android:id="@+id/listview_theater"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main_color_grey_dark"
-        android:layout_above="@+id/button_linearlayout"
-        android:layout_below="@+id/topbar" />
-    <View 
+        android:layout_width="match_parent"
+   		android:layout_height="match_parent"
+        android:background="@color/color_bgtx_c"
+        android:divider="@null"
+        android:layout_below="@+id/button_linearlayout" />
+	 <View 
         android:layout_width="fill_parent"
         android:layout_height="2dp"
         android:layout_above="@+id/button_linearlayout"
-        android:background="@color/main_color_yellow" />
+        android:background="@color/main_color_yellow" 
+       />
     <RelativeLayout
         android:id="@+id/button_linearlayout"
         android:orientation="horizontal"
         android:layout_height="40dp"
         android:layout_width="fill_parent"
-        android:layout_above="@+id/ad_layout"
+        android:layout_alignParentTop="true"
         android:background="@color/main_color_grey_dark"
         >
         <ImageButton 
@@ -37,12 +34,12 @@
 	        android:scaleType="fitCenter"
 	        android:padding="5dp"
             android:gravity="center"
-            android:background="@drawable/navigation_background"
+            android:background="@color/color_grey_b"
             android:src="@drawable/navigation_pre_yellow"/>
         <View android:id="@+id/line_left"
             android:layout_width="2dp"
             android:layout_height="50dp"
-            android:background="@color/seperator_grey"
+            android:background="@color/color_grey_b"
             android:layout_toRightOf="@+id/btn_pre" />
 	    <TextView 
 	        android:id="@+id/textview_date"
@@ -53,7 +50,8 @@
 	        android:layout_toRightOf="@+id/line_left" 
 	        android:paddingLeft="5dp"
 	        android:paddingRight="5dp"
-	        android:background="@color/black"
+	        android:background="@color/color_grey_b"
+	        android:textColor="@color/color_white_a"
             android:gravity="center"
             android:textSize="25dp"
             android:text="01 月 01 日 (一)" />
@@ -61,7 +59,7 @@
 	    <View android:id="@+id/line_right"
             android:layout_width="2dp"
             android:layout_height="50dp"
-            android:background="@color/seperator_grey"
+            android:background="@color/color_grey_b"
             android:layout_toLeftOf="@+id/btn_next" />
 	    <ImageButton
 	        android:id="@+id/btn_next" 
@@ -71,11 +69,12 @@
             android:layout_alignParentRight="true"
             android:scaleType="fitCenter"
             android:padding="5dp"
-            android:background="@drawable/navigation_background"
+            android:background="@color/color_grey_b"
 	        android:src="@drawable/navigation_next_yellow"/>
         
     </RelativeLayout>
     
+   
 
     <RelativeLayout
         android:id="@+id/ad_layout"

@@ -9,15 +9,8 @@
 	        android:layout_width="match_parent"
     		android:layout_height="match_parent"
 	        android:background="@color/color_bgtx_c"
+	        android:divider="@null"
 	        />
-   <!--  <ImageButtom 
-        	android:id="@+id/ib_movie_list_refresh"
-        	android:layout_width="match_parent"
-        	android:layout_height="match_parent"
-       	 	android:layout_alignParentTop="true"
-        	android:contentDescription="@null"
-        	android:visibility="gone"
-       		android:background="@drawable/ib_renew_bg"
-        	android:src="@drawable/renew"/>--> 
+  
 
 </RelativeLayout>

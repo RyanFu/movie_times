@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.adwhirl.AdWhirlLayout.AdWhirlInterface;
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.ad.AdGenerator;
 import com.jumplife.adapter.TvScheduleListAdapter;
 import com.jumplife.movieinfo.api.MovieAPI;
+import com.jumplife.movieinfo.promote.PromoteAPP;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -24,6 +26,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -32,7 +35,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class TvScheduleActivity extends TrackedActivity implements AdWhirlInterface{
+public class TvScheduleActivity extends SherlockActivity implements AdWhirlInterface{
 	
 	private int id;
 	private static int currentDateIdx = 0;
@@ -73,9 +76,13 @@ public class TvScheduleActivity extends TrackedActivity implements AdWhirlInterf
 	}
 
 	private void findViews() {
-		TextView topbar_text = (TextView)findViewById(R.id.topbar_text);		
+		//TextView topbar_text = (TextView)findViewById(R.id.topbar_text);		
 		Bundle extras = getIntent().getExtras();
-		topbar_text.setText(extras.getString("tv_name"));
+		getSupportActionBar().setIcon(R.drawable.movietime);
+		getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg));
+	
+		getSupportActionBar().setTitle(extras.getString("tv_name"));
+		
 		
 		tvListView = (ListView)findViewById(R.id.listview_theater);
 		buttonNext = (ImageButton)findViewById(R.id.btn_next);
@@ -328,4 +335,5 @@ public class TvScheduleActivity extends TrackedActivity implements AdWhirlInterf
 		// TODO Auto-generated method stub
 		
 	}
+	
 }

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/theater_info_dialog_padding"
+    android:orientation="vertical" 
+    android:background="@color/color_bgtx_c">
+	    
+	    <TextView 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:textColor="@color/color_yellow_d"
+	        android:textSize="@dimen/theater_info_dialog_title_textsize"
+	        android:text="購買票數"/>
+	    <View 
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/theater_info_dialog_seperate_height"
+	        android:layout_margin="@dimen/theater_info_dialog_margin_start"
+	        android:background="@color/color_darkyellow_e"/>
+	    <ImageButton android:id="@+id/ib_up"
+	        android:layout_width="30dp"
+	        android:layout_height="30dp"
+	        android:src="@drawable/stub"
+	        android:layout_gravity="center_horizontal"/>
+	    
+	   <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="6"
+	        android:textSize="25dp"
+	        android:textColor="@color/color_grey_b"
+	        android:layout_gravity="center_horizontal"/>
+	   <View 
+	        android:layout_width="40dp"
+	        android:layout_height="@dimen/theater_info_dialog_seperate_height"
+	        android:layout_marginTop="@dimen/theater_info_dialog_margin_end"
+	        android:layout_marginBottom="@dimen/theater_info_dialog_margin_end"
+	        android:layout_gravity="center_horizontal"
+	        android:background="@color/color_white_a"/>
+	   <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="1"
+	        android:textSize="25dp"
+	        android:textColor="@color/color_white_a"
+	        android:layout_gravity="center_horizontal"/>
+	   <View 
+	        android:layout_width="40dp"
+	        android:layout_height="@dimen/theater_info_dialog_seperate_height"
+	        android:layout_marginTop="@dimen/theater_info_dialog_margin_end"
+	        android:layout_marginBottom="@dimen/theater_info_dialog_margin_end"
+	        android:layout_gravity="center_horizontal"
+	        android:background="@color/color_white_a"/>
+	   <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="2"
+	        android:textSize="25dp"
+	        android:textColor="@color/color_grey_b"
+	        android:layout_gravity="center_horizontal"/>
+	    
+	    
+	    <ImageButton android:id="@+id/ib_down"
+	        android:layout_width="30dp"
+	        android:layout_height="30dp"
+	        android:src="@drawable/stub"
+	        android:layout_gravity="center_horizontal"/>
+	    <View 
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/theater_info_dialog_seperate_height"
+	        android:layout_marginTop="@dimen/theater_info_dialog_margin_end"
+	        android:layout_marginBottom="@dimen/theater_info_dialog_margin_end"
+	        android:layout_marginLeft="@dimen/theater_info_dialog_margin_start"
+	        android:layout_marginRight="@dimen/theater_info_dialog_margin_start"
+	        android:background="@color/color_white_a"/>
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+	        
+	        <RelativeLayout android:id="@+id/rl_cancel"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	           	android:layout_weight="1"
+	           	android:gravity="center_horizontal">
+	            <TextView 
+	                android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:text="取消"
+	            	android:layout_toRightOf="@+id/iv_call"
+	            	android:textSize="@dimen/theater_info_dialog_content_textsize"
+	            	android:textColor="@color/color_white_a"
+	            	/>
+	        </RelativeLayout>
+	        <View 
+	        android:layout_width="@dimen/theater_info_dialog_seperate_height"
+	       	android:layout_height="match_parent"
+	        android:background="@color/color_white_a"/>
+	        <RelativeLayout android:id="@+id/rl_ok"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:gravity="center_horizontal">
+	            <TextView 
+	                android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:text="確定"
+	            	android:layout_toRightOf="@+id/iv_map"
+	            	android:textSize="@dimen/theater_info_dialog_content_textsize"
+	            	android:textColor="@color/color_white_a"
+	            	/>
+	        </RelativeLayout> 
+	        
+	        
+	        
+	   	</LinearLayout>
+</LinearLayout>

@@ -11,7 +11,11 @@
     <color name="color_yellow_d">#fcc809</color><!-- #daa60b  #ecba0b-->
     <color name="color_darkyellow_e">#6d4b00</color>
     <color name="color_area_diver">#2b2b2b</color>
-    <color name="transparent80">#33000000</color>
+    <color name="color_grey_light">#a3a3a3</color>
+    <color name="color_grey_light2">#cecece</color>
+    <color name="color_grey_line">#666666</color>
+    <color name="transparent90">#cc000000</color>
+
     
      <!-- Add for Report -->
     <color name="report_view_1">#f6c737</color>

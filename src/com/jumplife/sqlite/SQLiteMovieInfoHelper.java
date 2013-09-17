@@ -534,7 +534,7 @@ public class SQLiteMovieInfoHelper extends SQLiteOpenHelper {
             movie.setChineseName(cursor.getString(1));
             movie.setEnglishName(cursor.getString(2));
             movie.setPosterUrl(cursor.getString(3));
-            if(!cursor.isNull(4)) {
+            if(!cursor.isNull(4) && !cursor.getString(4).equals("null")) {
 	            try {
 	                movie.setReleaseDate(dateFormatter.parse(cursor.getString(4)));
 	            } catch (ParseException e) {

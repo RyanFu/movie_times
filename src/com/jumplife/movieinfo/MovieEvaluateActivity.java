@@ -20,30 +20,35 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.adapter.RecordListAdapter;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.Movie;
 import com.jumplife.movieinfo.entity.Record;
+import com.jumplife.movieinfo.promote.PromoteAPP;
 import com.jumplife.sqlite.SQLiteMovieInfoHelper;
 
-public class MovieEvaluateActivity extends TrackedActivity {
+public class MovieEvaluateActivity extends SherlockActivity {
 
 	private ListView listviewShow;
 	private TextView tvNoEvaluate;
-	private RelativeLayout rlMoreEvaluate;
+	private LinearLayout llScore;
 	private View viewHeader;
 	private View viewFooter;
+	private LinearLayout llMovieDiary;
 	private LoadDataTask loadDataTask;
 
 	private int movie_id;
@@ -54,7 +59,11 @@ public class MovieEvaluateActivity extends TrackedActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_movieevaluate);
+		getSupportActionBar().setIcon(R.drawable.movietime);
+		getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg));
+		getSupportActionBar().setTitle("電影短評");
 		findViews();
+		
 		loadDataTask = new LoadDataTask();
 		if(Build.VERSION.SDK_INT < 11)
 			loadDataTask.execute();
@@ -77,8 +86,11 @@ public class MovieEvaluateActivity extends TrackedActivity {
 		viewFooter = LayoutInflater.from(MovieEvaluateActivity.this).inflate(
 				R.layout.listview_movieevaluate_footer, null);
 		tvNoEvaluate = (TextView)viewFooter.findViewById(R.id.textview_noevaluate);
-		rlMoreEvaluate = (RelativeLayout)viewFooter.findViewById(R.id.relativelayout_moreevaluate);
+		llScore = (LinearLayout)viewHeader.findViewById(R.id.relativelayout_moreevaluate);
+		listviewShow.addHeaderView(viewHeader);
 		listviewShow.addFooterView(viewFooter);
+		llMovieDiary = (LinearLayout)findViewById(R.id.ll_moviediary);
+		
 	}
 
 	private void fetchData() {
@@ -90,43 +102,7 @@ public class MovieEvaluateActivity extends TrackedActivity {
 
 	private void setView() {
 		
-		listviewShow.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				PackageManager pm = MovieEvaluateActivity.this.getPackageManager();
-				int versionCode;
-				try {
-					versionCode = pm.getPackageInfo("com.jumplife.moviediary", 0).versionCode;
-				} catch (NameNotFoundException e) {
-					versionCode = 0;
-					e.printStackTrace();
-				}
-				Intent appStartIntent = pm.getLaunchIntentForPackage("com.jumplife.moviediary");
-			    if(null != appStartIntent && versionCode > 30) {
-			    	appStartIntent.addCategory("android.intent.category.LAUNCHER");
-			    	appStartIntent.setComponent(new ComponentName("com.jumplife.moviediary",
-				    		"com.jumplife.moviediary.MovieShowActivity"));
-			    	appStartIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			    	appStartIntent.putExtra("movie_id", movie_id);
-
-			    	SQLiteMovieInfoHelper instance = SQLiteMovieInfoHelper.getInstance(MovieEvaluateActivity.this);
-		    		SQLiteDatabase db = instance.getReadableDatabase();
-		    		
-			    	Movie movie = instance.getMovie(db, movie_id);
-			    	
-			    	db.close();
-			    	instance.closeHelper();
-			    	
-			    	appStartIntent.putExtra("chineseName", movie.getChineseName());
-			    	appStartIntent.putExtra("posterUrl", movie.getPosterUrl());
-				    MovieEvaluateActivity.this.startActivity(appStartIntent);
-				    
-				    EasyTracker.getTracker().trackEvent("電影短評", "開啟電影櫃", "", (long)0);
-			    }
-			}	
-		});
-			
-		rlMoreEvaluate.setOnClickListener(new OnClickListener() {
+		llMovieDiary.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
 				PackageManager pm = MovieEvaluateActivity.this.getPackageManager();
 			    Intent appStartIntent = pm.getLaunchIntentForPackage("com.jumplife.moviediary");
@@ -135,13 +111,7 @@ public class MovieEvaluateActivity extends TrackedActivity {
 			    	startActivity(new Intent(Intent.ACTION_VIEW, 
 				    		Uri.parse("market://details?id=com.jumplife.moviediary")));
 			    }
-			}			
-		});
-		
-		viewHeader.setOnClickListener(new OnClickListener() {
-			public void onClick(View arg0) {
-				PackageManager pm = MovieEvaluateActivity.this.getPackageManager();
-			    Intent appStartIntent = pm.getLaunchIntentForPackage("com.jumplife.moviediary");
+			    
 			    if(null != appStartIntent) {
 			    	appStartIntent.addCategory("android.intent.category.LAUNCHER");
 			    	appStartIntent.setComponent(new ComponentName("com.jumplife.moviediary",
@@ -155,15 +125,7 @@ public class MovieEvaluateActivity extends TrackedActivity {
 		if (recordList == null) {
 			showReloadDialog(MovieEvaluateActivity.this);
 		} else {
-			PackageManager pm = MovieEvaluateActivity.this.getPackageManager();
-			Intent appStartIntent = pm.getLaunchIntentForPackage("com.jumplife.moviediary");
-		    if(null == appStartIntent) {
-		    	listviewShow.removeHeaderView(viewHeader);
-		    	rlMoreEvaluate.setVisibility(View.VISIBLE);
-		    } else {
-		    	listviewShow.addHeaderView(viewHeader);
-		    	rlMoreEvaluate.setVisibility(View.GONE);	
-		    }
+			
 		    if (recordList.size() == 0) 
 				tvNoEvaluate.setVisibility(View.VISIBLE);
 			else 
@@ -283,4 +245,6 @@ public class MovieEvaluateActivity extends TrackedActivity {
    {
 	   super.onResume();
    }
+  
+
 }

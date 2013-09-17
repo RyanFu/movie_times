@@ -33,7 +33,12 @@ public class MovieListAdapter extends BaseAdapter {
 	private int mWidth;
 	private int mHeight;
 	private int typeId;
-	
+	private int padding;
+	private int dividerWidth;
+	private int posterWidth;
+	private int rlIntroWidth;
+	private int rankSize;
+	private int helfPadding;
 	
 	public MovieListAdapter(Activity mActivity, ArrayList<Movie> movieList ,int mtypeId){
 		this.movies = movieList;
@@ -44,8 +49,17 @@ public class MovieListAdapter extends BaseAdapter {
 		mActivity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 		int screenWidth = displayMetrics.widthPixels;
 		mWidth = screenWidth;
-		mHeight = screenWidth *3 / 8;
+		mHeight = screenWidth * 3 / 8;
 		
+		
+		helfPadding = padding /2;
+		padding = mWidth * 1 / 24 ;
+		dividerWidth = mWidth * 11 / 12;
+		
+		posterWidth = mWidth * 1 / 4;
+		rlIntroWidth = mWidth* 2 / 3;
+		
+		rankSize = mWidth * 1 / 12;
 		options = new DisplayImageOptions.Builder()
 		.showStubImage(R.drawable.stub)
 		.showImageForEmptyUri(R.drawable.stub)
@@ -80,6 +94,7 @@ public class MovieListAdapter extends BaseAdapter {
 		RelativeLayout rlPoster = (RelativeLayout)converView.findViewById(R.id.rl_poster);
 		RelativeLayout rlIntro = (RelativeLayout)converView.findViewById(R.id.rl_names_date);
 		RelativeLayout rlRankLabel = (RelativeLayout)converView.findViewById(R.id.rl_rank_label);
+		View vMovieDivider = (View)converView.findViewById(R.id.v_movie_divider);
 		TextView tvRankNum = (TextView)converView.findViewById(R.id.tv_rank_num);
 		ImageView poster = (ImageView)converView.findViewById(R.id.listitem_movie_poster);
 		TextView name = (TextView)converView.findViewById(R.id.listitem_movie_name);
@@ -89,11 +104,16 @@ public class MovieListAdapter extends BaseAdapter {
 		name_en.setText(movies.get(position).getEnglishName());
 		
 		
-		rlMovieListItem.setPadding(mWidth * 1 / 24, 0, 0, 0);
-		rlPoster.getLayoutParams().width = mWidth*2 / 8;
+		rlMovieListItem.setPadding(padding ,0,0 , 0);
+		
+		vMovieDivider.getLayoutParams().width = dividerWidth;
+		vMovieDivider.setPadding(padding, 0, padding, 0);
+		
+		
+		rlPoster.getLayoutParams().width = posterWidth;
 		rlPoster.getLayoutParams().height = mHeight;
 		
-		rlIntro.getLayoutParams().width = mWidth*2 / 3;
+		rlIntro.getLayoutParams().width = rlIntroWidth;
 		rlIntro.getLayoutParams().height = mHeight;
 		
 		DateFormat createFormatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -110,9 +130,9 @@ public class MovieListAdapter extends BaseAdapter {
 		if( typeId == 1){
 			
 			rlRankLabel.setVisibility(View.VISIBLE);
-			rlRankLabel.getLayoutParams().width = mWidth*1 / 12;
-			rlRankLabel.getLayoutParams().height = mWidth*1 / 12;
-			tvRankNum.setTextSize(mWidth*1 / 24);
+			rlRankLabel.getLayoutParams().width = rankSize;
+			rlRankLabel.getLayoutParams().height = rankSize;
+			tvRankNum.setTextSize(padding);
 			
 			if(position + 1 > 20)
 				rlRankLabel.setVisibility(View.GONE);

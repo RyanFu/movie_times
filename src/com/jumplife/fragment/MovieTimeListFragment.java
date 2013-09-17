@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.jumplife.adapter.MovieListAdapter;
 import com.jumplife.movieinfo.MovieInfoActivity;
 import com.jumplife.movieinfo.MovieInfoAppliccation;
+import com.jumplife.movieinfo.MovieIntroActivity;
 import com.jumplife.movieinfo.R;
 import com.jumplife.movieinfo.entity.Movie;
 import com.jumplife.sqlite.SQLiteMovieInfoHelper;
@@ -26,6 +27,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -148,7 +150,8 @@ public class MovieTimeListFragment extends Fragment {
 				Intent newAct = new Intent();
                 newAct.putExtra("movie_id", movieList.get(position).getId());
                 newAct.putExtra("movie_name", movieList.get(position).getChineseName());
-				newAct.setClass(mFragmentActivity, MovieInfoActivity.class );
+                newAct.putExtra("theater_id",-1);
+                newAct.setClass(mFragmentActivity, MovieIntroActivity.class );
 				mFragmentActivity.startActivity(newAct);				
 			}
 		});
@@ -158,14 +161,14 @@ public class MovieTimeListFragment extends Fragment {
 	private void fetchData() {
 		movieList = new ArrayList<Movie>();
 		if(getArguments().containsKey("typeId")) {
+			int type = getArguments().getInt("typeId", 0);
 			try {	
 					SQLiteMovieInfoHelper instance = SQLiteMovieInfoHelper.getInstance(mFragmentActivity);
 					SQLiteDatabase db = instance.getReadableDatabase();
 					db.beginTransaction();
-					if (getArguments().getInt("typeId", 0) == 1){
+					if (type == 1){
 						ArrayList<Movie> tmpList = instance.getMovieList(db,SQLiteMovieInfoHelper.FILTER_FIRST_ROUND);
-				    	
-				    	String hotString = MovieInfoAppliccation.shIO.getString("hot_movie", null);
+						String hotString = MovieInfoAppliccation.shIO.getString("hot_movie", "");
 				    	if(hotString != null) {
 					        String[] hotSeq = hotString.split(",");
 					        if(hotSeq != null) {
@@ -188,23 +191,7 @@ public class MovieTimeListFragment extends Fragment {
 						movieList = instance.getMovieList(db,SQLiteMovieInfoHelper.FILTER_RECENT);
 					else if (getArguments().getInt("typeId", 0) == 4)
 						movieList = instance.getMovieList(db,SQLiteMovieInfoHelper.FILTER_SECOND_ROUND);
-					else{/*
-						ArrayList<Movie> movies = movieAPI.getMoviesIdandHallList(theater);
-						if (movies != null && movies.size() > 0) {
-							movieList = sqlMovieDiary.getMovieListWithHall(movies);
-							Log.d(null, "movieList size :" + movieList.size());
-							for(int i=0; i<movieList.size(); i++) {
-								for(int j=0; j<movies.size(); j++) {
-									if(movieList.get(i).getId() == movies.get(j).getId()) 
-										movieList.get(i).setHall(movies.get(j).getHall());
-								}
-							}
-							ArrayList<Movie> tmpList = (ArrayList<Movie>) movieList.clone();
-							movieList.clear();
-							for (int i = tmpList.size()-1; i>-1; i--)
-								movieList.add(tmpList.get(i));
-						} else
-							movieList = new ArrayList<Movie>();*/
+					else{
 					}
 					db.setTransactionSuccessful();
 			        db.endTransaction();

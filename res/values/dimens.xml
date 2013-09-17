@@ -20,11 +20,12 @@
     <dimen name="menu_fragment_item_imagetsize">28dp</dimen>
     <dimen name="menu_fragment_item_text_margin">10dp</dimen>
     <dimen name="menu_fragment_item_textsize">20dp</dimen>
-	<dimen name="menu_fragment_divider">1dp</dimen>
+	<dimen name="menu_fragment_divider">2dp</dimen>
+	<dimen name="menu_fragment_divider_thin">1dp</dimen>
 	<dimen name="menu_fragment_infotype_text_margin">28dp</dimen>
 	
 	<!-- fragment Area-->
-	<dimen name="area_fragment_divider">1dp</dimen>
+	<dimen name="area_fragment_divider">2dp</dimen>
 	<dimen name="area_item_view_margin">10dp</dimen>
 	
 	 <!-- Setting Fragment -->
@@ -33,7 +34,37 @@
     <dimen name="setting_fragment_itemsize">50dp</dimen>        
     <dimen name="setting_fragment_itempadding">10dp</dimen>        
     <dimen name="setting_fragment_itemmargin">6dp</dimen>
-    <dimen name="setting_fragment_textsize">25dp</dimen>
+    <dimen name="setting_fragment_textsize">15dp</dimen>
     <dimen name="setting_fragment_imagesize">40dp</dimen>
+    
+    <!-- MovieIntro Activity -->
+    <dimen name="movieintro_tv_chinese_name">22dp</dimen>
+    <dimen name="movieintro_tv_english_name">16dp</dimen>
+    <dimen name="movieintro_tv_time">16dp</dimen>
+    <dimen name="movieintro_tv_date">16dp</dimen>
+    <dimen name="movieintro_tv_play">16dp</dimen>
+    <dimen name="movieintro_tv_timetable_booking_talking">15dp</dimen>
+    <dimen name="movieintro_tv_director_actor_intro">15dp</dimen>
+    <dimen name="movieintro_padding_intro">5dp</dimen>
+    <dimen name="movieintro_margin_llbtns">8dp</dimen>
+    
+    <dimen name="theater_movie_list_activity_toast_padding">2dp</dimen>
+    
+    <!-- Chapter Activity IntroDuction Dialog-->    
+    <dimen name="theater_info_dialog_seperate_height">1dp</dimen>
+    <dimen name="theater_info_dialog_title_textsize">24dp</dimen>
+    <dimen name="theater_info_dialog_content_textsize">18dp</dimen>
+    <dimen name="theater_info_dialog_send_textsize">20dp</dimen>
+    <dimen name="theater_info_dialog_send_padding_rl">20dp</dimen>
+    <dimen name="theater_info_dialog_send_padding_tb">5dp</dimen>
+    <dimen name="theater_info_dialog_margin_start">16dp</dimen>
+    <dimen name="theater_info_dialog_padding">20dp</dimen>
+    <dimen name="theater_info_dialog_margin_end">10dp</dimen>
+    
+    <dimen name="main_textsize">20dp</dimen>
+    
+    <!-- Spinner -->
+    <dimen name="spinner_dropdown_textsize">18dp</dimen>
+    <dimen name="spinner_dropdown_text_padding_rl">8dp</dimen>
     
 </resources>

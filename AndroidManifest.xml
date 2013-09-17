@@ -36,10 +36,15 @@
         <activity android:name="NewsPic" android:screenOrientation="portrait"></activity>
         <activity android:name="MovieScheduleActivity" android:screenOrientation="portrait"></activity>
         <activity android:name="MovieInfoTable" android:screenOrientation="portrait"></activity>
+        <!-- MovieInfoActivity -> MovieIntroActivity -->
         <activity android:name="MovieInfoActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name="MovieList" android:screenOrientation="portrait"></activity>
+        <activity android:name="MovieIntroActivity" android:screenOrientation="portrait" ></activity>
+        <!-- MovieList  TheaterMovieList -->
+        <activity android:name="MovieList" android:screenOrientation="portrait" ></activity>
+        <activity android:name="TheaterMovieList" android:screenOrientation="portrait" ></activity>
+        
         <activity android:name="MovieSectionList" android:screenOrientation="portrait"></activity>
-        <activity android:name="TheaterListActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name="TheaterListActivity" android:screenOrientation="portrait" ></activity>
         <activity android:name="TvListActivity" android:screenOrientation="portrait" ></activity>
         <activity android:name="CheckActivity" android:screenOrientation="portrait" ></activity>
         <activity android:name="TvScheduleActivity" android:screenOrientation="portrait"></activity>

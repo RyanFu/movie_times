@@ -3,36 +3,15 @@
 	android:layout_height="wrap_content"
 	android:layout_width="fill_parent"
 	android:orientation="horizontal"
-	android:background="@color/main_color_grey_dark">
-	<RelativeLayout android:id="@+id/relativelayout_moreevaluate"
-	    android:layout_height="wrap_content"
+	android:background="@color/color_bgtx_c">
+	<TextView android:id="@+id/textview_noevaluate"
+        android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:layout_margin="10dp"
         android:padding="10dp"
-        android:background="@drawable/button_moreevaluate">
-	   <TextView android:id="@+id/textview_moreevaluate"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
-            android:textColor="#1e1e1e"
-            android:textSize="16dp"
-            android:text="下載電影櫃APP  閱讀分享更多精采短評"/>
-	   <ImageView android:id="@+id/button_moreevaluate"
-	       android:layout_height="17dp"
-           android:layout_width="17dp"
-           android:layout_centerVertical="true"
-           android:layout_toRightOf="@+id/textview_moreevaluate"
-           android:padding="2dp"
-           android:src="@drawable/arrow"/>
-	   </RelativeLayout>
-       <TextView android:id="@+id/textview_noevaluate"
-           android:layout_height="wrap_content"
-           android:layout_width="fill_parent"
-           android:layout_margin="10dp"
-           android:padding="10dp"
-           android:background="@color/black"
-           android:gravity="center_horizontal"
-           android:textColor="@color/textcolor_grey"
-           android:textSize="18dp"
-           android:text="本 電 影 尚 未 有 評 論"/>
-    </LinearLayout> 
+        android:background="@color/color_bgtx_c"
+        android:gravity="center_horizontal"
+        android:textColor="@color/color_white_a"
+        android:textSize="18dp"
+        android:text="本 電 影 尚 未 有 評 論"/>
+</LinearLayout> 

@@ -7,40 +7,181 @@
     	android:layout_width="match_parent"
     	android:layout_height="match_parent"
     	android:contentDescription="@null"
-    	android:src="@drawable/stub"/>
+    	android:src="@drawable/stub"
+    	android:scaleType="centerCrop"/>"
     <ScrollView 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       	android:background="@color/transparent80">
-       	<LinearLayout android:id="@+id/ll_movieinfo"
-       	    android:layout_width="match_parent"
-       	    android:layout_height="wrap_content"
-       	    android:orientation="vertical"
-       	    android:background="@null">
-       	    <RelativeLayout android:id="@+id/rl_poster_name_mv"
-       	        android:layout_width="match_parent"
-       	        android:layout_height="match_parent"
-       	        android:background="@null">
-       	        <ImageView android:id="@+id/iv_small_poster"
-       	            android:layout_width="120dp"
-       	            android:layout_height="180dp"
-       	            android:contentDescription="@null"/>
-       	        <LinearLayout android:id="@+id/ll_name_mv"
-       	            android:layout_width="120dp"
-       	            android:layout_height="180dp" 
-       	            android:layout_toRightOf="@+id/iv_small_poster"	
-       	            android:orientation="horizontal">"
-       	            
-       	        </LinearLayout>
-       	        
-       	        
-       	    </RelativeLayout>
-       	    
-       	    
-       	    
-       	</LinearLayout>
-        
+       	android:background="@color/transparent90">
+  	    <RelativeLayout android:id="@+id/rl_poster_name_mv"
+  	        android:layout_width="match_parent"
+  	        android:layout_height="wrap_content"
+  	        android:background="@null">
+  	        <ImageView android:id="@+id/iv_small_poster"
+  	            android:layout_width="120dp"
+  	            android:layout_height="180dp"
+  	            android:contentDescription="@null"
+  	            android:src="@drawable/stub"/>
+  	        <RelativeLayout android:id="@+id/rl_name_mv"
+  	            android:layout_width="360dp"
+  	            android:layout_height="180dp" 
+  	            android:layout_toRightOf="@+id/iv_small_poster"	>
+  	           	<TextView android:id="@+id/tv_chinese_name"
+                	android:layout_width="wrap_content"
+               		android:layout_height="wrap_content"
+               		android:textSize="@dimen/movieintro_tv_chinese_name"
+               		android:text="電影片名"
+               		android:textColor="@color/color_white_a"
+               		android:layout_alignParentTop="true"/>
+                <TextView android:id="@+id/tv_english_name"
+                	android:layout_width="wrap_content"
+               		android:layout_height="wrap_content"
+               		android:textSize="@dimen/movieintro_tv_english_name"
+               		android:text="movie english name"
+               		android:textColor="@color/color_white_a"
+               		android:layout_below="@+id/tv_chinese_name"
+               		android:layout_above="@+id/tv_timelong"/>
+	             <TextView android:id="@+id/tv_timelong"
+                	android:layout_width="wrap_content"
+               		android:layout_height="wrap_content"
+               		android:singleLine="true"
+               		android:textSize="@dimen/movieintro_tv_time"
+               		android:text="電影片長:127分"
+               		android:layout_above="@+id/tv_date"
+               		android:textColor="@color/color_white_a"/>
+                <TextView android:id="@+id/tv_date"
+                	android:layout_width="wrap_content"
+               		android:layout_height="wrap_content"
+               		android:singleLine="true"
+               		android:textSize="@dimen/movieintro_tv_date"
+               		android:text="上映日期:2013-09-10"
+               		android:textColor="@color/color_white_a"
+               		android:layout_above="@+id/ll_play"/>
+                
+                
+  	            <LinearLayout android:id="@+id/ll_play"
+  	                android:layout_width="match_parent"
+  	                android:layout_height="wrap_content"
+  	                android:orientation="horizontal" 
+  	                android:gravity="center_vertical"
+  	                android:clickable="true"
+  	                android:layout_alignParentBottom="true">
+  	                <ImageView android:id="@+id/iv_play"
+  	                	android:layout_width="36dp"
+  	               		android:layout_height="24dp"
+  	               		android:contentDescription="@null"
+  	               		android:src="@drawable/youtube"
+  	               		android:duplicateParentState="true"
+  	               		/>
+  	                <TextView android:id="@+id/tv_play"
+  	                	android:layout_width="wrap_content"
+  	               		android:layout_height="wrap_content"
+  	               		android:singleLine="true"
+  	               		android:text="預告片"
+  	               		android:textColor="@color/color_white_a"
+  	               		android:textSize="@dimen/movieintro_tv_play"
+  	               		android:duplicateParentState="true"/>
+  	            </LinearLayout>
+  	       	</RelativeLayout>
+  	        
+  	     	<LinearLayout android:id="@+id/ll_btns"
+  	     	    android:layout_width="match_parent"
+  	     	    android:layout_height="wrap_content"
+  	     	    android:orientation="horizontal"
+  	     	    android:layout_below="@+id/iv_small_poster"
+  	     	    android:weightSum="2"
+  	     	    android:layout_marginTop="@dimen/movieintro_margin_llbtns"
+  	     	    android:layout_marginBottom="@dimen/movieintro_margin_llbtns">
+  	            <LinearLayout  android:id="@+id/ll_timetable_booking"
+  	                android:layout_width="wrap_content"
+  	                android:layout_height="match_parent"
+  	                android:orientation="vertical"
+  	                android:layout_weight="1"
+  	                android:gravity="center"
+  	                 android:clickable="true">
+  	                <ImageView 
+  	                    android:layout_width="wrap_content"
+  	                    android:layout_height="wrap_content"
+  	                    android:src="@drawable/btn_movietime_selector"
+  	                    android:background="@null"
+  	                    android:contentDescription="@null"
+  	                    android:duplicateParentState="true"
+  	                    />"
+  	                <TextView 
+  	                    android:layout_width="wrap_content"
+  	                    android:layout_height="wrap_content"
+  	                    android:singleLine="true"
+  	                    android:text="時刻表及訂票"
+  	                   	android:textSize="@dimen/movieintro_tv_timetable_booking_talking"
+  	                   	android:textColor="@drawable/btn_movieinfo_text_color"
+  	                   	android:duplicateParentState="true"
+  	                   	/>
+  	            </LinearLayout>
+  	            <View 
+  	                android:layout_width="1dp" 
+  	               	android:layout_height="match_parent" 
+  	               	android:background="@color/color_grey_b" 
+  	               	android:layout_marginTop="10dp" 
+  	                android:layout_marginBottom="10dp"
+  	               	android:gravity="center_vertical"/>"
+  	            <LinearLayout android:id="@+id/ll_shorttalk"
+  	                android:layout_width="wrap_content"
+  	                android:layout_height="match_parent"
+  	                android:orientation="vertical"
+  	                android:layout_weight="1"
+  	                android:gravity="center"
+  	                android:clickable="true">
+  	                <ImageView 
+  	                    android:layout_width="wrap_content"
+  	                    android:layout_height="wrap_content"
+  	                    android:src="@drawable/btn_movie_shorttalk_selector"
+  	                    android:background="@null"
+  	                    android:contentDescription="@null"
+  	                    android:duplicateParentState="true"
+  	                    />
+  	                <TextView 
+  	                    android:layout_width="wrap_content"
+  	                    android:layout_height="wrap_content"
+  	                    android:text="電影短評"
+  	                   	android:textSize="@dimen/movieintro_tv_timetable_booking_talking"
+  	                   	android:textColor="@drawable/btn_movieinfo_text_color"
+  	                   	android:duplicateParentState="true"
+  	                   	/>
+  	            </LinearLayout>"
+  	     	    
+  	     	</LinearLayout>
+  	     	<LinearLayout 
+  	     	    android:layout_width="match_parent"
+  	     	    android:layout_height="match_parent"
+  	     	    android:layout_below="@+id/ll_btns" 
+  	     	    android:orientation="vertical">
+  	     	    <TextView android:id="@+id/tv_director"
+  	                    android:layout_width="wrap_content"
+  	                    android:layout_height="wrap_content"
+  	                    android:singleLine="true"
+  	                    android:text="導演:"
+  	                   	android:textSize="@dimen/movieintro_tv_director_actor_intro"
+  	                   	android:textColor="@color/color_white_a"
+  	                   	android:duplicateParentState="true"
+  	                   	/>
+  	     	    <TextView android:id="@+id/tv_actor"
+  	                    android:layout_width="wrap_content"
+  	                    android:layout_height="wrap_content"
+  	                    android:text="演員:"
+  	                   	android:textSize="@dimen/movieintro_tv_director_actor_intro"
+  	                   	android:textColor="@color/color_white_a"
+  	                   	android:duplicateParentState="true"
+  	                   	/>
+  	     	    <TextView android:id="@+id/tv_introduction"
+  	                    android:layout_width="wrap_content"
+  	                    android:layout_height="wrap_content"
+  	                    android:text="劇情簡介:"
+  	                   	android:textSize="@dimen/movieintro_tv_director_actor_intro"
+  	                   	android:textColor="@color/color_white_a"
+  	                   	android:paddingTop="@dimen/movieintro_padding_intro"
+  	                   	android:duplicateParentState="true"
+  	                   	/>
+  	     	</LinearLayout>
+  	    </RelativeLayout>     
     </ScrollView>
-    	
-
 </RelativeLayout>

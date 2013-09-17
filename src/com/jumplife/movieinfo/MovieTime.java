@@ -79,7 +79,7 @@ public class MovieTime extends TrackedActivity {
 	        String hotSeq = "";
 	        for(int i=0; i<a[3].size(); i++)
 	        	hotSeq = hotSeq + a[3].get(i) + ",";
-	        MovieInfoAppliccation.shIO.edit().putString("hot_movie", hotSeq);
+	        MovieInfoAppliccation.shIO.edit().putString("hot_movie", hotSeq).commit();
 	    	Log.e(TAG, "sample method took（movie time activity) %%%%%%%%%%%%%%%%%%%%%%%%%%%%"+(endTime-startTime)+"ms");
 			
 	    	ArrayList<AppProject> appProject = api.getAppProjectList(MovieTime.this);

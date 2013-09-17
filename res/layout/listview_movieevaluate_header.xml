@@ -3,37 +3,72 @@
 	android:layout_height="wrap_content"
 	android:layout_width="fill_parent"
 	android:gravity="center"
-	android:padding="5dp"
 	android:orientation="vertical"
-	android:background="@drawable/item_background_evaluate_header" >
-	<LinearLayout
+	android:background="@color/color_bgtx_c" >
+	<LinearLayout android:id="@+id/relativelayout_moreevaluate"
 	    android:layout_height="wrap_content"
-	    android:layout_width="fill_parent"
-	    android:gravity="center"
-        android:paddingTop="3dp"
-        android:paddingRight="5dp"
-        android:paddingLeft="5dp"
-        android:paddingBottom="5dp"
-	    android:orientation="horizontal" >
-		<TextView 
-	       android:layout_height="wrap_content"
-	       android:layout_width="wrap_content"
-	       android:layout_gravity="center_vertical"
-	       android:textColor="@color/textcolor_grey"
-	       android:textSize="18dp"
-	       android:text="按此至"/>
-		<ImageView 
-		   android:layout_height="26dp"
-	       android:layout_width="26dp"
-	       android:layout_gravity="center_vertical"
-	       android:padding="3dp"
-	       android:src="@drawable/movie_64"/>
-	    <TextView 
-	       android:layout_height="wrap_content"
-	       android:layout_width="wrap_content"
-	       android:layout_gravity="center_vertical"
-	       android:textColor="@color/textcolor_grey"
-	       android:textSize="18dp"
-	       android:text="電影櫃觀看更多精彩短評"/>
-	   </LinearLayout>
-    </LinearLayout> 
+        android:layout_width="fill_parent"
+       	android:padding="10dp"
+        android:background="@color/color_bgtx_c"
+        android:baselineAligned="false"
+        >
+		
+		<RelativeLayout android:id="@+id/rl_score_moviediary"
+		    android:layout_height="wrap_content"
+       		android:layout_width="wrap_content"
+       		android:gravity="center_horizontal"
+       		android:layout_weight="1" >
+			<TextView android:id="@+id/tv_score_moviediary"
+			    android:layout_height="wrap_content"
+	       		android:layout_width="wrap_content"
+	       		android:text="88"
+	       		android:textSize="30dp"
+	       		android:textColor="@color/color_yellow_d"
+	       		/> 
+	       		
+			<TextView 
+	       	    android:layout_height="wrap_content"
+	       		android:layout_width="wrap_content"
+	       		android:text="%"
+	       		android:textSize="15dp"
+	       		android:layout_toRightOf="@+id/tv_score_moviediary"
+	       		android:layout_above="@+id/tv_score_type"
+	       		android:textColor="@color/color_white_a"/>
+	       	<TextView android:id="@+id/tv_score_type"
+	       	    android:layout_height="wrap_content"
+	       		android:layout_width="wrap_content"
+	       		android:text="電影櫃"
+	       		android:textSize="15dp"
+	       		android:layout_below="@+id/tv_score_moviediary"
+	       		android:textColor="@color/color_white_a"/> 
+	       	
+       	</RelativeLayout>	
+       	<LinearLayout android:layout_height="wrap_content"
+       		android:layout_width="wrap_content"
+       		android:orientation="vertical"
+       		android:gravity="center_horizontal"
+       		android:layout_weight="1" >
+	      	<TextView 
+		   		android:layout_height="wrap_content"
+	      		android:layout_width="wrap_content"
+	      		android:text="9.6"
+	      		android:textSize="30dp"
+	      		android:textColor="@color/color_yellow_d"/> 
+	      	<TextView 
+	      	    android:layout_height="wrap_content"
+	      		android:layout_width="wrap_content"
+	      		android:text="IMDB"
+	      		android:textColor="@color/color_white_a"
+	      		android:textSize="15dp"/>       
+		</LinearLayout>
+		
+	</LinearLayout>
+	<View android:id="@+id/v_line"
+		    android:layout_width="match_parent"
+		    android:layout_height="2dp"
+		    android:background="@color/color_white_a"
+		    
+		    android:layout_marginLeft="10dp"
+		    android:layout_marginRight="10dp"
+		   />
+</LinearLayout> 

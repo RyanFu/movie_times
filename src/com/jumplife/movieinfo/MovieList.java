@@ -153,13 +153,13 @@ public class MovieList extends TrackedActivity implements AdWhirlInterface{
 		theaterPhone.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
 				EasyTracker.getTracker().trackEvent("電影院資訊", "電話", "", (long)0);
-				showTheaterInfoDialog(1, "影城電話 : ", theater.getPhone());
+				//showTheaterInfoDialog(1, "影城電話 : ", theater.getPhone());
 			}			
 		});
 		theaterLocation.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
 				EasyTracker.getTracker().trackEvent("電影院資訊", "地圖", "", (long)0);
-				showTheaterInfoDialog(2, "影城地址 : ", theater.getAddress());
+				//showTheaterInfoDialog(2, "影城地址 : ", theater.getAddress());
 			}			
 		});
 		theaterLike.setOnClickListener(new OnClickListener() {
@@ -405,15 +405,15 @@ public class MovieList extends TrackedActivity implements AdWhirlInterface{
 	        alert.show();		
 	}
 	
-	private void showTheaterInfoDialog(final int type, String title, String description) {
+	 /*private void showTheaterInfoDialog(final int type, String title, String description) {
 		View viewTheaterInfo;
 		LayoutInflater factory = LayoutInflater.from(MovieList.this);
         viewTheaterInfo = factory.inflate(R.layout.dialog_theater_info,null);
         dialogTheaterInfo = new AlertDialog.Builder(MovieList.this).create();
         dialogTheaterInfo.setView(viewTheaterInfo);
-        ImageView imageView = (ImageView)viewTheaterInfo.findViewById(R.id.imageview_confirm);
-        TextView textviewTitle = (TextView)viewTheaterInfo.findViewById(R.id.textView_title);
-        TextView textviewDescription = (TextView)viewTheaterInfo.findViewById(R.id.textView_description);
+       ImageView imageView = (ImageView)viewTheaterInfo.findViewById(R.id.imageview_confirm);
+       TextView textviewTitle = (TextView)viewTheaterInfo.findViewById(R.id.textView_title);
+       TextView textviewDescription = (TextView)viewTheaterInfo.findViewById(R.id.textView_description);
         TextView textviewConfirm = (TextView)viewTheaterInfo.findViewById(R.id.textview_confirm);
         
         textviewTitle.setText(title);
@@ -468,7 +468,7 @@ public class MovieList extends TrackedActivity implements AdWhirlInterface{
         );
         dialogTheaterInfo.setCanceledOnTouchOutside(false);
         dialogTheaterInfo.show();
-	}
+	}*/
 
 	public void adWhirlGeneric()
 	{

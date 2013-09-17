@@ -2,4 +2,16 @@
 
     <style name="AppTheme" parent="android:Theme.Light" />
     
+    <style name="dialogBasic" parent="android:Theme.Dialog" >
+        <item name="android:windowFrame">@null</item>
+        <!-- 無標題 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/black</item>
+        <!-- 懸浮效果 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 遮罩效果 -->
+        <item name="android:windowContentOverlay">@null</item>  
+        <item name="android:backgroundDimAmount">0.5</item> 
+    </style>
+    
 </resources>

@@ -8,7 +8,7 @@
 	<RelativeLayout android:id="@+id/relativelayout_toptitle"
 	        android:layout_width="fill_parent" 
 	        android:layout_height="40dp" 
-	        android:background="@drawable/topbar_bg"
+	        android:background="@color/color_yellow_d"
             >
 	        
 	        <ImageView android:id="@+id/app_img"
@@ -33,7 +33,7 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="2dp"
 	    android:layout_below="@android:id/tabs"
-	    android:background="@color/main_color_yellow" />
+	    android:background="@color/color_darkyellow_e" />
 
 </LinearLayout>
 

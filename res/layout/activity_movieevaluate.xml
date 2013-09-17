@@ -2,10 +2,65 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/background" >
-    <ListView android:id="@+id/listview_checks"
+    android:background="@color/color_bgtx_c" >
+
+    <ListView
+        android:id="@+id/listview_checks"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/main_color_grey_dark" >
+        android:layout_alignBottom="@+id/view1"
+        android:background="@color/color_bgtx_c"
+        android:divider="@null" >
     </ListView>
-    </RelativeLayout>
+
+    <View android:id="@+id/view1"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_above="@+id/ll_moviediary"
+        android:layout_margin="10dp"
+        android:background="@color/color_white_a" />
+
+    <LinearLayout
+        android:id="@+id/ll_moviediary"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/v_line_bottom"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/color_grey_light2"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:padding="3dp"
+            android:src="@drawable/movie_64" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:background="@color/color_grey_light" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="前往電影櫃觀看更多精彩短評"
+            android:textColor="@color/color_bgtx_c"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/v_line_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/color_grey_line" />
+
+</RelativeLayout>

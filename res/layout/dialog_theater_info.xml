@@ -1,81 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="280dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:padding="@dimen/theater_info_dialog_padding"
     android:orientation="vertical" 
-    android:background="@color/background"
-    android:layout_margin="1dp"
-    >
-
-    <TextView
-        android:id="@+id/textView_title"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:background="@color/black"
-        android:text="標題" />
-
-    <TextView
-        android:id="@+id/textView_description"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingBottom="5dp"
-        android:text="描述"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <LinearLayout
-	   android:layout_width="280dp"
-	   android:layout_height="wrap_content"
-	   android:orientation="horizontal" 
-	   android:background="@color/background"
-	   android:layout_weight="1.0"
-	   >
-	   <RelativeLayout android:id="@+id/ll_confirm" 
-	       android:layout_width="fill_parent"
-           android:layout_height="wrap_content"
-           android:layout_weight="0.5"
-           android:layout_margin="10dp"
-           android:layout_gravity="center"
-           android:background="@drawable/button_background" >
-           <ImageView android:id="@+id/imageview_confirm" 
-               android:layout_width="25dp"
-               android:layout_height="25dp"
-               android:layout_margin="5dp"
-               android:layout_centerVertical="true"
-               android:layout_toLeftOf="@+id/textview_confirm" />
-           <TextView android:id="@+id/textview_confirm"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_centerInParent="true"
-               android:textColor="@color/white"
-               android:textSize="20dp"
-               android:text="按鍵" />
-       </RelativeLayout>
-	   <RelativeLayout android:id="@+id/ll_cancel"
-	       android:layout_width="fill_parent"
-           android:layout_height="wrap_content"
-           android:layout_weight="0.5"
-           android:layout_margin="10dp"
-           android:layout_gravity="center"
-           android:background="@drawable/button_background" >
-	       <ImageView 
-	           android:layout_width="25dp"
-               android:layout_height="25dp"
-               android:layout_margin="5dp"
-               android:src="@drawable/icon_undo"
-               android:layout_centerVertical="true"
-	           android:layout_toLeftOf="@+id/textview_cancel" />
-           <TextView android:id="@+id/textview_cancel"
-	           android:layout_width="wrap_content"
-	           android:layout_height="wrap_content"
-	           android:layout_centerInParent="true"
-               android:textColor="@color/white"
-	           android:textSize="20dp"
-	           android:text="取消" />
-	   </RelativeLayout>
-    </LinearLayout>
-    </LinearLayout>
+    android:background="@color/color_bgtx_c">
+	    
+	    <TextView 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:textColor="@color/color_yellow_d"
+	        android:textSize="@dimen/theater_info_dialog_title_textsize"
+	        android:text="影城資訊"/>
+	    <View 
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/theater_info_dialog_seperate_height"
+	        android:layout_margin="@dimen/theater_info_dialog_margin_start"
+	        android:background="@color/color_darkyellow_e"/>
+	    <TextView android:id="@+id/tv_phone"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/color_white_a"
+	        android:layout_marginLeft="@dimen/theater_info_dialog_margin_start"
+	        android:textSize="@dimen/theater_info_dialog_content_textsize"
+	        android:text="電話 : "/>
+	    <TextView android:id="@+id/tv_address"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:lineSpacingMultiplier="1.5"
+	        android:layout_marginLeft="@dimen/theater_info_dialog_margin_start"
+	        android:textColor="@color/color_white_a"
+	        android:textSize="@dimen/theater_info_dialog_content_textsize"
+	        android:text="地址 : "/>
+	    <View 
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/theater_info_dialog_seperate_height"
+	        android:layout_marginTop="@dimen/theater_info_dialog_margin_end"
+	        android:layout_marginBottom="@dimen/theater_info_dialog_margin_end"
+	        android:layout_marginLeft="@dimen/theater_info_dialog_margin_start"
+	        android:layout_marginRight="@dimen/theater_info_dialog_margin_start"
+	        android:background="@color/color_white_a"/>
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+	        
+	        <RelativeLayout android:id="@+id/rl_call"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	           	android:layout_weight="1"
+	           	android:gravity="center_horizontal">
+	            <ImageView  android:id="@+id/iv_call"
+	                android:layout_width="@dimen/theater_info_dialog_content_textsize"
+	            	android:layout_height="@dimen/theater_info_dialog_content_textsize"
+	            	android:src="@drawable/icon_phone"
+	            	android:background="@null"
+	            	android:scaleType="fitCenter"
+	            	/>
+	            
+	            <TextView 
+	                android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:text="撥打"
+	            	android:layout_toRightOf="@+id/iv_call"
+	            	android:textSize="@dimen/theater_info_dialog_content_textsize"
+	            	android:textColor="@color/color_white_a"
+	            	/>
+	        </RelativeLayout>
+	        <View 
+	        android:layout_width="@dimen/theater_info_dialog_seperate_height"
+	       	android:layout_height="match_parent"
+	        android:background="@color/color_white_a"/>
+	        <RelativeLayout android:id="@+id/rl_map"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:gravity="center_horizontal">
+	            <ImageView  android:id="@+id/iv_map"
+	                android:layout_width="@dimen/theater_info_dialog_content_textsize"
+	            	android:layout_height="@dimen/theater_info_dialog_content_textsize"
+	            	android:src="@drawable/icon_map"
+	            	android:background="@null"
+	            	android:scaleType="fitCenter"
+	            	/>
+	            
+	            <TextView 
+	                android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:text="地圖"
+	            	android:layout_toRightOf="@+id/iv_map"
+	            	android:textSize="@dimen/theater_info_dialog_content_textsize"
+	            	android:textColor="@color/color_white_a"
+	            	/>
+	        </RelativeLayout> 
+	        
+	        
+	        
+	   	</LinearLayout>
+</LinearLayout>

@@ -2,12 +2,17 @@ package com.jumplife.movieinfo;
 
 import java.util.ArrayList;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.google.analytics.tracking.android.TrackedActivity;
 import com.jumplife.adapter.ScheduleAdapter;
+
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.Theater;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
@@ -24,11 +29,11 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class MovieScheduleActivity extends TrackedActivity {
+public class MovieScheduleActivity extends SherlockActivity {
 	private ImageButton imageButtonRefresh;
 	private ArrayList<Theater> theaterList;
 	private ListView listviewSchedule;
-	private Spinner spinnerLoc;
+	
 	private int movieId;
 	private int theaterId;
 	private ArrayAdapter<String> adapterLoc;
@@ -46,30 +51,52 @@ public class MovieScheduleActivity extends TrackedActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movieschedule);
-        
+        Bundle extras = getIntent().getExtras();
+		movieId = extras.getInt("movie_id");
+		theaterId = extras.getInt("theater_id");
+		
+        setContentView(R.layout.activity_movietime_table);
+        getSupportActionBar().setIcon(R.drawable.movietime);
+		getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg));
+		getSupportActionBar().setTitle("");
+		
         findViews();
         LoadDataTask loadTask = new LoadDataTask();
     	if(Build.VERSION.SDK_INT < 11)
         	loadTask.execute();
         else
         	loadTask.executeOnExecutor(LoadDataTask.THREAD_POOL_EXECUTOR, 0);
+    	
     }
 	
 	private void findViews(){
+		
 		listviewSchedule = (ListView)findViewById(R.id.listview_schedule);
 		imageButtonRefresh = (ImageButton)findViewById(R.id.refresh);
-		spinnerLoc = (Spinner)findViewById(R.id.spinner_location);
-		Bundle extras = getIntent().getExtras();
-		movieId = extras.getInt("movie_id");
-		theaterId = extras.getInt("theater_id");
+		
+		
 		
 		for(int i=0; i<location.length; i++) 
 			locationIdLstOriginal.add(locationId[i]);
 		
 		setListener();
 	}
-	
+	private void setActionBarListNavigation() {
+		Context context = getSupportActionBar().getThemedContext();
+        ArrayAdapter<String> list = 
+        		new ArrayAdapter<String>(context, R.layout.sherlock_spinner_item, locationAct);
+        list.setDropDownViewResource(R.layout.spinner_dropdown_sort_item);
+
+        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        getSupportActionBar().setListNavigationCallbacks(list, new OnNavigationListener() {
+			@Override
+			public boolean onNavigationItemSelected(int itemPosition,
+					long itemId) {
+				setScheduleAdapter(itemPosition);
+				return false;
+			}        	
+        });
+	}
 	private void FetchData(){
 		MovieAPI movieAPI = new MovieAPI();
 		if(theaterId != -1) 
@@ -99,26 +126,17 @@ public class MovieScheduleActivity extends TrackedActivity {
 		        	loadTask.executeOnExecutor(LoadDataTask.THREAD_POOL_EXECUTOR, 0);
 			}			
 		});
-		spinnerLoc.setOnItemSelectedListener(new OnItemSelectedListener(){
-			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id){
-				setScheduleAdapter(position);
-			}
-			public void onNothingSelected(AdapterView<?> arg0) {
-				Toast.makeText(MovieScheduleActivity.this, "您沒有選擇任何項目", Toast.LENGTH_LONG).show();
-			}
-		});
+	
 	}  
 
 	private void setListAdatper() {
-		setSpinnerContent();
+		
 		adapterLoc = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locationAct);
 		adapterLoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		
 		setScheduleAdapter(0);
-		if(theaterId == -1) 
-			spinnerLoc.setAdapter(adapterLoc);
-		else
-			spinnerLoc.setVisibility(View.GONE);
+		
+			
 	}
 	
 	private void setScheduleAdapter(int position) {
@@ -202,7 +220,17 @@ public class MovieScheduleActivity extends TrackedActivity {
         	if(progressdialogInit != null && progressdialogInit.isShowing())
         		progressdialogInit.dismiss();
         	if(theaterList != null){
-        		setListAdatper();
+        		
+        		if(theaterId != -1){
+        			getSupportActionBar().setTitle("時刻表");
+        			setSpinnerContent();
+            		setListAdatper();
+        		}else{
+        			setSpinnerContent();
+            		setListAdatper();
+        			setActionBarListNavigation();
+        			}
+        		
         	}
         	super.onPostExecute(result);
         }          
