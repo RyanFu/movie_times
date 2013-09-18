@@ -6,28 +6,31 @@ public class Theater{
 	private int id;
 	private String name;
 	private ArrayList<Movie> movies;
-	private String timeTable;
+	private ArrayList<Time> timeTable;
 	private String hallType;
 	private String buyLink;
 	private int area;
 	private String phone;
 	private String address;
 	private String hall;
+	private String ezCheckId;
+	private String ezMovieId;
+	private String date;
 	
 	public Theater (){
-		this(-1, "", new ArrayList<Movie> (10), "", "", "", -1, "", "", "");
+		this(-1, "", new ArrayList<Movie> (10),new ArrayList<Time>(1), "", "", -1, "", "", "", "", "", "");
 	}
 	
 	public Theater (int id, String name) {
-		this(id, name, new ArrayList<Movie> (10), "", "", "", -1, "", "", "");
+		this(id, name, new ArrayList<Movie> (10),new ArrayList<Time>(1), "", "", -1, "", "", "", "", "", "");
 	}
 	
-	public Theater (int id, String name, String timeTable, String hallType, String buyLink, int area, String phone, String address, String hall) {
-		this(id, name, new ArrayList<Movie> (1), timeTable, hallType, buyLink, area, phone, address, hall);
+	public Theater (int id, String name, ArrayList<Time> timeTable, String hallType, String buyLink, int area, String phone, String address, String hall ,String ezCheckId ,String ezMovieId ,String date) {
+		this(id, name, new ArrayList<Movie> (1),new ArrayList<Time>(1), hallType, buyLink, area, phone, address, hall, ezCheckId , ezMovieId , date);
 	}
 	
-	public Theater (int id, String name, ArrayList<Movie> movies, String timeTable, String hallType, String buyLink,
-			int area, String phone, String address, String hall) {
+	public Theater (int id, String name, ArrayList<Movie> movies, ArrayList<Time> timeTable, String hallType, String buyLink,
+			int area, String phone, String address, String hall ,String ezCheckId ,String ezMovieId ,String date) {
 		this.id = id;
 		this.name = name;
 		this.movies = movies;
@@ -38,6 +41,9 @@ public class Theater{
 		this.phone = phone;
 		this.address = address;
 		this.hall = hall;
+		this.ezCheckId = ezCheckId;
+		this.ezMovieId = ezMovieId;
+		this.date = date;
 	}
 	
 	public int getId(){
@@ -60,10 +66,10 @@ public class Theater{
 		this.movies = movies;
 	}
 	
-	public String getTimeTable(){
+	public ArrayList<Time> getTimeTable(){
 		return timeTable;
 	}
-	public void setTimeTable(String timeTable){
+	public void setTimeTable(ArrayList<Time> timeTable){
 		this.timeTable = timeTable;
 	}
 
@@ -108,6 +114,26 @@ public class Theater{
 	public String getHall(){
 		return hall;
 	}
+	
+	public String getezCheckId(){
+		return ezCheckId;
+	}
+	public void setezChekId(String ezCheckId){
+		this.ezCheckId = ezCheckId;
+	}
+	public String getezMovieId(){
+		return ezMovieId;
+	}
+	public void setezMovieId(String ezMovieId){
+		this.ezMovieId = ezMovieId;
+	}
+	public String getDate(){
+		return date;
+	}
+	public void setDate(String date){
+		this.date = date;
+	}
+	
 }
 
 

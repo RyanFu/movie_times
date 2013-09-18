@@ -100,8 +100,6 @@ public class MovieIntroActivity extends SherlockActivity {
 		.showImageForEmptyUri(R.drawable.stub)
 		.showImageOnFail(R.drawable.stub)
 		.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		.cacheOnDisc()
-		.cacheInMemory()
 		.displayer(new SimpleBitmapDisplayer())
 		.build();
 		

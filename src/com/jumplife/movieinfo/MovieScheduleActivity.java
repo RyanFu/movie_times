@@ -47,6 +47,7 @@ public class MovieScheduleActivity extends SherlockActivity {
 	private ArrayList<String> locationLst = new ArrayList<String>(); 
 	private ArrayList<Integer> locationIdLst = new ArrayList<Integer>();
 	private ArrayList<Integer> locationIdLstOriginal = new ArrayList<Integer>();
+	private ArrayList<ArrayList> AreaDate = new ArrayList<ArrayList>();
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,11 +57,10 @@ public class MovieScheduleActivity extends SherlockActivity {
 		theaterId = extras.getInt("theater_id");
 		
         setContentView(R.layout.activity_movietime_table);
-        getSupportActionBar().setIcon(R.drawable.movietime);
+        
+		getSupportActionBar().setIcon(R.drawable.movietime);
 		getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg));
-		getSupportActionBar().setTitle("");
-		
-        findViews();
+		findViews();
         LoadDataTask loadTask = new LoadDataTask();
     	if(Build.VERSION.SDK_INT < 11)
         	loadTask.execute();
@@ -99,10 +99,15 @@ public class MovieScheduleActivity extends SherlockActivity {
 	}
 	private void FetchData(){
 		MovieAPI movieAPI = new MovieAPI();
-		if(theaterId != -1) 
+		if(theaterId != -1){
+			getSupportActionBar().setTitle("");
 			theaterList = movieAPI.getMovieTheaterTimeTableListWithHall(movieId, theaterId);
-		else
+			
+		}else
 			theaterList = movieAPI.getMovieTimeTableListWithHall(movieId);
+			
+			
+		
 	}
 	
 	private void setView(){
@@ -222,13 +227,13 @@ public class MovieScheduleActivity extends SherlockActivity {
         	if(theaterList != null){
         		
         		if(theaterId != -1){
-        			getSupportActionBar().setTitle("時刻表");
         			setSpinnerContent();
             		setListAdatper();
         		}else{
         			setSpinnerContent();
             		setListAdatper();
         			setActionBarListNavigation();
+        			getSupportActionBar().setTitle("");
         			}
         		
         	}

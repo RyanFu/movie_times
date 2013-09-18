@@ -48,16 +48,17 @@
 			android:textColor="@color/color_bgtx_c"
 			android:layout_width="match_parent" android:layout_height="wrap_content" 
 			android:textSize="14dp"
+			android:lines="2"
 			android:layout_below="@+id/user_name" android:layout_alignLeft="@+id/user_name"
 			></TextView>
-		<TextView android:id="@+id/tv_more"  
-		    android:text="《更多》"
+		<ImageView android:id="@+id/iv_more"
 			android:textColor="@color/color_grey_light"
-			android:layout_width="match_parent" android:layout_height="wrap_content"
-			android:textSize="14dp"
+			android:layout_width="14dp" android:layout_height="14dp"
+			android:scaleType="fitCenter"
 			android:layout_alignParentRight="true" android:layout_below="@+id/user_comment"
-			android:gravity="right"
-			android:visibility="invisible"/>"
+			android:src="@drawable/open"
+			android:background="@null"
+			/>
 		
 	</RelativeLayout>
 	

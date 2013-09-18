@@ -25,10 +25,12 @@ import android.util.Log;
 
 import com.jumplife.movieinfo.TvScheduleActivity;
 import com.jumplife.movieinfo.entity.AppProject;
+import com.jumplife.movieinfo.entity.AreaDate;
 import com.jumplife.movieinfo.entity.Movie;
 import com.jumplife.movieinfo.entity.News;
 import com.jumplife.movieinfo.entity.Record;
 import com.jumplife.movieinfo.entity.Theater;
+import com.jumplife.movieinfo.entity.Time;
 import com.jumplife.movieinfo.entity.User;
 import com.jumplife.sharedpreferenceio.SharePreferenceIO;
 import com.jumplife.sqlite.SQLiteMovieInfoHelper;
@@ -483,7 +485,7 @@ public class MovieAPI {
 						hallStr = null;
 					else 
 						hallStr = theaterJson.getString("hall_str");
-					
+					/*
 					Theater theater = new Theater(theaterJson.getInt("id"), 
 						theaterJson.getString("theater"), 
 						theaterJson.getString("timetable"),
@@ -494,7 +496,7 @@ public class MovieAPI {
 						null,
 						hallStr);
 					
-					threaterList.add(theater);
+					threaterList.add(theater);*/
 				}
 			} 
 			catch (JSONException e) {
@@ -537,7 +539,7 @@ public class MovieAPI {
 						hallStr = null;
 					else 
 						hallStr = theaterJson.getString("hall_str");
-					
+				/*
 					Theater theater = new Theater(theaterJson.getInt("id"), 
 							theaterJson.getString("theater"), 
 							theaterJson.getString("timetable"),
@@ -548,7 +550,7 @@ public class MovieAPI {
 							null,
 							hallStr);
 					
-					threaterList.add(theater);
+					threaterList.add(theater);*/
 				}
 			} 
 			catch (JSONException e) {
@@ -1001,7 +1003,175 @@ public class MovieAPI {
 		
 		return tvSchedule;
 	}
+	/*
+	 *  MovieTime API V2
+	 */
+	/**New API_1**/
+	public void getAreaDateFirstTimeTable(int movieId ,ArrayList<AreaDate> AreaDateList , ArrayList<Theater> TheaterShip ) {
+		
+		String message = getMessageFromServer("GET", "/api/v2/movies.json?movie_id=" + movieId , null);
+		
+		try{
+			JSONArray ObjectArray = new JSONArray(message.toString());
+			JSONArray AreaDateJson = ObjectArray.getJSONObject(0).getJSONArray("AreaDate");
+			
+			AreaDate areaDate = new AreaDate(0, new ArrayList<String>(1));
+			
+			for( int i = 0 ; i < AreaDateJson.length() ; i ++){
+				areaDate.setId(AreaDateJson.getJSONObject(i).getInt("Area"));
+				
+				JSONArray DateList = AreaDateJson.getJSONObject(i).getJSONArray("Date");
+				String date = "";
+				ArrayList<String> dates = new ArrayList<String>(1);  
+				for(int j = 0 ; j < DateList.length() ; j ++){
+					date = DateList.getString(j);
+					dates.add(date);
+				}
+				areaDate.setDate(dates);
+			}
+			AreaDateList.add(areaDate);
+			
+			
+			JSONArray theaterJson = ObjectArray.getJSONObject(1).getJSONArray("movie_theater_ship");
+			getTheaterShip(theaterJson, TheaterShip);
+			
+		} 
+		catch (JSONException e){
+			e.printStackTrace();
+			
+		} 
+	}
+	/**New API_2**/
+	public void getTimeTableByAreaDate(int movieId ,int areaId , String date , ArrayList<Theater> TheaterShip ) {
+		
+		String message = getMessageFromServer("GET", "/api/v2/movies/" + areaId +".json?movie_id=" 
+														+ movieId +"&date=" + date , null);
+		try{
+			JSONArray ObjectArray = new JSONArray(message.toString());
+			for( int i = 0 ; i < ObjectArray.length() ; i ++){
+				getTheaterShip(ObjectArray, TheaterShip);
+			}
+			
+		} 
+		catch (JSONException e){
+			e.printStackTrace();
+			
+		} 
+	}
+	/**New API_3**/
+	public void getAllDateTimeTable(int movieId ,int theaterId , ArrayList<Theater> TheaterShip ) {
+		
+		String message = getMessageFromServer("GET", "/api/v2/movies/"+ movieId +"/timetable.json?theater_id=" + theaterId , null);
+		
+		try{
+			JSONArray ObjectArray = new JSONArray(message.toString());
+			for( int i = 0 ; i < ObjectArray.length() ; i ++){
+				getTheaterShip(ObjectArray, TheaterShip);
+			}
+			
+		} 
+		catch (JSONException e){
+			e.printStackTrace();
+			
+		} 
+	}
+	/**New API_4**/
+	public void getScoreRecord(int movieId, String[] score , ArrayList<Record> recordList){
+		
+		String message = getMessageFromServer("GET", "/api/v2/records/" + movieId +".json" ,null);
+		
+		try{
+			JSONObject Object = new JSONObject(message.toString());
+			score[0] = Object.getString("IMDB");
+			score[1] = Object.getString("moviediary");
+					
+			JSONArray recordArray = Object.getJSONArray("record");
+			for(int i = 0; i < recordArray.length(); i++) {
+				JSONObject recordJson  = recordArray.getJSONObject(i);
+				
+				User user = new User();
+				user.setName(recordJson.getString("user_name"));
+				user.setAccount(recordJson.getString("user_fb_id"));
+				
+				Record record = new Record();
+				record.setComment(recordJson.getString("comment"));
+			    record.setScore(recordJson.getInt("score"));
+				record.setUser(user);
+				
+				recordList.add(record);
+				
+			}
+			
+		} 
+		catch (JSONException e){
+			e.printStackTrace();
+			
+		} 
+		
+	}
 	
+	
+	private void getTheaterShip(JSONArray theaterJson ,ArrayList<Theater> theaters ) {
+		String hallType = null;
+		String hallStr = null;
+		String ezCheckId = null;
+		String ezMovieId = null;
+		
+		for( int i = 0 ; i < theaterJson.length() ; i ++){
+			try {
+				if(theaterJson.getJSONObject(i).isNull("hall_type"))
+					hallType = null;
+				else 
+					hallType = theaterJson.getJSONObject(i).getString("hall_type");
+				if(theaterJson.getJSONObject(i).isNull("hall_str"))
+					hallStr = null;
+				else 
+					hallStr = theaterJson.getJSONObject(i).getString("hall_str");
+				
+				if(theaterJson.getJSONObject(i).isNull("ez_check_id"))
+					ezCheckId = null;
+				else
+					ezCheckId = theaterJson.getJSONObject(i).getString("ez_check_id");
+				
+				if(theaterJson.getJSONObject(i).isNull("ez_movie_id"))
+					ezMovieId = null;
+				else
+					ezMovieId = theaterJson.getJSONObject(i).getString("ez_movie_id");
+					JSONArray TimeTablejson = theaterJson.getJSONObject(i).getJSONArray("timeTable");
+					ArrayList<Time> TimeTableList = new ArrayList<Time>();
+				
+				for(int t = 0 ; t < TimeTablejson.length() ;t++ ){
+					Time time = new Time("" ,"");
+					time.setTime(TimeTablejson.getJSONObject(t).getString("time"));
+					time.setTime(TimeTablejson.getJSONObject(t).getString("session_id"));
+					TimeTableList.add(t, time);
+				}
+				
+				Theater theater = new Theater(theaterJson.getJSONObject(i).getInt("id"), 
+						theaterJson.getJSONObject(i).getString("theater"), 
+						TimeTableList,
+						hallType,
+						null,
+						0,
+						null,
+						null,
+						hallStr,
+						ezCheckId,
+						ezMovieId,
+						null);
+				if(theaterJson.getJSONObject(i).has("date")){
+					theater.setDate(theaterJson.getJSONObject(i).getString("date"));
+				}
+					
+				theaters.add(theater);
+			
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
 	public String getUrlAddress() {
 		return urlAddress;
 	}

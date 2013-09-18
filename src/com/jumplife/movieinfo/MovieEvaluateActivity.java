@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import android.R.integer;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
@@ -45,12 +46,16 @@ public class MovieEvaluateActivity extends SherlockActivity {
 
 	private ListView listviewShow;
 	private TextView tvNoEvaluate;
-	private LinearLayout llScore;
+	
 	private View viewHeader;
 	private View viewFooter;
 	private LinearLayout llMovieDiary;
 	private LoadDataTask loadDataTask;
-
+	private TextView tvIMDB;
+	private TextView tvMovieDiary;
+	
+	private String IMDB;
+	private String MovieDiary;
 	private int movie_id;
 	private RecordListAdapter recordListAdapter;
 	private ArrayList<Record> recordList = new ArrayList<Record>();
@@ -86,7 +91,9 @@ public class MovieEvaluateActivity extends SherlockActivity {
 		viewFooter = LayoutInflater.from(MovieEvaluateActivity.this).inflate(
 				R.layout.listview_movieevaluate_footer, null);
 		tvNoEvaluate = (TextView)viewFooter.findViewById(R.id.textview_noevaluate);
-		llScore = (LinearLayout)viewHeader.findViewById(R.id.relativelayout_moreevaluate);
+		
+		tvMovieDiary = (TextView)viewHeader.findViewById(R.id.tv_score_moviediary);
+		tvIMDB = (TextView)viewHeader.findViewById(R.id.tv_imdb);
 		listviewShow.addHeaderView(viewHeader);
 		listviewShow.addFooterView(viewFooter);
 		llMovieDiary = (LinearLayout)findViewById(R.id.ll_moviediary);
@@ -97,10 +104,22 @@ public class MovieEvaluateActivity extends SherlockActivity {
 		Bundle extras = getIntent().getExtras();
 		movie_id = extras.getInt("movie_id");
 		MovieAPI movieAPI = new MovieAPI();
-		recordList = movieAPI.getMovieRecordLimitList(movie_id + "");
+		String[] score = new String[2];
+		movieAPI.getScoreRecord(movie_id, score, recordList );
+		IMDB = score[0];
+		MovieDiary = score[1];
 	}
 
 	private void setView() {
+		
+		
+		float f = Float.parseFloat(MovieDiary.toString());
+		f = f*100;
+		
+		MovieDiary = Integer.toString((int)Math.floor(f));
+		
+		tvIMDB.setText(IMDB);
+		tvMovieDiary.setText(MovieDiary);
 		
 		llMovieDiary.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
@@ -135,6 +154,8 @@ public class MovieEvaluateActivity extends SherlockActivity {
 					MovieEvaluateActivity.this, recordList);
 			listviewShow.setAdapter(recordListAdapter);
 		}
+		
+		
 	}
 
 	class LoadDataTask extends AsyncTask<Integer, Integer, String> {

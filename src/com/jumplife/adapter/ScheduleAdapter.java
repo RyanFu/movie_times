@@ -113,7 +113,7 @@ public class ScheduleAdapter extends BaseAdapter{
 			} else
 				hall.setVisibility(View.GONE);
 			
-			String[] timeTable=theater.getTimeTable().split("\\|") ;
+			String[] timeTable={};//theater.getTimeTable().split("\\|") ;
 			for(int i=0; i<timeTable.length; i+=3){
 				TableRow Schedule_row = new TableRow(mContext);
 				for(int j=0; j<3; j++){

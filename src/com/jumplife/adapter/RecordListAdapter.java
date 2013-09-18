@@ -38,7 +38,7 @@ public class RecordListAdapter extends BaseAdapter{
 	private class ItemView {
 		RelativeLayout rlNormal;
 		TextView user_comment;
-		TextView tvMore;
+		ImageView ivMore;
 		ImageView user_avatar;
 		TextView name;
 		TextView score;
@@ -92,15 +92,15 @@ public class RecordListAdapter extends BaseAdapter{
 		itemView.name = (TextView)convertView.findViewById(R.id.user_name);
 		itemView.score = (TextView)convertView.findViewById(R.id.user_score);
 		itemView.user_comment = (TextView)convertView.findViewById(R.id.user_comment);
-		itemView.tvMore = (TextView)convertView.findViewById(R.id.tv_more);
 		
+		itemView.ivMore = (ImageView)convertView.findViewById(R.id.iv_more);
 		
 		imageLoader.displayImage(records.get(position).getUser().getIconUrl(), itemView.user_avatar, options);		
 		
 		itemView.name.setText(records.get(position).getUser().getName());
 		itemView.score.setText("評價 :" + records.get(position).getScoreString());
 		itemView.user_comment.setText(records.get(position).getComment());
-		itemView.user_comment.post(new RunnableGetLines(itemView ,position));
+		
 		
 		itemView.rlNormal.setOnClickListener((new itemMoreClick(itemView ,position)));
 		
@@ -109,30 +109,7 @@ public class RecordListAdapter extends BaseAdapter{
 		return convertView;
 		
 	}
-	private class RunnableGetLines implements Runnable{
-		ItemView itemView;
-		int lineCount;
-		int pos;
-		
-		public RunnableGetLines(ItemView itemView , int position) {
-			this.itemView = itemView;
-			this.pos = position;
-		}
-		@Override
-		public void run() {
-			// TODO Auto-generated method stub
-		     lineCount = itemView.user_comment.getLineCount();
-		   Log.d("pos:"+pos+"lines :",""+itemView.user_comment.getLineCount());
-		   if(lineCount < 3){
-			   itemView.tvMore.setVisibility(View.INVISIBLE);
-			   itemView.rlNormal.setClickable(false);
-		   }else{
-			   itemView.tvMore.setVisibility(View.VISIBLE);				  
-		   }
-		   itemView.user_comment.setLines(2); 
-		}
-		
-	} 
+	
 	private class itemMoreClick implements OnClickListener {
 		ItemView itemView;
 		int pos;
@@ -145,13 +122,14 @@ public class RecordListAdapter extends BaseAdapter{
 		@Override
 		public void onClick(View v) {
 			itemStatusChanged(pos);
-			if(getItemStatus(pos) == false){  
-				itemView.tvMore.setVisibility(View.VISIBLE);	
-				
+			if(getItemStatus(pos) == false){
+					
 				itemView.user_comment.setLines(2); 
+				itemView.ivMore.setImageResource(R.drawable.open);
 		    }else{  
-		    	itemView.tvMore.setVisibility(View.INVISIBLE);
+		    	
 		    	itemView.user_comment.setMaxLines(1000000);
+		    	itemView.ivMore.setImageResource(R.drawable.close);	
 		    }
 			
 		}		

@@ -10,6 +10,7 @@ import com.jumplife.adapter.MovieListAdapter;
 import com.jumplife.movieinfo.api.MovieAPI;
 import com.jumplife.movieinfo.entity.Movie;
 import com.jumplife.movieinfo.entity.Theater;
+import com.jumplife.movieinfo.entity.Time;
 import com.jumplife.sharedpreferenceio.SharePreferenceIO;
 import com.jumplife.sqlite.SQLiteMovieInfoHelper;
 
@@ -106,9 +107,18 @@ public class MovieList extends TrackedActivity implements AdWhirlInterface{
         		listType = TYPE.WEEKLY;
         		break;	
         	case 4:
-        		theater = new Theater(extras.getInt("theater_id"), extras.getString("theater_name"),
-        				new ArrayList<Movie> (10), "", "", extras.getString("theater_buylink"), -1, 
-        				extras.getString("theater_phone"), extras.getString("theater_location"), "");
+        		theater = new Theater(extras.getInt("theater_id"),  
+        							  extras.getString("theater_name"), 
+        							  new ArrayList<Movie> (10),  
+        							  new ArrayList<Time> (1),"", 
+        							  extras.getString("theater_buylink"),
+        							  -1,
+        							  extras.getString("theater_phone"),
+        							  extras.getString("theater_location"),  
+        							  "" ,
+        							  "" ,
+        							  "" ,
+        							  "");
         		listType = TYPE.THEATER;
         	}
         }catch(Exception e){
